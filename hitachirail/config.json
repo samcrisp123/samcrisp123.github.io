@@ -1,0 +1,66 @@
+//Client ID
+var clientId="7qtpb74ihrx6q2tf1jog5vcmcby6swxx";
+
+//Main page
+var redirectAfterLoginPage="/Template/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"readme.html",
+      "title":"README"
+  },
+  {
+      "page":"https://developer.box.com",
+      "title":"DEVELOPER",
+      "boxId":"0"
+  },
+  {
+      "page":"folder1.html",
+      "title":"FOLD1",
+      "boxId":"0"
+  },
+  {
+      "page":"folder2.html",
+      "title":"FOLD2",
+      "boxId":"0"
+  },
+  {
+      "page":"folder3.html",
+      "title":"FOLD3",
+      "boxId":"0"
+  },
+  {
+      "page":"preview1.html",
+      "title":"PREV1",
+      "boxId":"428392560865"
+  },
+  {
+      "page":"preview2.html",
+      "title":"PREV2",
+      "boxId":"0"
+  },
+  {
+      "page":"preview3.html",
+      "title":"PREV3",
+      "boxId":"0"
+  },
+  {
+      "page":"preview4.html",
+      "title":"PREV4",
+      "boxId":"0"
+  },
+  {
+      "page":"openwith.html",
+      "title":"OPENWITH",
+      "boxId":"0"
+  },
+  {
+      "page":"uploader.html",
+      "title":"UPLOADER",
+      "boxId":"0"
+  }
+
+
+];
