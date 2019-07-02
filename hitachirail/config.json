@@ -1,15 +1,15 @@
 //Client ID
-var clientId="7qtpb74ihrx6q2tf1jog5vcmcby6swxx";
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/Template/main.html";
+var redirectAfterLoginPage="/hitachirail/main.html";
 
 //Navigation
 var navigation=[
 
   {
-      "page":"readme.html",
-      "title":"README"
+      "page":"aboutus.html",
+      "title":"HOME"
   },
   {
       "page":"https://developer.box.com",
@@ -19,7 +19,7 @@ var navigation=[
   {
       "page":"folder1.html",
       "title":"FOLD1",
-      "boxId":"0"
+      "boxId":"79193605669"
   },
   {
       "page":"folder2.html",
@@ -39,25 +39,30 @@ var navigation=[
   {
       "page":"preview2.html",
       "title":"PREV2",
-      "boxId":"0"
+      "boxId":"482321884405"
   },
   {
-      "page":"preview3.html",
+      "page":"preview3.html", <!-- THIS IS THE SKILLS PREVIEW -->
       "title":"PREV3",
-      "boxId":"0"
+      "boxId":"482321884405"
   },
   {
       "page":"preview4.html",
       "title":"PREV4",
-      "boxId":"0"
+      "boxId":"482321884405"
   },
   {
       "page":"openwith.html",
       "title":"OPENWITH",
+      "boxId":"482321884405"
+  },
+  {
+      "page":"UPLOADER.html",
+      "title":"UPLOAD 1",
       "boxId":"0"
   },
   {
-      "page":"uploader.html",
+      "page":"https://antaeus.app.box.com/upload-widget/view/zfs7ae5znfexy0f262iz4kxbtp65rtle/79193605669?fr=%3A%3FDECF4E%3A%40%3FDl!%3D62D6Ta_FA%3D%4025Ta_J%40FCTa_r%27Ta_2%3F5Ta_C%3A89ETa_E%40Ta_H%40C%3CTa_5%404F%3E6%3FEDTa_96C6UE%3AE%3D6l%26A%3D%4025Ta_J%40FCTa_r%27Ta_%40CTa_%23%3A89E%5CE%40%5C(%40C%3CTa_5%404F%3E6%3FEDU%3ADs6D4C%3AAE%3A%40%3Fu%3A6%3D5%249%40H%3Fl_U%3ADt%3E2%3A%3D%236BF%3AC65l%60",
       "title":"UPLOADER",
       "boxId":"0"
   }

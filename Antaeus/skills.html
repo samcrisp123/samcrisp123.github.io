@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>Box Content Preview Demo</title>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/explorer.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/picker.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/uploader.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/openwith.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.css" rel="stylesheet" type="text/css"></link>
+    <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/sidebar.css" rel="stylesheet" type="text/css"></link>
+
+
+    <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/explorer.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/picker.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/uploader.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/openwith.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/preview/2.5.1/en-US/preview.js"></script>
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/sidebar.js"></script>
+
+    <body>
+      <div class="preview-container" style="height:90vh; width:100vw; align="center";></div>
+        <div class="preview-container" style="height:100vh; width:100vw; align="center";></div>
+<script>
+var contentPreview = new Box.ContentPreview();
+
+// Show the content explorer
+contentPreview.show('442491785645', sessionStorage.getItem("accessToken"), {
+    container: '.preview-container',
+    contentSidebarProps: {
+        detailsSidebarProps: {
+            hasNotices: true,
+            hasProperties: true,
+            hasAccessStats: true,
+            hasVersions: true
+        },
+        hasActivityFeed: true,
+        hasSkills: true,
+        hasMetadata: true
+    },
+    hasHeader: true,
+});
+</script>
+    </body>
+</head>
