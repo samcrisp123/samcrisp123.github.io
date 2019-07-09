@@ -18,43 +18,34 @@ var navigation=[
   },
   {
       "page":"folder1.html",
-      "title":"FOLD1",
-      "boxId":"79193605669"
+      "title":"HS2 ROLLING STOCK",
+      "boxId":"81114214612"
   },
   {
       "page":"folder2.html",
-      "title":"FOLD2",
+      "title":"GENERAL BID DOCUMENTS",
       "boxId":"0"
   },
   {
       "page":"folder3.html",
-      "title":"FOLD3",
+      "title":"ALL CONTENT",
       "boxId":"0"
   },
-  {
-      "page":"preview1.html",
-      "title":"PREV1",
-      "boxId":"428392560865"
-  },
-  {
-      "page":"preview2.html",
-      "title":"PREV2",
-      "boxId":"482321884405"
-  },
+
   {
       "page":"preview3.html", <!-- THIS IS THE SKILLS PREVIEW -->
-      "title":"PREV3",
-      "boxId":"482321884405"
+      "title":"PRESS RELEASE",
+      "boxId":"486016394399"
   },
   {
       "page":"preview4.html",
-      "title":"PREV4",
-      "boxId":"482321884405"
+      "title":"BID MANAGER OVERVIEW",
+      "boxId":"457334388457"
   },
   {
       "page":"openwith.html",
       "title":"OPENWITH",
-      "boxId":"482321884405"
+      "boxId":"457334388457"
   },
   {
       "page":"UPLOADER.html",

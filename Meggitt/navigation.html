@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <title>Box Platform - Template Application</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="config.json"></script>
+   <script>
+     $(document).ready(function() {
+       console.log(navigation[0].page);
+       var active=""
+       $.each(navigation, function(k, data) {
+         console.log(k + ":" + data.boxId);
+         active = (k==0?"active":"");
+         $(".navbar-nav").append('<li class="nav-item ' + active + '"><a class="nav-link waves-effect waves-light" href="' + data.page + '?boxId=' + data.boxId + '" target="main">' + data.title + '<span class="sr-only">(current)</span></a></li>');
+       })
+    });
+   </script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top navbar-dark blue-gradient">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+
+            <!-- <li class="nav-item">
+                  <a class="nav-link waves-effect waves-light" href="readme.html" target="main">README</a>
+                </li>
+
+        <li class="nav-item active">
+          <a class="nav-link waves-effect waves-light" href="https://developer.box.com" target="main">DEVELOPER<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="folder1.html" target="main">FOLD1</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="folder2.html" target="main">FOLD2</a>
+        </li>
+      -->
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">FOLDERS</a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="folder2.html">FOLDER2</a>
+            <a class="dropdown-item" href="folder3.html">FOLDER3</a>
+            <a class="dropdown-item" href="folder4.html">FOLDER4</a>
+          </div>
+        </li>        -->
+
+        <!-- Dropdown -->
+        <!--
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="preview1.html" target="main">PREV1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="preview2.html" target="main">PREV2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="preview3.html" target="main">PREV3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="preview4.html" target="main">PREV4</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="skills.html" target="main">SKILLS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="openwith.html" target="main">OPEN WITH</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="uploader.html" target="main">UPLOAD</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link waves-effect waves-light" href="https://box-162828.workflowcloud.com/forms/1115945d-07de-41ff-a04c-cec23f447994" target="main">WORKFLOW</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="https://community.box.com/t5/Platform-and-Development-Forum/bd-p/DeveloperForum" target="main">HELP</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="https://box-java-sandpit.herokuapp.com/register.html" target="main">SETTINGS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect waves-light" href="login.html" target=main">LOGOUT</a>
+        </li>
+      -->
+      </ul>
+      <form class="form-inline">
+        <div class="md-form my-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="SEARCH" aria-label="Search">
+        </div>
+      </form>
+    </div>
+  </nav>
+
+
+</body>
+
+</html>

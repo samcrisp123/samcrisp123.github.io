@@ -1,0 +1,39 @@
+/*reset*/
+.table-responsive table{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table-responsive::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #dddddd;
+    border-radius: 2px;
+}
+.table-responsive::-webkit-scrollbar-track-piece {
+    background: #fff;
+}
+
+
+@media (max-width: 992px) {
+    .table-responsive table{
+        width: auto!important;
+        margin:0 auto 15px auto!important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+    .table-responsive::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+}
+

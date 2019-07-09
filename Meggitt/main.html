@@ -1,0 +1,24 @@
+<html>
+
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+<script type="text/javascript" src="config.json"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $.each(navigation, function(k, data) {
+       $("#main").attr("src",data.page + "?boxId=" + data.boxId);
+       return false;
+    });
+  });
+
+</script>
+<body style="background-color:#ffffff;">
+  <title>Box Platform - Template Application</title>
+  <iframe name="nav" style="width: 100%; height: 8%; overflow: hidden; border:0" src="top.html" width="100%" height="8%" scrolling="no">Iframes not supported</iframe>
+  <iframe name="nav" style="width: 100%; height: 8%; overflow: hidden; border:0" src="navigation.html" width="100%" height="20%" scrolling="no">Iframes not supported</iframe>
+  <iframe name="main" id="main" style="width: 100%; height: 100%; overflow: hidden; border:0" src="" width="100%" height="100%" scrolling="no">Iframes not supported</iframe>
+</body>
+
+</html>

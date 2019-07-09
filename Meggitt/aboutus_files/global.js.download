@@ -1,0 +1,215 @@
+jQuery(document).ready(function($) {
+	
+	//MATCH HEIGHTS
+	if($(window).width()>991){
+		$('.box_header').matchHeight();
+	};
+		
+	$('.box').matchHeight();
+	$('.box0').matchHeight();
+	$('.box1').matchHeight();
+	$('.box2').matchHeight();
+	$('.box3').matchHeight(
+	//{target: $('.hp_feature_small_text')}
+	);
+	$('.box4').matchHeight();
+	$('.box5').matchHeight();
+	$('.box6').matchHeight();
+	$('.boxHeaderTint').matchHeight();
+	$('.boxh2').matchHeight();
+	$('.boxh2a').matchHeight();
+	$('.boxTint').matchHeight();		
+	$('.kmimage').matchHeight();
+	$('.ps_om_box').matchHeight();
+			
+	//MENU
+	if($(window).width()>769){
+        $('.nav .dropdown').hover(function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideDown();
+        }, function() {
+            $(this).find('.dropdown-menu').first().stop(true, true).delay(100).slideUp();
+        });
+        $('.dropdown-toggle').click(function() {
+		    var location = $(this).attr('href');
+		    window.location.href = location;
+		    return false;
+		});
+    };
+    
+	//SCROLL TO TOP
+	$("a[href='#top']").click(function() {
+	  $("html, body").animate({ scrollTop: 0 }, "fast");
+	  return false;
+	});
+
+    // hide #back-top first
+    $("#back-top").hide();
+
+    // fade in #back-top
+    $(function () {
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 300) {
+                $('#back-top').fadeIn();
+            } else {
+                $('#back-top').fadeOut();
+            }
+        });
+
+        // scroll body to 0px on click
+        $('#back-top a').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 400);
+            return false;
+        });
+    });
+            
+    //RESPONSIVE MAPS - NO MOUSE SCROLL
+    
+    $('.google-maps').on('click',function(){
+	    $(this).find('iframe').addClass('clicked')
+	})
+	  .mouseleave(function(){
+	    $(this).find('iframe').removeClass('clicked')
+	});
+	
+	//SMOOTH SCROLL TO ANCHOR
+		
+	$(document).ready(function(){
+	  // Add smooth scrolling to all links
+	  $("a").on('click', function(event) {
+	
+	    // Make sure this.hash has a value before overriding default behavior
+	    if (this.hash !== "") {
+	      // Prevent default anchor click behavior
+	      event.preventDefault();
+	
+	      // Store hash
+	      var hash = this.hash;
+	
+	      // Using jQuery's animate() method to add smooth page scroll
+	      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+	      $('html, body').animate({
+	        scrollTop: $(hash).offset().top
+	      }, 800, function(){
+	   
+	        // Add hash (#) to URL when done scrolling (default click behavior)
+	        window.location.hash = hash;
+	      });
+	    } // End if
+	  });
+	});
+			
+	/* CYCLE IMAGES */
+	
+	function cycleImagesHome(){
+      var $active = $('#cycler .active');
+      var $next = ($('#cycler .active').next().length > 0) ? $('#cycler .active').next() : $('#cycler img:first');
+      $next.css('z-index',2);//move the next image up the pile
+	  $active.fadeOut(1500,function(){//fade out the top image
+	    $active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+        $next.css('z-index',3).addClass('active');//make the next image the top one
+      });
+    }
+
+    $(window).load(function(){
+		$('#cycler').fadeIn(1500);
+		  // run every 7s
+		  setInterval(cycleImagesHome, 7000);
+    });
+    
+	function cycleImages(){
+      var $active = $('#background_cycler .active');
+      var $next = ($('#background_cycler .active').next().length > 0) ? $('#background_cycler .active').next() : $('#background_cycler img:first');
+      $next.css('z-index',2);//move the next image up the pile
+	  $active.fadeOut(1500,function(){//fade out the top image
+	    $active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+        $next.css('z-index',3).addClass('active');//make the next image the top one
+      });
+    }
+
+    $(window).load(function(){
+		$('#background_cycler').fadeIn(1500);
+		  // run every 7s
+		  setInterval(cycleImages, 7000);
+    });
+    
+
+    prevenOrphans();
+    function prevenOrphans()
+    {
+        $('p').not('.publication_item_text p').not('.ir_contacts p').not('.textwidget p').not('.dark_green').not('.news_article p').each(function(){
+		    var string = $(this).html();
+		    string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
+		    $(this).html(string);
+		});
+		
+		$('.page_content li').not('.filter li').not('.code_of_conduct li').not('.gtc_list li').not('.pf-content li').each(function(){
+		    var string = $(this).html();
+		    string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
+		    $(this).html(string);
+		});
+		
+		$('h1').not('.main_header_two h1').not('.main_header h1').each(function(){
+		    var string = $(this).html();
+		    string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
+		    $(this).html(string);
+		});
+		
+		$('.au_item_text h2').not('.ir_item_text h2').each(function(){
+		    var string = $(this).html();
+		    string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
+		    $(this).html(string);
+		});
+		
+		$('.publication_item h2').each(function(){
+		    var string = $(this).html();
+		    string = string.replace(/ ([^ ]*)$/,'&nbsp;$1');
+		    $(this).html(string);
+		});
+		
+    }
+    
+    $('.gallery-items').imagelistexpander({
+        prefix: "gallery-"
+    });
+    
+    
+    
+    //AFTERMARKET MODAL
+    
+    // Get the modal
+	var modal = document.getElementById('amModal');
+	
+	// Get the button that opens the modal
+	var btn = document.getElementById("amBtn");
+	
+	// Get the button that opens the modal
+	var btn2 = document.getElementById("amBtn2");
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	
+	// When the user clicks on the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+	
+	btn2.onclick = function() {
+	    modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+
+	
+});
