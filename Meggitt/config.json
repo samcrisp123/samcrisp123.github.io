@@ -2,7 +2,7 @@
 var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/meggitt/main.html";
+var redirectAfterLoginPage="/Meggitt/main.html";
 
 //Navigation
 var navigation=[
