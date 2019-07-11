@@ -22,7 +22,7 @@
       let searchParams = new URLSearchParams(window.location.search)
       var boxId = searchParams.get("boxId");
 
-      var preview = new Box.Preview();
+      var preview = new Box.ContentPreview();
       getAccessToken().then(function(result) {
         preview.show(boxId, result, {
           container: '.preview-container',
