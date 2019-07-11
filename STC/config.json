@@ -8,7 +8,7 @@ var redirectAfterLoginPage="/STC/main.html";
 var navigation=[
 
   {
-      "page":"Board.html",
+      "page":"board.html",
       "title":"HOME"
   },
   {
