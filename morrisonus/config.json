@@ -2,13 +2,13 @@
 var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/STC/main.html";
+var redirectAfterLoginPage="/morrisonus/main.html";
 
 //Navigation
 var navigation=[
 
   {
-      "page":"Board.html",
+      "page":"who.html",
       "title":"HOME"
   },
   {
@@ -17,50 +17,36 @@ var navigation=[
       "boxId":"0"
   },
   {
-      "page":"folder1.html",
-      "title":"CURRENT QUARTER",
+      "page":"https://boxdemo-538887.workflowcloud.com/forms/78366763-bc3b-4dfa-bec2-caf6ef7f1978",
+      "title":"SIGN UP",
       "boxId":"79192439983"
   },
   {
       "page":"folder2.html",
-      "title":"PREVIOUS QUARTER",
-      "boxId":"79708722641"
+      "title":"SHEQ PACK",
+      "boxId":"83339827686"
   },
   {
       "page":"folder3.html",
-      "title":"ALL CONTENT",
+      "title":"909 FORM",
+      "boxId":"83294825858"
+  },
+  {
+      "page":"https://antaeus.app.box.com/upload-widget/view/ogji7xqwdf51w3q0x0zmpsmmye18xes8/83338621926?fr=%3A%3FDECF4E%3A%40%3FDlUE%3AE%3D6l%26A%3D%4025Ta_%24%3AE6Ta_x%3E286DTa_96C6U%3ADs6D4C%3AAE%3A%40%3Fu%3A6%3D5%249%40H%3Fl%60U%3ADt%3E2%3A%3D%236BF%3AC65l_",
+      "title":"SITE IMAGES",
       "boxId":"0"
-  },
-  {
-      "page":"preview1.html",
-      "title":"PREV1",
-      "boxId":"428392560865"
-  },
-  {
-      "page":"preview2.html",
-      "title":"PREV2",
-      "boxId":"482321884405"
-  },
-  {
-      "page":"preview3.html",
-      "title":"PREV3",
-      "boxId":"482321884405"
   },
   {
       "page":"preview4.html",
-      "title":"PREV4",
-      "boxId":"457334388457"
+      "title":"CONTRACT",
+      "boxId":"482321875062"
   },
-  {
-      "page":"openwith.html",
-      "title":"OPENWITH",
-      "boxId":"0"
+{
+      "page":"preview3.html",
+      "title":"PROCESS",
+      "boxId":"499819027160"
   },
-  {
-      "page":"UPLOADER.html",
-      "title":"UPLOAD 1",
-      "boxId":"0"
-  },
+
   {
       "page":"https://antaeus.app.box.com/upload-widget/view/zfs7ae5znfexy0f262iz4kxbtp65rtle/79193605669?fr=%3A%3FDECF4E%3A%40%3FDl!%3D62D6Ta_FA%3D%4025Ta_J%40FCTa_r%27Ta_2%3F5Ta_C%3A89ETa_E%40Ta_H%40C%3CTa_5%404F%3E6%3FEDTa_96C6UE%3AE%3D6l%26A%3D%4025Ta_J%40FCTa_r%27Ta_%40CTa_%23%3A89E%5CE%40%5C(%40C%3CTa_5%404F%3E6%3FEDU%3ADs6D4C%3AAE%3A%40%3Fu%3A6%3D5%249%40H%3Fl_U%3ADt%3E2%3A%3D%236BF%3AC65l%60",
       "title":"UPLOADER",
