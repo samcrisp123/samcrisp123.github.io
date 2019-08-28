@@ -1,0 +1,62 @@
+//Client ID
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/Nomura/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"ib.html",
+      "title":"HOME"
+  },
+
+  {
+      "page":"https://antaeus.app.box.com/upload-widget/view/fy3433isbaqdkzh5j9nplaowji03u6e4/85392004523?fr=%3A%3FDECF4E%3A%40%3FDl!%3D62D6Ta_FA%3D%4025Ta_%3F6HTa_7%3A%3D6D%5DTa_Ta_p%3FJE9%3A%3F8Ta_FA%3D%402565Ta_96C6Ta_H%3A%3D%3DTa_36Ta_D92C65Ta_H%3AE9Ta_J%40FCTa_%7D%40%3EFC2Ta_%2562%3E%5DTa_Ta_qJTa_FA%3D%4025%3A%3F8TarTa_J%40FTa_28C66Ta_E%40Ta_%40FCTa_E6C%3EDTa_%407Ta_D6CG%3A46Ta_H%3AE9Ta_C682C5DTa_E%40Ta_5%404F%3E6%3FETa_4%40%3FE6%3FETarTa_DE%40C286Ta_2%3F5Ta_FD6%5DTa_Ta_UE%3AE%3D6l%26A%3D%4025Ta_%7D6HTa_u%3A%3D6DU%3ADs6D4C%3AAE%3A%40%3Fu%3A6%3D5%249%40H%3Fl%60U%3ADt%3E2%3A%3D%236BF%3AC65l%60",
+      "title":"UPLOAD NEW FILES",
+      "boxId":"0"
+  },
+  {
+      "page":"folder2.html",
+      "title":"WORKING CONTENT",
+      "boxId":"85392004523"
+  },
+  {
+      "page":"folder3.html",
+      "title":"FOLD3",
+      "boxId":"0"
+  },
+  {
+      "page":"preview1.html",
+      "title":"PREV1",
+      "boxId":"428392560865"
+  },
+  {
+      "page":"preview2.html",
+      "title":"PREV2",
+      "boxId":"0"
+  },
+  {
+      "page":"preview3.html",
+      "title":"PREV3",
+      "boxId":"0"
+  },
+  {
+      "page":"calendar.html",
+      "title":"IR",
+      "boxId":"0"
+  },
+  {
+      "page":"openwith.html",
+      "title":"OPENWITH",
+      "boxId":"0"
+  },
+  {
+      "page":"uploader.html",
+      "title":"UPLOADER",
+      "boxId":"0"
+  }
+
+
+];

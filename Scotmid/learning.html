@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <meta charset="utf-8" />
+  <title>Sainsburys Retail Application</title>
+      <!DOCTYPE html>
+      <head>
+          <meta charset="utf-8" />
+          <title>Box Content Preview Demo</title>
+
+          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+          <!-- Bootstrap core CSS -->
+          <link href="css/bootstrap.min.css" rel="stylesheet">
+          <!-- Material Design Bootstrap -->
+          <link href="css/mdb.min.css" rel="stylesheet">
+          <!-- Your custom styles (optional) -->
+          <link href="css/style.css" rel="stylesheet">
+
+          <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/explorer.css" rel="stylesheet" type="text/css"></link>
+          <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+          <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/explorer.js"></script>
+
+          <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+          <body>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                  aria-selected="true">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#inprogress" role="tab" aria-controls="inprogress"
+                  aria-selected="false">In Progress Modules</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed"
+                  aria-selected="false">Completed Modules</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="card"><div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Welcome to Sainsbury's - Doing our bit for over 150 years</h5>
+    <p class="card-text">We've serving our communities since 1869, providing groceries and goods that people can trust and afford since we were founded by John and Mary-Anne.  We aim to support our people, providing training and resources to our employees.</p>
+    <a class="card-link"><iframe src="https://antaeus.app.box.com/embed/s/p5181t5ia2edhuleggfih58nk6gi54ja?sortColumn=date&view=list" width="800" height="550" frameborder="0" allowfullscreen webkitallowfullscreen msallowfullscreen></iframe></a>
+  </div>
+</div></div>
+            </div>
+                <div class="tab-pane fade" id="inprogress" role="tabpanel" aria-labelledby="profile-tab">
+
+                  <script src="https://cdn01.boxcdn.net/platform/preview/1.58.2/en-US/preview.js"></script>
+                  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.58.2/en-US/preview.css" />
+              </head>
+              <body>
+                  <div class="preview-container" style="height:1000px; width:100%;"></div>
+                  <script>
+                      var preview = new Box.Preview();
+                      preview.show('502850702456', sessionStorage.getItem("accessToken"), {
+                          container: '.preview-container',
+                          showDownload: true,
+                          logoUrl: 'favicon.ico',
+                          contentSidebarProps: {
+                            container: '.sb',
+                             //defaultView: 'metadata',
+                            hasMetadata: true,
+                          hasSkills: true,
+                          hasMetadata: true,
+                          hasProperties: true,
+                          hasAccessStats: true,
+                          defaultView:'skills'
+                          }
+                      });
+                  </script></div>
+
+              <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="completedcontainer" style="height:90vh; width:100vw;"></div>
+                <script>
+                          var completedContentExplorer = new Box.ContentExplorer();
+                          var completedFolderId = '83823225727';
+                          var accessToken = sessionStorage.getItem("accessToken"); //'ERtaeEtF6SAIf6yBAwFeqKaHBCAAzcox';
+
+                    // Show the content explorer
+                    completedContentExplorer.show(completedFolderId, accessToken, {
+                        logoUrl: 'logo-small.jpg',
+                        container: '.completedcontainer',
+                        contentPreviewProps: {
+                            contentSidebarProps: {
+                                detailsSidebarProps: {
+                                    hasNotices: true,
+                                    hasProperties: true,
+                                    hasAccessStats: true,
+                                    hasVersions: true
+                                },
+                                hasActivityFeed: true,
+                                hasSkills: true,
+                                hasMetadata: true
+                            }
+                        }
+                    });
+            </script>
+            </div>
+          </div>
+
+
+          </body>
+      </head>
+
+</html>

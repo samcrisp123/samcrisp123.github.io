@@ -1,0 +1,1043 @@
+/*
+  - Common
+  - Stock
+======================================================= */
+/* Common */
+/* Stock */
+.Stock {
+  text-align: center;
+}
+
+.Stock > dl {
+  margin: 10px 0;
+}
+
+.Stock > dl dt {
+  display: inline-block;
+  vertical-align: middle;
+  border-right: 1px solid #e5e5e5;
+  text-align: left;
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 25px 20px 25px 0;
+}
+
+.Stock > dl dt span {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.Stock > dl dd {
+  display: inline-block;
+  vertical-align: middle;
+  border-right: 1px solid #e5e5e5;
+  text-align: left;
+  margin: 0;
+  padding: 0 15px;
+}
+
+.Stock > dl dd:last-child {
+  border: none;
+}
+
+.Stock__info {
+  margin: 0 -10px;
+}
+
+.Stock__info > ul {
+  display: table;
+  width: 100%;
+}
+
+.Stock__info > ul > li {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 10px;
+}
+
+.Stock__info__market {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.Stock__info__time {
+  color: #666;
+  font-size: 12px;
+  display: block;
+  font-weight: normal;
+}
+
+.Stock__info__value {
+  font-size: 23px;
+}
+
+.Stock__info__plus {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Stock__info__plus i:before {
+  content: "\F00B";
+  font-family: "myfont";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* For With CJK Text =========== */
+  position: relative;
+  top: -0.1em;
+  color: #cc0000;
+  font-size: 15px;
+  padding: 0 10px 0 0;
+}
+
+.Stock__info__minus {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Stock__info__minus i:before {
+  content: "\F00C";
+  font-family: "myfont";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* For With CJK Text =========== */
+  position: relative;
+  top: -0.1em;
+  color: #5c5c5c;
+  font-size: 15px;
+  padding: 0 10px 0 0;
+}
+
+.Stock__info__def {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.Stock__info__btn {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  box-shadow: 0 2px 0 #d1d1d1;
+  padding: 12px 30px;
+}
+
+.Stock__info__btn i:after {
+  content: "\F001";
+  font-family: "myfont";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* For With CJK Text =========== */
+  position: relative;
+  top: -0.1em;
+  color: #cc0000;
+  margin: 0 0 0 7px;
+}
+
+@media screen and (max-width: 768px) {
+  /* Stock md */
+  .Stock {
+    padding: 0 10px;
+  }
+  .Stock > dl {
+    margin: 15px 0;
+  }
+  .Stock > dl dt {
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 16px;
+    padding: 0 0 15px 0;
+  }
+  .Stock > dl dd {
+    display: block;
+    border-right: none;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    margin: 0;
+    padding: 15px 0;
+  }
+  .Stock__info {
+    margin: 0;
+  }
+  .Stock__info > ul > li {
+    padding: 0;
+    width: 33.33333%;
+  }
+  .Stock__info__value {
+    font-size: 20px;
+  }
+  .Stock__info__market {
+    text-align: left;
+  }
+  .Stock__info__plus,
+  .Stock__info__minus {
+    text-align: right;
+  }
+}
+.c-h2 {
+  color: #333 !important;
+}
+/* for /investor/library/sec/index.html */
+.c-ReportTbl.sec-index {
+  margin-top: 0;
+}
+.c-indexTitle.sec-index + .c-h2 {
+  margin-top: 0;
+}
+.c-indexTitle.sec-index {
+  margin: 50px 0 30px;
+}
+html[lang="en"] .c-indexTitle.sec-index {
+  font-size: 16px;
+}
+/* jp ir.css */
+/*二段ボックス*/
+/* ----------------------------------------------------- */
+/*table*/
+.IRtop {
+  margin: 30px 0 0 0;
+  border-spacing: 0;
+}
+.IRtop td {
+  margin: 0;
+  padding: 0 10px;
+  width: 255px;
+  border-spacing: 0;
+  vertical-align: top;
+}
+/*-----------------------------------------------*/
+/*特別扱い*/
+.spBOXg {
+  margin: 0;
+  padding: 0 10px;
+  border: none;
+  background-color: #efefef;
+  vertical-align: top;
+}
+/*日付ボックス*/
+/* ----------------------------------------------------- */
+/*table*/
+.irDayT {
+  margin: 0;
+  width: 260px;
+/*<add by hiromatsu 9/5>*/
+/*border-top:solid 1px #d0d0d0;*/;
+/*border-bottom:solid 1px #d0d0d0;*/;
+  border-spacing: 0;
+}
+/*奇数行*/
+.oddnum {
+  background-color: #efefef;
+}
+.irDayT th {
+  padding: 5px 5px 5px 10px;
+  width: 15%;
+  vertical-align: top;
+  text-align: right;
+  white-space: nowrap;
+  font-weight: bold;
+}
+.irDayT td.day {
+  padding: 5px 0;
+  width: 15%;
+  vertical-align: top;
+  text-align: right;
+  white-space: nowrap;
+}
+.irDayT td {
+  padding: 5px 5px 5px 10px;
+  width: 70%;
+  vertical-align: top;
+  text-align: left;
+}
+/*ページ数表示*/
+/* ----------------------------------------------------- */
+/*LIVE内*/
+.pagecount {
+  float: right;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+  text-align: right;
+  font-weight: normal;
+  font-size: 90%;
+}
+/*ボックス装飾060525UPDATE*/
+/* ----------------------------------------------------- */
+/*LIVE内*/
+div.founderLink {
+  margin: 6px 0px 0px 0px;
+  padding: 0px;
+  text-align: left;
+}
+div.founderLink ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+div.founderLink ul li.mekuri {
+  float: right;
+  margin: 0px 0px 0px 0px;
+  padding: 0;
+  white-space: nowrap;
+}
+/*イメージ関連*/
+/* ----------------------------------------------------- */
+/*アイコンとテキストの揃え(アイコン右）*/
+.arrow_r {
+  margin-left: 5px;
+  border: 0;
+  vertical-align: middle;
+}
+/*アイコンとテキストの揃え(アイコン左）*/
+.arrow_l {
+  margin-right: 5px;
+  border: 0;
+  vertical-align: middle;
+}
+/*IRトップ「更新情報」用 */
+/* ----------------------------------------------------- */
+/* h2タイトル */
+.IRtop_h2 {
+  clear: both;
+  margin: 5px 0px 2px 0px;
+  padding: 0px;
+  color: #000;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+/* 罫線 */
+.IRtop_hr {
+  clear: both;
+  margin: 0px 0px 8px 0px;
+  padding: 0px;
+  height: 1px;
+  border: none;
+  background: #000;
+}
+/* リスト */
+.IRtop_li {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+.IRtop_li li {
+  margin: 0px 0px 5px 0px;
+  padding-left: 18px;
+  background-image: url("/resource/image/common/list4_bg.gif");
+  background-repeat: no-repeat;
+  line-height: 140%;
+}
+/*IRトップ「IRカレンダー」用CSS */
+/* h3タイトル */
+.irDay_h3 {
+  clear: both;
+  margin: 5px 0px 0px 0px;
+  padding: 0px;
+  color: #000;
+  text-align: left;
+  font-weight: bold;
+  font-size: 14px;
+}
+/* 罫線 */
+.irDay_hr {
+  clear: both;
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+  height: 1px;
+  border: none;
+  background: #000;
+}
+/*IRトップ「最新情報」<div>指定用CSS */
+/* ----------------------------------------------------- */
+/* <add by hiromatsu 9/6> */
+/*グレーBOX*/
+.spBOXgd {
+  margin: 0px;
+  padding: 5px 5px 0px 10px;
+  border: none;
+  background-color: #efefef;
+  vertical-align: top;
+}
+/* h2タイトル */
+.IRtop_h2d {
+  clear: both;
+  margin: 3px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  color: #000;
+  text-align: left;
+  font-weight: bold;
+  font-size: 16px;
+}
+/* 罫線 */
+.IRtop_hrd {
+  clear: both;
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+  height: 1px;
+  border: none;
+  background: #000;
+}
+/* 業務情報用データテーブル */
+/* ----------------------------------------------------- */
+/* Dガイド表組み1 */
+.dGuide_IR {
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-top: solid 1px #666;
+  border-left: solid 1px #666;
+}
+/* Dガイド表組み1のth */
+.dGuide_IR th {
+  margin: 0;
+  padding: 5px;
+  border-spacing: 0;
+  border-right: solid 1px #666;
+  border-bottom: solid 1px #666;
+  background-color: #efefef;
+  vertical-align: middle;
+  font-weight: bold;
+  line-height: 125%;
+}
+.dGuide_IR th.th9 {
+  background-color: #c4c4c4;
+  text-align: center;
+}
+.dGuide_IR th.th_c {
+  text-align: center;
+}
+/* Dガイド表組み1のtd */
+.dGuide_IR td {
+  margin: 0;
+  padding: 5px;
+  border-spacing: 0;
+  border-right: solid 1px #666;
+  border-bottom: solid 1px #666;
+  background-color: #fff;
+  vertical-align: middle;
+  line-height: 144%;
+}
+/* Dガイド表組み2  */
+.dGuide2_IR {
+  margin: 10px 0 0 0;
+  padding: 0;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-top: solid 1px #666;
+  border-left: solid 1px #666;
+}
+/* Dガイド表組み2のth */
+.dGuide2_IR th {
+  margin: 0;
+  padding: 5px;
+  border-spacing: 0;
+  border-right: solid 1px #666;
+  border-bottom: solid 1px #666;
+  background-color: #efefef;
+  vertical-align: middle;
+  font-weight: bold;
+  line-height: 125%;
+}
+.dGuide2_IR th.th9 {
+  background-color: #c4c4c4;
+  text-align: center;
+}
+.dGuide2_IR th.th_c {
+  text-align: center;
+}
+.dGuide2_IR th.bgc1 {
+  background-color: #fcc;
+}
+.dGuide2_IR td.td_l {
+  text-align: left;
+}
+/* Dガイド表組み2のtd */
+.dGuide2_IR td {
+  margin: 0;
+  padding: 5px;
+  border-spacing: 0;
+  border-right: solid 1px #666;
+  border-bottom: solid 1px #666;
+  vertical-align: middle;
+  text-align: right;
+  line-height: 144%;
+}
+.bcc {
+  background-color: #ccc;
+}
+/* キャプション */
+caption_IR {
+  margin: 10px 0 0px 0;
+  padding: 0;
+  text-align: left;
+  font-size: 12px;
+  line-height: 150%;
+}
+/* IRトップ */
+/* ----------------------------------------------------- */
+/* 更新情報 */
+.update_list {
+  margin-bottom: 10px;
+}
+.update_list li {
+  margin-top: 0px;
+}
+.update_width {
+  width: 20%;
+}
+.update_line {
+  background-color: #000;
+}
+/* カテゴリ */
+.category_t {
+  margin-top: 20px;
+  width: 100%;
+}
+td.category_l {
+  padding: 0 10px 0 0;
+}
+td.category_r {
+  padding: 0 0 0 10px;
+}
+td.category_width {
+  width: 50%;
+}
+/* 横並びlist */
+.irtop_boxlist {
+  float: left;
+  margin-top: 6px;
+  margin-right: 25px;
+}
+.irtop_boxlist ul {
+  margin-left: 18px;
+}
+/* タブボタン */
+/* ----------------------------------------------------- */
+.tab_on {
+  background-color: #fff;
+}
+.tab_off {
+  background-color: #ccc;
+}
+.ind_tab_on {
+  background-color: #fff;
+}
+.ind_tab_off {
+  background-color: #7ca6d8;
+}
+.l_related {
+  padding-left: 8px;
+  border-left: 2px solid #ededed;
+}
+.r_related {
+  padding-left: 16px;
+  border-right: 2px solid #ededed;
+}
+.r_related_inner {
+  width: 547px;
+}
+/* ページ内リンク用CSS */
+/*-----------------------------------------------*/
+h2 a:link {
+  color: #000;
+  text-decoration: none;
+}
+h2 a:visited {
+  color: #000;
+  text-decoration: none;
+}
+h2 a:hover {
+  color: #000;
+  text-decoration: none;
+}
+h2 a:active {
+  color: #000;
+  text-decoration: none;
+}
+h3 a:link {
+  color: #000;
+  text-decoration: none;
+}
+h3 a:visited {
+  color: #000;
+  text-decoration: none;
+}
+h3 a:hover {
+  color: #000;
+  text-decoration: none;
+}
+h3 a:active {
+  color: #000;
+  text-decoration: none;
+}
+/* ページ内リンクボタン */
+/* ----------------------------------------------------- */
+.button_mgb5 {
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+.button_mgb7 {
+  margin: 0 0 7px 0;
+  padding: 0;
+}
+.button_mgb9 {
+  margin: 0 0 9px 0;
+  padding: 0;
+}
+.button_mgb10 {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+.vtop td {
+  vertical-align: top;
+  text-align: left;
+}
+.vmiddle td {
+  vertical-align: middle;
+}
+.border0 {
+  border: 0;
+}
+/* 個人投資家のみなさまへ　TOP */
+/* ----------------------------------------------------- */
+.stockinfo {
+  background-image: url("/jp/investor/individual/image/individual09.gif");
+  background-position: top;
+  background-repeat: repeat-x;
+}
+.thumb {
+  margin: 7px 0 0 12px;
+}
+/* 株価情報test */
+.table01 {
+  padding: 1px 2px 0px;
+  border: 1px solid #cdcdcd;
+  background-color: #d2d2d2;
+}
+.bto {
+  padding-bottom: 2px;
+}
+.table02 {
+  border: 0;
+}
+.table02 td {
+  padding-left: 6px;
+  background-color: #fff;
+  text-align: left;
+}
+.line_b {
+  border-bottom: 1px solid #dadada;
+}
+.line_l {
+  border-left: 1px solid #dadada;
+}
+.line_r {
+  border-right: 1px solid #dadada;
+}
+.b {
+  font-weight: bold;
+}
+.txc {
+  text-align: center;
+}
+.c {
+  color: #666;
+}
+.irtopjs {
+  border-bottom: 1px solid #d2d2d2;
+}
+.bgg {
+  background-color: #d2d2d2;
+}
+.listside {
+  margin-top: 10px;
+  padding: 1px;
+}
+.listside td {
+  padding-bottom: 5px;
+}
+.list_m {
+  padding-left: 20px;
+  width: 16px;
+}
+.new_border {
+  clear: both;
+  padding: 10px 0 0 0;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+.new_box {
+  margin: 0;
+  padding: 0px;
+  width: 558px;
+}
+.new_day {
+  margin: 0px 0px 0px 10px;
+}
+.new_txt {
+  margin: 0px 0px 0px 0;
+  width: 360px;
+}
+.new_box td {
+  padding: 1px 0px;
+}
+.blue th {
+  background-color: #eff6ff;
+}
+/* メッセージ */
+.h2mp0 {
+  margin: 0px 0px 10px 0px;
+  padding: 0px;
+}
+.l0 {
+  float: left;
+  margin-top: 0px;
+}
+.r0 {
+  float: right;
+  margin-top: 0px;
+}
+/* 連結自己資本規制比率テーブル */
+table.Ccar {
+  margin: 10px 0 0 0;
+  padding: 0 0;
+/*border-left: #666666 1px solid;*/;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+th.Ccar-th {
+  padding: 10px 10px;
+  border-top: #666 1px solid;
+  border-right: #666 1px solid;
+  border-bottom: #666 1px solid;
+  border-left: #666 1px solid;
+  background-color: #efefef;
+  text-align: center;
+  font-weight: bold;
+}
+th.Ccar-space {
+  padding: 0 0;
+  border-top: none;
+  border-bottom: none;
+  background-color: #fff;
+}
+th.Ccar-th-sec {
+  padding: 8px 8px;
+  border-right: #666 1px solid;
+  border-bottom: #666 1px solid;
+  border-left: #666 1px solid;
+  background-color: #efefef;
+  font-weight: bold;
+}
+td.Ccar-td {
+  padding: 10px 10px;
+  border-right: #666 1px solid;
+  border-bottom: #666 1px solid;
+  text-align: right;
+}
+td.Ccar-td-space {
+  padding: 5px;
+  border-top: none;
+  border-bottom: none;
+  background-color: #fff;
+}
+td.Ccar-td-bom {
+  padding: 10px 10px;
+  border-right: #666 1px solid;
+  border-bottom: #666 1px solid;
+  border-left: #666 1px solid;
+  text-align: right;
+}
+div img.vb {
+  vertical-align: bottom;
+}
+.h2_etc {
+  margin-top: 30px;
+  color: #474747 !important;
+}
+.indiv_ttl01 {
+  text-align: center;
+}
+.indiv_ttl01 img {
+  max-width: 100%;
+}
+p.ac {
+  margin-bottom: 30px;
+  text-align: center;
+}
+/*===============*/
+.Linkgroup {
+  position: relative;
+  margin: auto;
+  max-width: 900px;
+  height: 660px;
+  background: #fff url("/jp/investor/individual/image/indiv_logo01.png") 0 0 no-repeat;
+  background-size: contain;
+}
+.Linkgroup a:hover {
+  opacity: 0.8;
+  filter: "alpha(opacity=80)";
+}
+.Linkgroup__01--01 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  width: 25%;
+}
+.Linkgroup__01--02 img {
+  position: absolute;
+  top: 0;
+  left: 25%;
+  z-index: 12;
+  width: 25%;
+}
+.Linkgroup__01--03 img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 13;
+  width: 23.444444444444446%;
+}
+.Linkgroup__01--04 img {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  z-index: 14;
+  width: 25%;
+}
+.Linkgroup__01--05 img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 15;
+  width: 25%;
+}
+.Linkgroup__02--01 img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 21;
+  width: 25%;
+  text-align: right;
+}
+.Linkgroup__02--02 img {
+  position: absolute;
+  top: 25%;
+  right: 0;
+  z-index: 22;
+  width: 25%;
+  text-align: right;
+}
+.Linkgroup__02--03 img {
+  position: absolute;
+  right: 0;
+  bottom: 25%;
+  z-index: 23;
+  width: 28.555555555555557%;
+  text-align: right;
+}
+.Linkgroup__02--04 img {
+  position: absolute;
+  right: 0;
+  bottom: 0.5%;
+  z-index: 24;
+  width: 25%;
+  text-align: right;
+}
+.Linkgroup__03--01 img {
+  position: absolute;
+  bottom: 0.5%;
+  left: 50%;
+  z-index: 31;
+  width: 23.444444444444446%;
+}
+.Linkgroup__03--02 img {
+  position: absolute;
+  bottom: 0.5%;
+  left: 25%;
+  z-index: 32;
+  width: 25%;
+}
+.Linkgroup__03--03 img {
+  position: absolute;
+  bottom: 0.5%;
+  left: 0;
+  z-index: 33;
+  width: 25%;
+}
+h3.IndivHeading {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #c00;
+  color: #000;
+  font-weight: bold;
+  font-size: 20px;
+}
+.Media {
+  overflow: hidden;
+}
+.Media__image {
+  display: inline-block;
+  width: 215px;
+  vertical-align: top;
+  text-align: right;
+}
+.Media__text {
+  display: inline-block;
+  width: 440px;
+}
+.modal-content {
+  position: fixed;
+  z-index: 1002;
+  display: none;
+  margin: 0;
+  width: 700px;
+/*padding:10px 20px;
+    border:2px solid #aaa;*/;
+  background: #fff;
+}
+.modal-content h3 {
+  margin: 0 auto;
+  width: 640px;
+}
+.modal-content p {
+  margin: 0;
+  padding: 0;
+}
+.modal-content .close-btn {
+  text-align: right;
+}
+.modal-content li {
+  padding-left: 15px;
+  background: #fff url("/jp/investor/individual/image/blt01.gif") 0 0.25em no-repeat;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  display: none;
+  width: 100%;
+  height: 120%;
+  background-color: rgba(0,0,0,0.75);
+  background-color: #000;
+  opacity: 0.75;
+  filter: "alpha(opacity=75)";
+}
+.js-Modalopen {
+  color: #00f;
+  text-decoration: underline;
+}
+.modal-open:hover {
+  color: #f00;
+  cursor: pointer;
+}
+.modal-close {
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+}
+.modal-close:hover {
+  color: #f00;
+  cursor: pointer;
+}
+.modal-content .Media {
+  margin: 20px auto 0;
+  padding-bottom: 60px;
+  width: 640px;
+}
+.Media__image--modal {
+  float: left;
+  width: 320px;
+}
+.Media__text--modal {
+  float: right;
+  width: 300px;
+}
+@media screen and (min-width: 769px) {
+  .c-LinkListTbl.sec-index {
+    margin-top: -30px;
+    border-top: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .Linkgroup {
+    width: 100%;
+  }
+}
+
+/* liquid layout */
+.l-Container-main .img_09{background-image: url("/investor/image/img_09_sp.jpg"); height: 320px; background-repeat: no-repeat; background-size: cover; background-position: bottom center;}
+
+.l-Container-main .img_11{background-image: url("/investor/image/img_11_sp.jpg"); height: 320px; background-repeat: no-repeat; background-size: cover; background-position: bottom center;}
+@media screen and (max-width: 999px){
+.l-Container-main .img_09{height:167px;}
+
+.l-Container-main .img_11{height:167px;}
+}
+@media screen and (max-width: 768px){
+.l-Container-main .img_09{background-image:none; height:auto;}
+
+.l-Container-main .img_11{background-image:none; height:auto;}
+}
+.c-h2{color:#333 !important;}
+/* for /investor/library/sec/index.html */
+.c-ReportTbl.sec-index{margin-top:0;}
+.c-indexTitle.sec-index + .c-h2{
+    margin-top: 0;
+}
+.c-indexTitle.sec-index{
+    margin: 50px 0 30px;
+}
+@media screen and (min-width: 769px) {
+    .c-LinkListTbl.sec-index{
+        margin-top:-30px; border-top:none;
+    }
+}
+html[lang="en"] .c-indexTitle.sec-index{
+    font-size:16px;
+}
+#nhd_crumb_wrapper {margin-top:0 !important; }
+/*.c-PenetrationContainer {background:none; }*/
+.Contents-conversion {min-width:initial; min-width:auto; max-width:initial; max-width:auto; }
+.c-mq-bgImg_pc01 {height:450px; background:url("/investor/image/h1.jpg"); background-position:center; backface-visibility:hidden; }
+.c-mq-bgImg_sp01 {height:210px; background:url("/investor/image/h1.jpg"); background-position:center bottom; background-size:cover; backface-visibility:hidden; }
+@media screen and (max-width: 768px) {.Contents-banner {padding:0; }
+  .c-Heading-1__text {position:absolute; top:40%; left:20px; color:#ffffff; text-shadow:#737373 1px 1px 0px, #737373 -1px 1px 0px, #737373 1px -1px 0px, #737373 -1px -1px 0px; letter-spacing:1px; font-size:18px; -webkit-transform:translateY(-50%);         transform:translateY(-50%); }
+}

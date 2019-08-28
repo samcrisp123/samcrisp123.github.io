@@ -1,0 +1,71 @@
+//Client ID
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/Sainsburys/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"https://about.sainsburys.co.uk/",
+      "title":"HOME"
+  },
+    {
+      "page":"https://antaeus.app.box.com/upload-widget/view/zfs7ae5znfexy0f262iz4kxbtp65rtle/79193605669?fr=%3A%3FDECF4E%3A%40%3FDlUE%3AE%3D6l%26A%3D%4025Ta_J%40FCTa_42%3F5%3A52E6Ta_%3A%3F7%40C%3E2E%3A%40%3FTa_Wr'Ta_TauTa_%23%3A89ETa_E%40Ta_(%40C%3CXU%3ADs6D4C%3AAE%3A%40%3Fu%3A6%3D5%249%40H%3Fl%60U%3ADt%3E2%3A%3D%236BF%3AC65l_",
+      "title":"NEW HIRE UPLOAD",
+      "boxId":"0"
+  },
+  {
+      "page":"folder2.html",
+      "title":"SOPs",
+      "boxId":"82628284098"
+  },
+  {
+      "page":"folder3.html",
+      "title":"NOTICES",
+      "boxId":"82634506599"
+  },
+  {
+      "page":"preview1.html",
+      "title":"STORE LAYOUT",
+      "boxId":"495268765881"
+  },
+  {
+      "page":"preview3.html",
+      "title":"CONTRACT",
+      "boxId":"495298526528"
+  },
+  {
+      "page":"folder1.html",
+      "title":"ALL FILES",
+      "boxId":"0"
+  },
+  {
+      "page":"learning0.html",
+      "title":"LEARNING",
+      "boxId":"0"
+  },
+  {
+      "page":"folder2.html",
+      "title":"MY EMPLOYEES",
+      "boxId":"79192303053"
+  },
+  {
+      "page":"openwith.html",
+      "title":"   ",
+      "boxId":"0"
+  },
+  {
+      "page":"openwith.html",
+      "title":"   ",
+      "boxId":"0"
+  },
+  {
+      "page":"https://developer.box.com",
+      "title":"DEVELOPER",
+      "boxId":"0"
+  }
+
+
+];

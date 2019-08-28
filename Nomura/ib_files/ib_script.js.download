@@ -1,0 +1,48 @@
+$(document).ready(function(){
+	var switchPoint = 768;
+	var settings = function() {
+		var settings1 = {
+			auto: true,
+			pager: false,
+			slideWidth: 240,
+			minSlides: 1,
+			maxSlides: 5,
+			moveSlides: 1,
+			slideMargin: 10,
+			pause: 5000
+	};
+		var settings2 = {
+			auto: true,
+			pager: false,
+			minSlides: 1,
+			slideWidth: 0,
+			moveSlides: 1,
+			slideMargin: 5,
+			pause: 5000
+		};
+		return (window.innerWidth > switchPoint) ? settings1 : settings2;
+	};
+
+	var mySlider;
+
+	function tourLandingScript() {
+		mySlider.reloadSlider(settings());
+	}
+
+	mySlider = $('.slider').bxSlider(settings());
+	$(window).resize(tourLandingScript);
+	
+	
+	//$('.slider').bxSlider({
+//		pager: false,
+//		slideWidth: 240,
+//		minSlides: 1,
+//		maxSlides: 5,
+//		moveSlides: 1,
+//		slideMargin: 10,
+//		infiniteLoop: false,
+//		hideControlOnEnd: true
+//	});
+
+	$('.Market__block li .slid__txt h3').matchHeight();
+});

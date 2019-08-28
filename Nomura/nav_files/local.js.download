@@ -1,0 +1,116 @@
+$(function () {
+    var $window = $(window);
+    
+    var DOMAIN = "qw143.qhit.net";
+
+    if(location.hostname !== 'www.nomuraholdings.com'){
+        // test-server
+        DOMAIN = 'ot59.qhit.net';
+    }
+
+    var JSONP_PATH = "//" + DOMAIN + "/nomurahd/qsearch.exe?F=users/nmhd/jsonp/stock_top";
+
+    function Stock($el) {
+        var _$this = $el;
+        var _url = JSONP_PATH;
+        var _callBackName = 'stock';
+        var _stockTemplate = $('#js-Stock-template').html();
+        var _stockCompiled = _.template(_stockTemplate);
+        var _names = ['TSE (8604)','NYSE (NMR)'];
+
+        init();
+
+        function init() {
+            getData();
+        }
+
+        function getData() {
+            $.ajax({
+                url: _url,
+                dataType: 'jsonp',
+                jsonp: false,
+                timeout: 10000,
+                jsonpCallback: _callBackName
+            })
+                .then(function(data, textStatus, jqXHR) {
+                    showData(parseData(data));
+                }, function() {
+
+                })
+        }
+
+        function parseData(data) {
+            _.each(data.stockdata, function(val, i) {
+                val.PLUS = (/^\+|＋\d+$/.test(val.DYWP));
+                val.MINUS = (/^\-|＋\d-$/.test(val.DYWP));
+                val.DYWP = val.DYWP.replace(/^\+|＋\d+$/, '').replace(/^\-|＋\d-$/, '');
+                val.ZXD = val.ZXD.split('/').slice(1).join('/');
+                val.NAME = _.filter(_names, function(name) {
+                    return name.indexOf(val.QUOTECODE) !== -1;
+                })[0];
+            });
+            return data;
+        }
+
+        function showData(data) {
+            var html = _stockCompiled(data);
+            _$this.append(html);
+        }
+
+    }
+
+    function Mask($el) {
+        var _$this = $el;
+        var _$container = _$this.find('.js-Mask__container');
+        var _$value = _$this.find('.js-Mask__value');
+        var referenceVal;
+        var offset = 100;
+
+        eventify();
+
+        function adjustment() {
+            _$container.css({
+                overflow: 'hidden'
+            });
+            referenceVal = _$value.height() + offset;
+            _$container.height(referenceVal);
+        }
+        function reset() {
+            _$container.css({
+                height: 'auto'
+            });
+        }
+
+        function eventify() {
+            nmrcom.viewSwitch.onchange({
+                onMaxLarge: function () {
+                    adjustment();
+                },
+                onMaxLargeResize: function () {
+                    adjustment();
+                },
+                onLarge: function () {
+                    adjustment();
+                },
+                onLargeResize: function () {
+                    adjustment();
+                },
+                onMedium: function () {
+                    reset();
+                }
+            });
+        }
+
+    }
+
+    function onLoad() {
+        $('.js-Mask').each(function () {
+            Mask($(this));
+        });
+        $('.js-Stock').each(function () {
+            Stock($(this));
+        })
+    }
+
+    $window.on('load', onLoad);
+});

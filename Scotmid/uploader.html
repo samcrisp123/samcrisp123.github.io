@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>Box Platform - Template Application - Upload</title>
+
+    <!-- polyfill.io only loads the polyfills your browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
+    <!-- Alternatively, use polyfill hosted on the Box CDN
+    <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="config.json"></script>
+
+    <script src="js/box.js"></script>
+
+    <!-- Latest version of the uploader css for your locale -->
+    <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/uploader.css" />
+</head>
+<body>
+    <div class="container" style="height:600px"></div>
+    <!-- Latest version of the uploader js for your locale -->
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/uploader.js"></script>
+    <script>
+    let searchParams = new URLSearchParams(window.location.search)
+    var boxId = searchParams.get("boxId");
+  	var uploader = new Box.ContentUploader();
+      	getAccessToken().then(function(result) {
+          uploader.show(boxId, result, {
+            container: '.container'
+          });
+        });
+    </script>
+</body>
+</html>
