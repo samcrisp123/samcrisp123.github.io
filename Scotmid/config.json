@@ -2,13 +2,13 @@
 var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/Sainsburys/main.html";
+var redirectAfterLoginPage="/Scotmid/main.html";
 
 //Navigation
 var navigation=[
 
   {
-      "page":"https://about.sainsburys.co.uk/",
+      "page":"abouscotmid.html",
       "title":"HOME"
   },
     {
@@ -24,17 +24,17 @@ var navigation=[
   {
       "page":"folder3.html",
       "title":"NOTICES",
-      "boxId":"82634506599"
+      "boxId":"85913725146"
   },
   {
       "page":"preview1.html",
       "title":"STORE LAYOUT",
-      "boxId":"495268765881"
+      "boxId":"515602771139"
   },
   {
       "page":"preview3.html",
       "title":"CONTRACT",
-      "boxId":"495298526528"
+      "boxId":"515616363925"
   },
   {
       "page":"folder1.html",

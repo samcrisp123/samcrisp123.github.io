@@ -24,37 +24,24 @@ var navigation=[
   },
   {
       "page":"folder3.html",
-      "title":"FOLD3",
+      "title":"ALL FILES",
       "boxId":"0"
-  },
-  {
-      "page":"preview1.html",
-      "title":"PREV1",
-      "boxId":"428392560865"
   },
   {
       "page":"preview2.html",
-      "title":"PREV2",
-      "boxId":"0"
+      "title":"BUSINESS REPORT",
+      "boxId":"515432449989"
   },
   {
-      "page":"preview3.html",
-      "title":"PREV3",
-      "boxId":"0"
+      "page":"preview1.html",
+      "title":"PITCH BOOK",
+      "boxId":"515432449989"
   },
+
+
   {
       "page":"calendar.html",
-      "title":"IR",
-      "boxId":"0"
-  },
-  {
-      "page":"openwith.html",
-      "title":"OPENWITH",
-      "boxId":"0"
-  },
-  {
-      "page":"uploader.html",
-      "title":"UPLOADER",
+      "title":"INVESTOR INFO",
       "boxId":"0"
   }
 

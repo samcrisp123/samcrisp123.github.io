@@ -1,7 +1,7 @@
 body{
 	margin:0;
 	font:600 16px/18px 'Open Sans',sans-serif;
-	background:url(http://media-assets-05.thedrum.com/cache/images/thedrum-prod/s3-news-tmp-111981-sainsburys_store_front--2x1--940.jpg) no-repeat top;
+	background:url(store.png) no-repeat top;
 	background-size: cover;
 }
 *,:after,:before{box-sizing:border-box}
@@ -17,7 +17,8 @@ a{color:inherit;text-decoration:none}
 	position:relative;
 	box-shadow:0 0px 0px 0 rgba(0,0,0,.15),0 17px 50px 0;
 	background:url(loginlogo.png) no-repeat bottom;
-	background-color: #1d1d1dd6;
+	background-size: 400px ;
+	background-color: #253081;
 }
 .login-html{
 	width:100%;
@@ -60,7 +61,7 @@ a{color:inherit;text-decoration:none}
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
 	color:#FFFFFF;
-	border-color:#FF9900;
+	border-color:#00B1DD;
 }
 .login-form{
 	min-height:345px;
@@ -96,7 +97,7 @@ a{color:inherit;text-decoration:none}
 	font-size:12px;
 }
 .login-form .group .button{
-	background:#FF9900;
+	background:#00B1DD;
 }
 .login-form .group label .icon{
 	width:15px;
@@ -132,7 +133,7 @@ a{color:inherit;text-decoration:none}
 	color:#fff;
 }
 .login-form .group .check:checked + label .icon{
-	background:#FF9900;
+	background:#00B1DD;
 }
 .login-form .group .check:checked + label .icon:before{
 	-webkit-transform:scale(1) rotate(45deg);
