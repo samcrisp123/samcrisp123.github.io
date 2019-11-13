@@ -1,0 +1,239 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Apply for Benefit</title>
+  <!-- for-mobile-apps -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="Bank Card Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+
+
+
+  <script>
+    function setLoader(productType) {
+      if (productType == 'hb') {
+        $("#cc").html('<img src="/Runthebank/loanspinner.gif"/> Processing Housing Application');
+      } else {
+        $("#loan").html('<img src="/Runthebank/loanspinner.gif"/> Processing Loan Application');
+      }
+    }
+    function showResult(productType, idVerified) {
+      if (productType == 'hb') {
+        if (idVerified == 'Yes') {
+          $("#cc").html("We have received your documents and we are pleased to say your application has been submitted.<br/><br/> We will contact you within seven working days<br/><br/>");
+        } else {
+          $("#cc").html("We have received your documents and we have found an issue.<br/><br/> An advisor from the NIDirect will contact you shortly<br/><br/>");
+        }
+      } else {
+        if (idVerified == 'Yes') {
+          $("#loan").html("We have received your documents and we are pleased to say your application has been approved. <br/><br/>Thank you.<br/>");
+        } else {
+          $("#loan").html("We have received your documents and we have found an issue.<br/><br/> An advisor from NIDirect will contact you shortly<br/>");
+        }
+      }
+    }
+    $(document).ready(function() {
+      let searchParams = new URLSearchParams(window.location.search)
+      var productType = searchParams.get("productType");
+      $('#creditloan').on('submit', (function(ev) {
+        ev.preventDefault();
+        console.log("submitted");
+        setLoader(productType);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+          "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.kycClient",
+          "method": "GET",
+          "headers": {
+            "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+          }
+        };
+        var idVerified = "No";
+        $.ajax(settings).done(function(response) {
+          idVerified = response.metadata.enterprise.kycClient.idVerified;
+          if(idVerified=='Yes') {
+
+            copyFiles(productType);
+          }
+
+          window.setInterval(function() {
+            showResult(productType, idVerified);
+          }, 5000);
+        });
+      }));
+      $('#credit').on('submit', (function(ev) {
+        ev.preventDefault();
+        console.log("submitted");
+        setLoader(productType);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+          "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.kycClient",
+          "method": "GET",
+          "headers": {
+            "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+          }
+        };
+        var idVerified = "No";
+        $.ajax(settings).done(function(response) {
+          idVerified = response.metadata.enterprise.kycClient.idVerified;
+          if(idVerified=='Yes') {
+
+            copyFiles(productType);
+          }
+          window.setInterval(function() {
+            showResult(productType, idVerified);
+          }, 5000);
+        });
+      }));
+      if (productType == 'cc') {
+        $("#cc").show();
+      } else {
+        $("#loan").show();
+      }
+      $(function() {
+        $('#customRange3').on('input change', function() {
+          $(this).next($('.slider_label')).html("£ " + this.value);
+        });
+        $('#customRange1').on('input change', function() {
+          $(this).next($('.slider_label')).html("£ " + this.value);
+        });
+        $('#customRangeY').on('input change', function() {
+          $(this).next($('.slider_label')).html(this.value + " years");
+        });
+        $('.slider_label').each(function() {
+          var value = $(this).prev().attr('value');
+          $(this).html("£ " + value);
+        });
+        $('.slider_label_year').each(function() {
+          var value = $(this).prev().attr('value');
+          $(this).html(value + " years");
+        });
+      })
+    });
+    function copyFiles(productType) {
+      var fileId;
+      if(productType=='cc') {
+        fileId='80145485063';
+
+      }
+      else {
+        fileId='80145346310';
+      }
+      $.ajax({
+        method: 'post',
+        url: "https://api.box.com/2.0/folders/"+fileId + "/copy",
+        data: "{\"parent\": {\"id\":" + sessionStorage.getItem('dv') + "}}",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken") },
+        crossDomain: true,
+        cache: false,
+        success: function(response) {
+          console.log(response);
+        },
+        error: function(err) {
+          console.log(JSON.stringify(err));
+          console.log("error:" + err.message);
+        }
+      });
+    }
+  </script>
+
+  <!-- css files -->
+  <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+  <!-- bootstrap css -->
+  <link href="css/style2.css" rel='stylesheet' type='text/css' />
+  <!-- custom css -->
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <!-- fontawesome css -->
+  <!-- //css files -->
+
+  <!-- google fonts -->
+  <link href="//fonts.googleapis.com/css?family=Niramit:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext,thai,vietnamese" rel="stylesheet">
+  <!-- //google fonts -->
+
+</head>
+
+<body>
+
+  <div class="container py-lg-5">
+
+    <div id="cc" style="display:none;">
+      <form id="credit" class="border border-light p-5" action="#" method="get">
+
+        <p class="h4 mb-4 text-left">Credit Card Application</p>
+
+        <label for="textInput">Full name</label>
+        <input type="text" id="name" class="form-control mb-4" value="John Mahedy">
+
+        <select class="browser-default custom-select mb-4" id="cardtype">
+
+          <label for <option value="Choose a card that suits you"></option>
+          <option value="" disabled="" selected="">Type of credit card</option>
+          <option value="Box Basics">Box Basic Card</option>
+          <option value="Box Platinum">Box Platinum Card</option>
+          <option value="Box Black">Box Black Card</option>
+</select>
+        <label for="customRange3">Credit Limit</label>
+        <input type="range" value="500" class="custom-range" min="500" max="5000" step="500" id="customRange3"></input>
+        <span class="slider_label"></span>
+        <ul>
+          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
+          <button id="signbutton" class="btn btn-yellow" type="submit" name="submit"><i class="fab fa-cc-mastercard fa-lg"></i> Apply</button>
+
+
+        </ul>
+
+      </form>
+    </div>
+
+    <div id="loan" style="display:none;">
+      <form id="creditloan" class="border border-light p-5" action="#" method="get">
+
+        <p class="h4 mb-4 text-left">Apply for a home</p>
+
+        <label for="textInput">Full name</label>
+        <input type="text" id="name" class="form-control mb-4" value="John Mahedy">
+
+        <select class="browser-default custom-select mb-4" id="type">
+            <label for <option value="Current status"></option>
+            <option value="" disabled="" selected="">Please select...</option>
+            <option value="HET">Housing Executive Tenant</option>
+            <option value="HAT">Housing Association Tenant</option>
+            <option value="AP">Applicant</option>
+        </select>
+
+        <input type="textarea" rows="5" id="reason" name="name" required minlength="4" maxlength="8">
+
+        <ul>
+          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
+          <br/>
+          <button id="signbutton" class="btn btn-blue" type="submit" name="submit"><i class="fas fa-money-bill fa-2"></i> Apply</button>
+
+        </ul>
+
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<html>
+<title>NIDirect Home</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="./NIDA landing page_files/bootstrap.min.css" rel="stylesheet">
+<link href="./NIDA landing page_files/bootstrap-responsive.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nidirect.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nidirect-responsive.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nida.css" rel="stylesheet">
+<link href="./NIDA landing page_files/Site.css" rel="stylesheet">
+
+<script src="./NIDAAccount_files/jquery.min.js"></script>
+
+<script src="./NIDAAccount_files/bootstrap.js"></script>
+<script src="js/config.json"></script>
+<script src="js/box.js"></script>
+
+<link href="https://identity.nidirect.gov.uk/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<link rel="icon" type="image/vnd.microsoft.icon" href="https://identity.nidirect.gov.uk/images/favicon.ico">
+<link rel="apple-touch-icon" href="https://identity.nidirect.gov.uk/images/favicon.ico">
+<link rel="stylesheet" media="screen and (min-device-width: 1px) and (max-device-width: 449px)" href="./NIDA landing page_files/smalldevice.css">
+<link rel="stylesheet" media="screen and (min-device-width: 450px)" href="./NIDA landing page_files/largedevice.css">
+<style>
+  body {
+    color: #000000;
+    font-family: "Lato", "Helvetica", "Arial", sans-serif;
+    font-size: 14px;
+
+  }
+</style>
+
+<script>
+  $(document).ready(function() {
+    var msg = "Verified user:" + sessionStorage.getItem("userLogin"); <
+    img src = "shield-ok-icon.png" >
+      $("#user").html(msg);
+
+  });
+</script>
+
+<body style="background-color:rgba(244,246,249)">
+  <header>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="http://www.nidirect.gov.uk/">
+            <img alt="n i direct government services" src="/NIDirect/nidirect-logo-2x.png">
+          </a>
+          <div class="nav-collapse collapse">
+            <nav class="topnav">
+              <ul>
+                <li style="text-align: center"><a href="https://www.nidirect.gov.uk/contacts/contacts-az/nida-support">Verified User</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </header>
+
+</body>
+
+</html>

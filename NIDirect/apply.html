@@ -1,0 +1,246 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Apply for Housing Benefit</title>
+  <!-- for-mobile-apps -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <script>
+    addEventListener("load", function() {
+      setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+      window.scrollTo(0, 1);
+    }
+  </script>
+
+  <!-- css files -->
+  <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+  <!-- bootstrap css -->
+  <link href="css/style2.css" rel='stylesheet' type='text/css' />
+  <!-- custom css -->
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <!-- fontawesome css -->
+  <!-- //css files -->
+
+  <!-- google fonts -->
+  <link href="//fonts.googleapis.com/css?family=Niramit:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext,thai,vietnamese" rel="stylesheet">
+  <!-- //google fonts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/NIDirect/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <script>
+    $(document).ready(function() {
+      var addId;
+      var idId;
+      var payslipId;
+      //read address into form values
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.kycAddress",
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+        }
+      };
+      $.ajax(settings).done(function(response) {
+        if (response.metadata) {
+          $("#name").attr("value", response.metadata.enterprise.kycAddress.name);
+          $("#email").attr("value", response.metadata.enterprise.kycAddress.emailAddress);
+          $("#town").attr("value", response.metadata.enterprise.kycAddress.town);
+          $("#address1").attr("value", response.metadata.enterprise.kycAddress.addressLine1);
+          $("#address2").attr("value", response.metadata.enterprise.kycAddress.addressLine2);
+          $("#postcode").attr("value", response.metadata.enterprise.kycAddress.postCode);
+        }
+      });
+
+      $('#kyc').on('submit', (function(ev) {
+        //$("#signbutton").hide();
+
+        ev.preventDefault();
+
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+          "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.citizen",
+          "method": "GET",
+          "headers": {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
+        };
+        $.ajax(settings).done(function(response) {
+          var hasIdValidated = "No";
+          var folderId;
+          console.log(response.name);
+          console.log("Found name:" + response.name + ":validated?" + response.metadata.enterprise.citizen.idVerified);
+          hasIdValidated = response.metadata.enterprise.citizen.idVerified;
+          folderId = response.id;
+
+          if (hasIdValidated == "Yes") {
+            //Metdata found
+            console.log("showing modal");
+            $("#confirmModal").show();
+            $("#confirmModal").modal()
+            $(".good").show();
+
+            window.setInterval(function() {
+              window.location.replace('/NIDirect/product.html?productType=' + $("type").val);
+            }, 10000);
+          } else {
+            //Get folder ID of address verification folders
+            //apply metadata from form
+            var settings = {
+              "async": true,
+              "crossDomain": true,
+              "url": "https://api.box.com/2.0/folders/" + folderId + "/items?type=folder&fields=id,name",
+              "method": "GET",
+              "headers": {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")}
+            };
+            $.ajax(settings).done(function(response) {
+              $.each(response.entries, function(k, data) {
+                if (data.name == 'Address Verification Documents') {
+                  addId = data.id;
+                  sessionStorage.setItem("addressFolderId", addId);
+                }
+                if (data.name == 'ID Documents') {
+                  idId = data.id;
+                  sessionStorage.setItem("idFolderId", idId);
+                }
+                if (data.name == 'Payslips') {
+                  payslipId = data.id;
+                  sessionStorage.setItem("payslipsFolderId", payslipId);
+
+                }
+              });
+              //Apply metadata
+              var data = "{\"firstName\":\"" + $("#name").val() + "\",";
+              data = data + "\"addressLine1\":\"" + $("#address1").val() + "\",";
+              data = data + "\"addressLine2\":\"" + $("#address2").val() + "\",";
+              data = data + "\"towncity\":\"" + $("#town").val() + "\",";
+              data = data + "\"postCode\":\"" + $("#postcode").val() + "\"}";
+              var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://api.box.com/2.0/folders/" + addId + "/metadata/enterprise_206908859/kycAddressVerification",
+                "method": "POST",
+                "headers": {"Authorization": "Bearer " + sessionStorage.getItem("accessToken"),"Content-Type": "application/json"},
+                "data": data
+              };
+              $.ajax(settings).done(function(response) {
+                var cdata = "{\"folder_id\":\"" + addId + "\",";
+                cdata = cdata + "\"scope\":\"enterprise_206908859\",";
+                cdata = cdata + "\"templateKey\":\"kycAddressVerification\"}";
+                var settings = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "https://api.box.com/2.0/metadata_cascade_policies",
+                  "method": "POST",
+                  "headers": {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
+                  "data": cdata
+                };
+                $.ajax(settings).done(function(response) {
+                  console.log("showing modal");
+                  $("#confirmModal").show();
+                  $("#confirmModal").modal();
+                  $(".bad").show();
+
+                  window.setInterval(function() {
+                    window.location.replace('/NIDirect/newphoto.html?productType=' + $("#type").val() + '&folderId=' + folderId);
+                  }, 10000);
+
+                });
+              });
+            });
+          }
+        });
+      }));
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <!-- header -->
+  <header>
+  </header>
+  <!-- //header -->
+
+  <!-- contact -->
+
+  <div class="container">
+
+
+      <form id="kyc" action="#ß" method="get">
+
+        <p class="h4 mb-3 text-left">Benefit Application</p>
+
+        <label for="textInput">Full name</label>
+        <input type="text" id="name" class="form-control mb-3" value="John Mahedy">
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" class="form-control mb-3" value="john.mahedy@gmail.com">
+
+        <label for="email">Address Line 1</label>
+        <input type="text" id="address1" class="form-control mb-3" value="Market Street">
+
+        <label for="email">Address Line 2</label>
+        <input type="text" id="address2" class="form-control mb-3" value="The Square">
+
+        <label for="email">Town</label>
+        <input type="text" id="town" class="form-control mb-3" value="Belfast">
+
+        <label for="email">Postal Code</label>
+        <input type="text" id="postcode" class="form-control mb-3" value="BT15 2GZ">
+
+        <label for="type">What service are you applying for?</label>
+
+
+        <select class="browser-default custom-select mb-3" id="type">
+
+          <option value="" disabled="" selected="">Benefit - Please select</option>
+          <option value="hb">Housing Benefit</option>
+          <option value="cb">Child Benefit</option>
+          <option value="mg">Disability</option>
+      </select>
+
+        <ul>
+          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
+          <button id="signbutton" class="btn primary-blue" type="submit" name="submit">Next</button>
+        </ul>
+
+      </form>
+  </div>
+  <!-- move top -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Checking For Documents</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+
+
+    </div>
+  </div>
+  </body>
+
+</html>

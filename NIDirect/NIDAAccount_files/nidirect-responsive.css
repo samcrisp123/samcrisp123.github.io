@@ -1,0 +1,342 @@
+/* ### responsive layout ### */
+
+
+/* minor breakpoint */
+
+@media (max-width: 979px) {
+	.page {
+		border-left: 0;
+		border-right: 0;
+		box-shadow: 0;
+		width: 100%;
+	}
+	
+	/* remove the default abbreviation styling */
+	abbr[title], abbr[data-original-title] {
+		border-bottom: none;
+		cursor: default;
+	}
+	
+	/* home page tiles */
+	.tilelinks li ul li {
+		line-height: 1.313em; /* 21px */
+		margin-bottom: 6px;
+	}
+	.loginform fieldset {
+		border-right: 0;
+		width: 100%;
+	}
+	.loginform fieldset#register {
+		margin-top: 1em;
+	}
+}
+
+/* medium */
+@media (max-width: 767px) {
+	
+	/* resize the nidirect logo and service name */
+	.navbar .brand {
+		display: block;
+		float: left;
+		padding-right: 0;
+	}
+	.navbar .brand img {
+		min-width: 120px;
+		width: 120px;
+	}
+	.branding {
+		margin: 2em 3.125%;
+		padding-bottom: 2em;
+	}
+	.branding a {
+		display: none;
+	}
+	.branding .service-name {
+		font-size: 21px;
+		padding: 0;
+	}
+	.branding .service-name span {
+		display: inline;
+		font-size: 16px;
+	}
+	
+	/* show the menu button - overrides bootstrap */
+	.navbar .btn-navbar {
+		display: block;
+	}
+	
+	.dropdown .caret {
+		margin-top: 8px;
+	}
+	
+	/* change the top nav to a menu button */
+	.navbar {
+		margin-bottom: 0;
+	}
+	.topnav ul {
+		float: none;
+		padding: 0 0 1em 0;
+		text-align: left;
+	}
+	.topnav ul li {
+		border: 0;
+		display: block;
+		float: none;
+		padding: 0;
+	}
+	.topnav ul li a {
+		display: block;
+		padding: 4px 0;
+	}
+	.topnav ul li.current {
+		padding: 4px 0;
+	}
+	.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+		padding: 2px 0;
+	}
+	.nav-collapse, .nav-collapse.collapse {
+		overflow: invisible;
+		/* fix issue with bootstrap v2.3.2 collapse menu on Chrome for Android */
+		transform: none;
+		-ms-transform: none;
+		-webkit-transform: none;
+	}
+	ul.dropdown-menu li{
+		display: list-item;
+		list-style: square;
+		margin-left: 0.5em;
+	}
+	
+	p, ul, ol, form {
+		line-height: 1.313em; /* 21 px */
+	}
+	
+	/* homepage tiles */
+	.tilelinks li {
+		width: 100%;
+		clear: both;
+		display: block;
+		margin-right: 0;
+	}
+	.tilelinks li img {
+		display: none;
+	}
+	.tilelinks li ul li {
+		display: list-item;
+		width: 98%;
+	}
+	
+	/* position the inline validation error below the input */
+	.inline-error {
+		clear: both;
+		margin-left: 0;
+		margin-top: 12px;
+	}
+	.inline-error .arrow {
+		border-bottom-color: #FBB6B9;
+		border-left-color: transparent;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-width: 0 11px 11px 11px;
+		top: 0;
+		left: 10px;
+	}
+	.inline-error .arrow:after {
+		border-bottom-color: #FFEFED;
+		border-left-color: transparent;
+		border-right-color: transparent;
+		border-top-color: transparent;
+		border-width: 0 11px 11px 11px;
+		content: "";
+		top: 1px;
+		left: -11px;
+	}
+	img.error-icon {
+		border: 0 none;
+		clip: rect(0px, 0px, 0px, 0px);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+	
+	/* form stuff */
+	form div.checkbox {
+		padding-left: 0;
+		width: 98.5%;
+	}
+	form p.form-label {
+		margin: 0;
+	}
+	
+	/* footer redraw */
+	footer ul {
+		margin: 0;
+		overflow: hidden;
+		padding-top: 6px;
+	}
+	footer ul li {
+		border-bottom: 1px solid #bebebe;
+		border-right: 0;
+		display: block;
+		float: left;
+		margin: 4px 0 4px 3.125%;
+		padding: 0 0 4px 0;
+		width: 45%;
+		white-space: nowrap;
+	}
+	
+	/* tables */
+	table.standard {
+		border-spacing: 2px;
+	}
+	table.standard th, table.standard td {
+		padding: 3px;
+	}
+	
+	/* log in and registration */
+	.loginform fieldset {
+		width: 100%;
+	}
+	.loginform fieldset#login {
+		margin-right: 0;
+		padding-right: 0;
+	}
+}
+	
+/* small */
+@media (max-width: 480px) {
+	header {
+		height: auto;
+	}
+	a.elink {
+		padding-right: 16px;
+	}
+	
+	/* top navigation and branding */
+	.navbar .btn-navbar span.menu {
+		display: none;
+	}
+	.branding .service-name span.beta {
+		display: block;
+	}
+	.icon-bar {
+		margin-top: 0;
+	}
+	.navbar .btn-navbar {
+		display: block;
+		margin-top: 11px;
+		padding: 6px 10px;
+	}
+	
+	/* reduce the heading sizes */
+	h1 {
+		font-size: 1.5em; /* 24px */
+	}
+	h2 {
+		font-size: 1.25em; /* 21px */
+	}
+	h3 {
+		font-size: 1.125em; /* 18px */
+		font-weight: bold;
+	}
+	
+	/* homepage tiles */
+	ul.tilelinks {
+		width: 98%;
+	}
+	
+	/* form elements */
+	textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus, select:focus {
+		border-width: 2px;
+	}
+	textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		min-height: 2.5em; /* 40px */
+		padding-right: 0;
+		width: 100%;
+	}
+	form textarea {
+		height: auto;
+	}
+	form select {
+		min-height: 2.5em; /* 40px */
+		padding: 8px 5px;
+	}
+	form textarea {
+		padding-right: 3px;
+	}
+	input.input-error {
+		border-width: 2px;
+	}
+	form div.error-inner {
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		border-width: 2px;
+		margin: 0;
+		width: 100%;
+	}
+	input.short {
+		width: 60%;
+	}
+	
+	div.radio label, div.checkbox label {
+		margin-bottom: 4px;
+	}
+	
+	/* progress tracker */
+	.progress-tracker {
+		font-size: 0.938em; /* 15px */
+	}
+	.progress-tracker ol {
+		padding-right: 1em;
+	}
+	.progress-tracker ol li {
+		bottom: 15px;
+		margin-left: 1em;
+		padding: 3px 9px;
+	}
+	.progress-tracker ol li.active {
+		padding: 2px 0 3px 0;
+	}
+	.progress-tracker ol li.active:before {
+		top: -2px;
+		left: -16px;
+		width: 15px;
+	}
+	.progress-tracker ol li.active span {
+		right: 9px;
+	}
+	
+	/* tables */
+	table.standard td {
+		word-break: break-all;
+	}
+	
+	/* turns labelled progress tracker into numbered tracker 
+	.progress-tracker ol {
+		counter-reset: item;
+	}
+	.progress-tracker ol li:before {
+		content: counter(item) "  "; 
+		counter-increment: item;
+	}
+	.progress-tracker ol li span {
+		display: none;
+	}
+	.progress-tracker ol li.active {
+		padding: 4px 5px;
+	}
+	.progress-tracker ol li.active:before {
+		background: #0282BF;
+		content: counter(item) "  ";
+		position: static;
+	}
+	*/
+	
+}

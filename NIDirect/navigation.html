@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<title>NIDirect Navigation Menu</title>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.proto.min.js" integrity="sha256-caJ5d3++BXLzBy3MKsOiJWHlVgh8O3W61W/XxBN3u1I=" crossorigin="anonymous"></script>
+
+<link rel="shortcut icon" href="https://www.nidirect.gov.uk/sites/all/themes/nidirect_theme/favicon.ico" type="image/vnd.microsoft.icon">
+
+<script>
+  $(document).ready(function() {
+    var links = document.getElementsByTagName("a");
+    $("#name").text(sessionStorage.getItem("userName"));
+console.log(links.length);
+for(var i = 0; i < links.length; i++) {
+  links[i].addEventListener("click", function() {
+    var current = document.getElementsByClassName("active");
+    current[2].className = current[2].className.replace("active", "");
+    current[1].className = current[1].className.replace("active", "");
+    current[0].className = current[0].className.replace("active", "");
+    console.log(current.length);
+    this.className = this.className + " active";
+    this.parentNode.className= this.parentNode.className + " active";
+    this.previousSibling.className=this.previousSibling.className + " active";
+  });
+}
+});
+</script>
+<style>
+
+
+li {
+    white-space: nowrap;
+
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+
+ul {
+    white-space: nowrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.nav {
+  display:block;
+}
+
+li a {
+    color: #2096f3;
+    text-align: left;
+    text-decoration: none;
+
+}
+
+
+li p:hover {
+    background-color: #cec4c4;
+    color: white;
+
+}
+
+
+.active {
+  background-color:#F4F6F9;
+  color:#0d1e63 !important;
+}
+.person {
+  font-size: 16px;
+  font-style: Roboto;
+
+  vertical-align: super;
+}
+.smaller {
+  font-size: 10px;
+  vertical-align: super;
+  margin-top: -10px;
+}
+.subnav {
+  margin-top:20px;
+  margin-left:20px;
+}
+.subnav li{
+  padding: 5px;
+  font-size: 12px;
+  font-weight: 600;
+
+}
+.subnav li:hover{
+  background-color: #f7f7f7;
+  color: white;
+
+
+}
+</style>
+</head>
+<body style= "height:100%" bgcolor="#F4F6F9">
+<div style="margin-left:25px;">
+  <ul class="user">
+    <li >
+      <span>
+        <i style="padding-top: 15px;" class="fas fa-user-circle fa-3x blue-text ">
+        </i>
+      </span>
+      <span class="person">
+        <a class="person" valign="top" href="myprofile.html" target="main" id="name"></a>
+      </span>
+
+        <div class="smaller" style="margin-left:60px;">
+        <i class="fas fa-pencil-alt fa-1x indigo-text pr-3"></i>
+        My details</div>
+
+    </li>
+
+  </ul>
+
+<ul class="subnav">
+
+  <li class="nav active" ><i class="fas fa-clock fa-1x blue-text pr-3 active" style="width:30px;"></i><a class="active" href="activity.html" target="main">ACTIVITY</a></li>
+  <li  class="nav"><i class="fas fa-envelope fa-1x blue-text pr-3" style="width:30px;"></i><a class="linked" href="messages.html" target="main">MESSAGES</a><span style="margin-left:3px;" class="badge badge-danger badge-pill">3</span></li>
+  <li  class="nav"><i class="fas fa-file-alt fa-1x blue-text pr-3" style="width:30px;"></i><a class="linked" href="documents.html" target="main">DOCUMENTS</a></li>
+  <li  class="nav"><i class="fas fa-check-circle  fa-1x blue-text pr-3" style="width:30px;"></i><a class="linked" href="interests.html" target="main">MY INTERESTS</a></li>
+  <li  class="nav"><i class="fab fab fa-wpforms  fa-1x blue-text pr-3" style="width:30px;"></i><a class="linked" href="apply.html" target="main">APPLY</a></li>
+  <li  class="nav"><i class="fas fa-sign-out-alt fa-1x blue-text pr-3" style="width:30px;"></i><a class="linked" href="login.html" target="_main">LOGOUT</a></li>
+  </ul>
+
+  </div>
+
+  </body>
+  </html>

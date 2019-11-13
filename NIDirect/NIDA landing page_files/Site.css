@@ -1,0 +1,148 @@
+﻿.dayDDL {
+    width: 60px;
+    margin-right: 20px;
+}
+
+.monthDDL {
+    width: 120px;
+}
+
+.yearDDL {
+    width: 50px;
+}
+
+.labelForDayDDL {
+    margin-right: 10px;
+}
+
+.divForDOBDay {
+    height: 40px;
+    width: 70px;
+}
+
+.divForDOBMonth {
+    height: 40px;
+    width: 130px;
+}
+
+.divForDOBYear {
+    height: 40px;
+    width: 100px;
+    margin-bottom: 30px;
+}
+
+.labelForMonthDDL {
+    margin-right: 10px;
+}
+
+.labelForYearDDL {
+    margin-right: 10px;
+}
+
+.dropdown-wide select {
+    max-width: 344px;
+    width: 344px;
+}
+
+.LOA2ActivateSection {
+    margin-top: 40px;
+}
+
+/* Media query for sub menu on account management */
+@media (max-width: 767px) {
+    .accountSideMenu ul li {
+        display: inline-block;
+        width: auto !important;
+        margin-right: 10px;
+        float: left;
+        padding-bottom: 3px;
+    }
+}
+
+/* account management form - no margin-top */
+
+.form.account-management {
+    margin-top: 0;
+}
+
+.activeAccountMenuItem {
+    /*font-weight: bold !important;*/
+}
+
+.account-management-container .validation-summary {
+    max-width: 90%;
+}
+
+@media (max-width: 480px) {
+    .account-management-container .validation-summary {
+        max-width: 85%;
+    }
+}
+
+.break-word {
+    word-wrap: break-word;
+}
+
+.mem-inf {
+    width: 50px !important;
+}
+
+/*
+These classes area input the wrong CSS file in the UXM, so are excluded from the solution
+*/
+
+.form-date-day {
+    width: 70px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 0;
+    clear: none;
+}
+
+.form-date-month {
+    width: 120px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 0;
+    clear: none;
+}
+
+.form-date-year {
+    width: 90px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 0;
+    clear: none;
+}
+
+.form-date label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.noBottomMargin {
+    margin-bottom: 0 !important;
+}
+
+.button-div {
+    width: auto;
+}
+
+.fiftyPercentWidth {
+    width: 50%;
+}
+
+.thirtyPercentWidth {
+    width: 30%;
+}
+
+.fortyPercentWidth {
+    width: 40%;
+}
+
+.sixtyPercentWidth {
+    width: 60%;
+}
+.seventyPercentWidth {
+    width: 70%;
+}

@@ -1,0 +1,1036 @@
+html {
+	font: normal 62.5% "Helvetica Neue" , Arial, Helvetica, sans-serif; /* 10px - i.e. decimal base */
+	height: 100%;
+	overflow-y: scroll; /* always show vertical scrollbar so pages do not shift horizontally */
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 100%; 
+	background: #f1f1f1;
+	color: #2e2e2e; /* To achieve sufficient contrast (3:1) with link colours */
+	height: 100%;
+}
+
+.page {
+	background-color: white;
+	border-bottom: 1px solid #D3D3D3;
+	border-left: 1px solid #D3D3D3;
+	border-right: 1px solid #D3D3D3;
+	box-shadow: 0 0 12px #888888;
+	margin: 0 auto;
+	min-height: 100%;
+	position: relative;
+	width: 960px;
+}
+
+.content {
+	font-size: 1.6em;
+	min-height: 645px;
+	padding: 0 3.125% 32px 3.125%; /* 30px left and right padding @ 'large layout' */
+	width: 93.75%; /* 900 px @ 'large layout' */
+}
+
+/* ### skip nav ### */
+
+.skipnav {
+	background-color: #0C1E63;
+}
+
+.skipnav a {
+	display: block;
+	font-size: 16px;
+	line-height: 2em;
+	padding: 0 30px;
+	position: absolute;
+	text-align: center;
+	top: -999em;
+}
+
+.skipnav a:focus {
+	color: #fff;
+	position: relative;
+	top: 0;
+	text-decoration: none;
+}
+
+/* ### screen reader only ### */
+
+.sr-only {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	position: absolute;
+	padding: 0;
+	width: 1px;
+}
+
+/* ### navbar / top navigation ### */
+
+.navbar {
+	background: #ECECEC;
+	font-size: 1.4em;
+	min-height: 50px;
+}
+
+.navbar-inner {
+	background: #ECECEC;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 0 3.125%;
+}
+
+.navbar .btn-navbar {
+	background-color: #008FC5;
+	background-image: none;
+	border: 2px solid #008FC5;
+	box-shadow: none;
+	font-weight: bold;
+	margin: 7px 0 0 0;
+	padding: 6px 9px;
+}
+
+.navbar .btn-navbar:hover, .navbar .btn-navbar:focus {
+	background-color: #00AAE5;
+	box-shadow: none;
+}
+
+.navbar .btn-navbar:active {
+	border: 2px solid #0C1E63;
+}
+
+.navbar .btn-navbar span.menu {
+	display: block;
+	float: left;
+	padding-left: 22px;
+}
+
+.icon-bar {
+	margin-top: 4px;
+}
+
+.navbar .brand {
+	display: none;
+	padding-left: 0;
+	margin-left: 0;
+}
+
+.topnav ul {
+	background-color: #ececec;
+	list-style: none;
+	padding-top: 15px;
+	float: right;
+	margin: 0px;
+	text-align: right;
+}
+
+.topnav ul li {
+	border-right: 1px solid #bebebe;
+	clear: none;
+	display: inline-block;
+	float: left;
+	margin: 0;
+	padding: 0 7px;
+}
+
+.topnav ul li.current > a{
+	color: 	#2E2E2E;
+}
+
+.topnav ul li:last-child {
+	border-right: none;
+	padding-right: 0;
+}
+
+.topnav ul li a {
+	color: #0c1e63;
+	text-decoration: none;
+}
+
+.topnav ul li a.elink {
+	background: url("../images/new-window.gif") no-repeat scroll right 2px;
+}
+
+.topnav ul li a:hover {
+	text-decoration: underline;
+}
+
+/*
+.topnav ul li ul {
+	padding: 0px;
+}
+
+.topnav ul li ul li {
+	padding: 5px;
+	border-right: none;
+}
+*/
+
+/* drop down menu */
+
+ul.dropdown-menu {
+	background: #fff;
+	border-radius: 0;
+	min-width: 140px;
+	padding-top: 5px;
+	text-align: left;
+}
+
+ul.dropdown-menu li {
+	border-right: 0;
+	float: none;
+	padding: 0;
+	width: 100%;
+}
+
+ul.dropdown-menu li a:hover {
+	background: none;
+	color: #0c1e63;
+}
+
+ul.dropdown-menu > li > a:focus {
+	color: #000;
+}
+
+.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+	color: #0c1e63;
+	font-weight: normal;
+	padding: 3px 12px;
+	* padding: 1px 12px; /* ie7 */
+}
+.nav-collapse .nav > li > a:hover, .nav-collapse .nav > li > a:focus, .nav-collapse .dropdown-menu a:hover, .nav-collapse .dropdown-menu a:focus {
+	background: none;
+}
+
+.dropdown .caret {
+	margin-top: 10px;
+	* margin-top: 7px /* ie7 */
+}
+
+.no-js .dropdown .caret {
+	display: none;
+}
+
+.dropdown-menu .divider {
+	margin: 4px 0;
+}
+
+
+/* ### branding ### */
+
+.branding {
+	border-bottom: 2px solid #CCC;
+	margin: 3.125%;
+	clear: both;
+	overflow: hidden;
+	padding-bottom: 30px;
+}
+
+.nidirectlogo {
+	float: left;
+	min-width: 173px;
+	width: 173px;
+}
+
+.branding a {
+	float: left;
+}
+
+.branding a:focus {
+	float: left;
+	outline: 1px dotted #404040;
+}
+
+.branding .service-name {
+	display: block;
+	float: right;
+	max-width: 480px; 
+	margin: 0; 
+	padding: 2px 0 0 0; 
+	font-size: 28px; 
+	font-weight: normal; 
+	line-height: 1em; 
+	color: #0c1e63;  
+	text-align: right;
+}
+
+.branding .service-name span {
+	display: block;
+	font-style: italic;
+	font-size: 21px;
+	* width: 150px; /* ie7 */
+}
+
+/* ### page tiles ### */
+
+.tilelinks {
+	border-top: 2px solid #ccc;
+	list-style: none;
+	margin: 0;
+	min-height: 350px;
+	padding: 0;
+}
+
+.tilelinks h2 {
+	margin-top: 1.25em;
+}
+
+.tilelinks li {
+	float: left;
+	margin-right: 4%;
+	margin-top: 0;
+	width: 29.3%;
+}
+
+.tilelinks li:first-child {
+	margin-left:0;
+}
+
+.tilelinks li ul {
+	width: 100% !important;
+	list-style: disc;
+	padding: 0px;
+	margin: 0 0 0 1em;
+	* margin-left: 0; /* ie7 */
+}
+
+.tilelinks li ul li {
+	padding: 0;
+	margin: 2px 0;
+	width: 100%;
+}
+.tilelinks li ul li a {
+	text-decoration: underline;
+}
+
+.tilelinks a {
+	display: block;
+	text-decoration: none;
+}
+
+.tilelinks h3 {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.tilelinks a h3:hover {
+	text-decoration: underline;
+}
+
+.tilelinks a p {
+	color: #222;
+	margin-top: 0px;
+}
+
+.tilelinks img {
+	width: 100%;
+	border: 1px solid #eee;
+}
+
+.tilelinks h3, .tilelinks h4, .tilelinks p {
+	padding-left: 0px !important;
+}
+
+/* ### headings ### */
+
+h1, h2, h3, h4, h5, h6 {
+	color: #0c1e63;
+}
+
+h2 strong, h3 strong, h4 strong {
+	font-weight: bold; /* prevent ff7+/ie9+ from making headings 'bolder' */
+}
+
+h1 {
+	font-size: 2em; /* 32px */
+	line-height: 1em;
+	margin: 0 0 0.75em;
+}
+
+h1 span{
+	display: block;
+	font-size: 0.75em;
+	font-weight: normal;
+}
+
+h2 {
+	clear: both;
+	font-size: 1.5em; /* 24px */
+	line-height: 1em;
+	margin: 2.25em 0 0.75em;
+}
+
+h1 + h2, p.intro + h2 { /* first h2 should have less margin top */
+	margin-top: 1.25em;
+}
+
+div > h2 { /* first h2 in the grid should have less margin top */
+	margin-top: 0;
+}
+
+h3 {
+	clear: both;
+	font-size: 1.25em; /* 21px */
+	font-weight: normal;
+	line-height: 1em;
+	margin: 36px 0 16px;
+}
+
+h4 {
+	clear: both;
+	font-size: 1em; /* approx 16px */
+	line-height: 1.5em;
+	margin: 1.5em 0 0; /* 24px 0 0 */
+}
+
+h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: #0c1e63;
+	text-decoration: none;
+}
+
+h2 a:hover, h2 a:focus, h3 a:hover, h3 a:focus, h4 a:hover, h4 a:focus, h5 a:hover, h5 a:focus, h6 a:hover, h6 a:focus {
+	color: #027EB8;
+	text-decoration: none !important;
+}
+
+/* ### content ### */
+
+a {
+	color: #027EB8;
+	text-decoration: underline;
+}
+
+a:hover, a:focus {
+	background: none;
+	color: #0C1E63;
+	text-decoration: underline;
+}
+
+p.intro {
+	color: #404040;
+	font-weight: bold;
+}
+
+p:empty {
+	display: none;
+}
+
+p, ul, ol, form {
+	clear: both;
+	line-height: 1.5em; /* 24px */
+	margin: 0.75em 0 1.5em;
+}
+
+ul, ol {
+	margin-left: 18px;
+}
+
+ol {
+	margin-left: 22px;
+}
+
+li {
+	margin: 0.25em 0;
+	line-height: inherit;
+}
+
+li li {
+	margin-bottom: 0
+}
+
+ul ul, ol ol, ul ol, ol ul {
+	margin-bottom: 0.5em;
+	margin-top: 0;
+}
+
+address {
+	margin-top: 1.3125em;
+	margin-top: 1.5em;
+	font-style: normal;
+}
+
+a.elink {
+	background: url("../images/new-window.gif") no-repeat scroll right 4px;
+	padding-right: 18px;
+}
+
+/* ### form elements ### */
+
+form {
+	clear: both;
+	overflow: hidden;
+	margin: 0;
+}
+
+form input, form select, form textarea {
+	border: 1px solid #999;
+	border-radius: 0;
+	color: #303030;
+	font-family: "Helvetica Neue" , Arial, Helvetica, sans-serif;
+	line-height: 1.875em; /* 24px */
+	padding: 5px;
+}
+
+form legend {
+	border-bottom: 0.0834em solid #CCCCCC;
+	color: #0C1E63;
+	font-size: 1.5em;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0.75em 0;
+	padding-bottom: 0.25em;
+	* margin-left: -7px; /* ie7 */
+}
+
+form div {
+	float: left;
+	margin-bottom: 16px;
+	width: 100%;
+}
+
+form label {
+	color: #303030;
+	cursor: default;
+	font-size: 100%;
+	line-height: 1.5em;
+	margin-bottom: 0;
+}
+
+form select {
+	min-height: 2em;
+	min-height: 1.334em\9; /* ie8 */
+	*height: auto; /* ie7 */
+}
+
+form select optgroup {
+	font-style: normal;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+	border: 1px solid #999999;
+	width: 344px;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+	border-radius: 0 0 0 0;
+	color: #303030;
+	float: left;
+	font-size: 1em;
+	height: 1.875em;
+	line-height: 1.875em;
+	margin-bottom: 0;
+	padding: 0 6px;
+}
+
+.radio, .checkbox {
+	padding-left: 0;
+}
+
+.radio input[type="radio"], .checkbox input[type="checkbox"] {
+	border: 0;
+	clear: both;
+	margin: 5px 7px 0 0;
+	* margin-top: 2px; /* ie7 */
+	padding: 0;
+}
+
+select[multiple], select[size] {
+	width: auto;
+}
+
+form textarea {
+	height: auto;
+	line-height: 1.25em; /* 20px */
+}
+
+input.short{ 
+	width: 206px;
+}
+
+img.required {
+	margin-top: -3px;
+}
+
+form p.form-label {
+	margin: 0;
+}
+
+form p.forgot-password {
+	margin-bottom: 0;
+}
+
+form small, form span.hint {
+	display: block;
+	clear: both;
+	font-size: 0.813em; /* 13px */
+	line-height: 1.538em; /* 20px */
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus {
+	box-shadow: none;
+	border: 1px solid #00AAE5;
+}
+
+select:focus {
+	border: 1px solid #00AAE5;
+	outline: none;
+}
+
+/* ### validation ### */
+
+span.heading-error {
+	color: #CC0000;
+}
+
+input.input-error, .input-error {
+	border: 1px solid #cc0000;
+}
+
+img.error-icon {
+	float: left;
+	margin: 4px 4px 0 0;
+}
+
+.error-summary {
+	background: url("../images/error-icon.png") no-repeat scroll 16px 16px #FFEFED;
+	border: 1px solid #FDB2B5;
+	color: #CC0000;
+	margin: 2em 0;
+	padding: 1em;
+}
+
+.error-summary p {
+	font-size: 1.25em;
+	font-weight: bold;
+	line-height: 1em;
+	margin: 0;
+	padding-left: 1.25em;
+}
+
+.error-summary ul {
+	margin: 1em 1em 0 1em;
+}
+
+.error-summary a {
+	color: #cc0000;
+	text-decoration: none;
+}
+
+.error-summary a:hover {
+	text-decoration: underline;
+}
+
+.checkbox.error img.error-icon{
+	margin-left: -20px;
+}
+
+.error-inner {
+	border: 1px solid #CC0000;
+	padding: 8px 0 8px 12px;
+	margin: 0;
+	width: 344px;
+}
+
+.radio-error input[type="radio"], .error-inner input[type="checkbox"] {
+	clear: both;
+	margin: 5px 4px 0 0;
+	* margin-top: 2px; /* ie7 */
+}
+
+/* inline validation error */
+
+.inline-error {
+	background: #FFEFED;
+	background-clip: padding-box;
+	background-color: #FFEFED;
+	border: 1px solid #FBB6B9;
+	border-radius: 0;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	clear: none;
+	color: #CC0000;
+	display: block;
+	float: left;
+	left: 0;
+	margin: 0 0 0 20px;
+	max-width: 300px;
+	padding: 1px;
+	position: relative;
+	text-align: left;
+	top: -1px;
+	width: auto;
+	white-space: normal;
+	z-index: 1010;
+}
+
+.inline-error-content {
+	padding: 0;
+	margin: 0;
+}
+
+.inline-error-content p{
+	font-size: 0.875em;
+	margin: 0;
+	padding: 4px 6px;
+}
+
+.inline-error .arrow, .inline-error .arrow:after {
+	border-color: rgba(0, 0, 0, 0);
+	border-style: solid;
+	display: block;
+	height: 0;
+	position: absolute;
+	width: 0;
+}
+.inline-error .arrow {
+	border-width: 11px;
+	border-left-width: 0;
+	border-right-color: #FBB6B9;
+	left: -11px;
+	margin-top: -11px;
+	top: 50%;
+}
+.inline-error .arrow:after {
+	border-width: 10px;
+	border-left-width: 0;
+	border-right-color: #FFEFED;
+	bottom: -10px;
+	content: "";
+	left: 1px;
+}
+
+/* override the bootstrap styles for invalid inputs - frustrating and distracting as visitors can be presented with error styling as the type (eg email address)  */
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
+	border-color: 0;
+	color: inherit;
+}
+input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus {
+	border-color: #00AAE5;
+	box-shadow: inherit;
+}
+
+/* ### buttons ### */
+
+.btn {
+	background: #999;
+	border: 0;
+	border-radius: 0px;
+	color: #fff;
+	display: inline-block;
+	font-size: 1.125em;
+	margin: 0.222em 8px 0.222em 0; /* 4px 8px 4px 0 */
+	padding: 0.5em 1em;
+	text-decoration: none;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+}
+
+button.btn {
+	padding: 0.556em 1em; /* 10px 18px */
+}
+
+a.btn {
+	padding: 0.556em 1em;
+	* padding: 0.667em 1em; /* ie7 */
+}
+
+.btn:hover {
+	color: #fff;
+}
+
+.btn:focus {
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35) inset;
+	outline: 0 none;
+}
+
+.btn:hover, .btn:active, .btn:focus {
+	background: #666;
+	color: #fff;
+}
+
+.btn-primary {
+	background: #008fc5;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus  {
+	background: #00aae5;
+	color: #fff;
+}
+
+.btn-success, .btn-call-to-action {
+	background: #629512;
+}
+
+.btn-success:hover, .btn-success:active, .btn-success:focus ,
+.btn-call-to-action:hover, .btn-call-to-action:active, .btn-call-to-action:focus {
+	background: #6ea614;
+	color: #fff;
+}
+
+.btn-danger, .btn-warning {
+	background: #A61A00;
+}
+
+.btn-danger:hover, .btn-danger:active, .btn-danger:focus,
+.btn-warning:hover, .btn-warning:active, .btn-warning:focus {
+	background: #C91F00;
+	color: #fff;
+}
+
+.btn.arrowr {
+	background-image: url("../images/btn-arrow-right.png");
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding-right: 28px;
+}
+
+.btn.arrowl {
+	background-image: url("../images/btn-arrow-left.png");
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 28px;
+}
+
+.btn-large {
+	font-size: 1.25em;
+	margin-top: 0.75em;
+}
+
+.btn-small {
+	font-size: 0.875em;
+	margin-top: 0.25em;
+}
+
+.btn-inline, button.btn-small {
+	margin: 0 0 0 4px;
+	padding: 0.429em 1em;
+}
+
+input.btn-small {
+	padding-top: 8px;
+}
+
+a.btn-small {
+	line-height: 1.286em; /* 18px */
+	padding: 0.5em 1em;
+}
+
+/* ### information notice ### */
+
+.info-notice {
+	background: url("../images/info-icon.png") no-repeat scroll 7px 0.5em;
+	border: 2px solid #00AAE5;
+	clear: left;
+	float: left;
+	margin: 0 0 1.375em 0; /* 22px */
+	min-height: 21px;
+	padding: 0.563em 0.563em 0.563em 34px; /* 9px 9px 9px 34px */
+}
+
+/* ### tables ### */
+
+table { 
+	margin-top:10px;
+}
+
+table.standard {
+	border: 3px solid #D0E9FC;
+	border-collapse: separate;
+	border-spacing: 3px;
+	table-layout: fixed;
+	width: 99%;
+}
+
+table.standard th, table.standard td {
+	padding: 0.375em 6px;
+}
+
+table.standard th {
+	background-color: #D0E9FC;
+	color: #0D0348;
+	text-align: left;
+	vertical-align: top;
+}
+
+table.standard th p {
+	
+}
+
+table.standard th strong {
+	font-weight: bold;
+}
+
+table.standard td {
+	background: none repeat scroll 0 0 #F1F6FB;
+	color: #2E2E2E;
+	vertical-align: top;
+}
+
+table.standard td p:first-child {
+	
+}
+
+table.standard td ul {
+	margin-top: 0;
+}
+
+table.unfixed {
+	table-layout: auto !important;
+}
+
+table.summary { 
+	width:50%;
+}
+
+table.summary th, table.summary td { 
+	padding:10px;
+}
+
+table.summary th{ 
+	text-align:right;
+	width:50%; 
+}
+
+/* ### footer ### */
+
+footer {
+	background-color: #ececec;
+	min-height: 50px;
+	font-size: 1.4em;
+}
+
+footer ul {
+	list-style: none;
+	padding-top: 16px;
+	margin: 0 0 0 23px;
+	* margin-top: 16px; /* ie7 */
+	* padding-top: 0; /* ie7 */
+}
+
+footer ul li {
+	border-right: 1px solid #BEBEBE;
+	display: inline-block;
+	clear: none;
+	float: left;
+	margin: 0;
+	padding: 0 7px;
+}
+
+footer ul li:last-child {
+	border-right: none;
+	padding-right: 0;
+}
+
+footer ul li a {
+	color: #0c1e63;
+	text-decoration: none;
+}
+
+footer ul li a:hover {
+	text-decoration: underline;
+}
+
+footer a.elink {
+	background: url("../images/new-window.gif") no-repeat scroll right 2px;
+}
+
+/* ### design patterns ### */
+
+/* # address lookup # */
+
+.no-js  div#address-lookup{
+	display: none;
+}
+
+div#address-lookup p {
+	margin-bottom: 0;
+}
+
+div#select-address2 div.radio {
+	border: 1px solid #999;
+	height: 115px;
+	overflow-y: scroll;
+	padding: 5px;
+	width: 344px;
+}
+
+/* # log in / registration # */
+
+.loginform fieldset {
+	float: left;
+	width: 415px;
+}
+
+.loginform fieldset#login {
+	border-right: 2px solid #ccc;
+	margin-right: 2em;
+	padding-right: 2em;
+}
+
+.loginform p.mandatory {
+	margin: 0;
+}
+
+/* # progress tracker # */
+
+.progress-tracker {
+	margin: 3em 0;
+	text-align: center;
+}
+
+.progress-tracker ol {
+	background-color: #EEE;
+	box-shadow: 0 1px 1px #999 inset;
+	display: inline-block;
+	height: 5px;
+	list-style: none;
+	overflow: visible;
+	margin: 0 auto;
+	padding: 0 1.5em 0 0;
+	text-align: center;
+	* border: 1px solid #ddd; /* ie 7 */
+}
+
+.progress-tracker ol  li {
+	background-color: #eee;
+	border: 1px solid #ddd;
+	bottom: 18px;
+	box-shadow: 0 -1px 1px #999;
+	color: #2e2e2e;
+	float: left;
+	font-weight: bold;
+	margin-left: 1.5em;
+	padding: 4px 12px;
+	position: relative;
+	text-shadow: 1px 1px #FFF;
+}
+
+.progress-tracker ol  li.active {
+	background-color: #0282BF;
+	border: 1px solid #0282BF;
+	border-bottom: 2px solid #0C1E63;
+	box-shadow: 0 -1px 1px #aaa;
+	color: #fff;
+	padding: 4px 0;
+	text-shadow: -1px -1px #0C1E63;
+	* padding: 4px 12px;
+}
+
+.progress-tracker ol  li.active span {
+	right: 12px;
+	position: relative;
+	* position: static; /* ie 7 */
+}
+
+.progress-tracker ol  li.active:before {
+	background-color: #0c1e63;
+	content: "";
+	display: inline-block;
+	left: -25px;
+	height: 5px;
+	top: -3px;
+	width: 24px;
+	position: relative;
+}

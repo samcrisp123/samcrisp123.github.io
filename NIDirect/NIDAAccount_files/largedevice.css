@@ -1,0 +1,19 @@
+﻿.contactNo {
+    float: right;
+}
+
+.validation-summary {
+    max-width: 40em;
+}
+
+.createAccountBtnDiv {
+    width: 60%;
+}
+
+.createAccountBackBtnDiv {
+    width: 40%;
+}
+
+.findAddressBtnDiv {
+    width: 40%;
+}

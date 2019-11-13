@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<!-- Box preview SDK -->
+<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/uploader.css">
+<script src="https://cdn01.boxcdn.net/platform/elements/9.1.0/en-US/uploader.js"></script>
+
+
+<script src="js/config.json"></script>
+<script src="js/box.js"></script>
+<style>
+  input[type=text],
+  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #2096f3;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  p {
+    font-family: sans-serif;
+    font-size: 18px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #2096f3;
+    text-align: left;
+  }
+
+  label,
+  select,
+  input,
+  option {
+    font-family: sans-serif;
+    font-size: 12px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #2096f3;
+
+  }
+
+
+  .bcu-footer {
+    display: none;
+  }
+</style>
+
+<script>
+  var accessToken;
+  var contentUploader = new Box.ContentUploader();
+
+  $(document).ready(function() {
+    getAccessToken().then(function(result) {
+      accessToken=result;
+      contentUploader.show(sessionStorage.getItem("hi"), result, {
+        container: '.pcontainer'
+      });
+    });
+        $("#uploadfiles").on('submit', (function(ev) {
+          ev.preventDefault();
+          $(".btn-primary").trigger("click");
+
+        }));
+
+        contentUploader.addListener('complete', function(files) {
+          //window.location.replace('/Arriva/uploadedcctv.html');
+
+        });
+        contentUploader.addListener('complete', function(file) {
+            console.log("complete:" + JSON.stringify(file));
+            var counter = 0;
+            var target = file.length;
+            file.forEach(function(f) {
+                //call metadata with fil
+                var id = f.id;
+                var data = "{\"firstName\":\"" + $("#fname").val() + "\",";
+                data = data + "\"surname\":\"" + $("#lname").val() + "\",";
+                data = data + "\"addressLine1\":\"" + $("#addressLine1").val() + "\",";
+                data = data + "\"addressLine2\":\"" + $("#addressLine2").val() + "\",";
+                data = data + "\"postCode\":\"" + $("#postCode").val() + "\",";
+                data = data + "\"city\":\"" + $("#city").val() + "\",";
+                data = data + "\"description\":\"" + $("#description").val() + "\",";
+                data = data + "\"safetyIssue\":\"" + $("#safetyIssue").val()+ "\"}";
+                console.log(data);
+                var settings = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "https://api.box.com/2.0/files/" + id + "/metadata/enterprise_206908859/housingConditions",
+                  "method": "POST",
+                  "headers": {
+                    "Authorization": "Bearer " + accessToken,
+                    "Content-Type": "application/json",
+                    "Cache-Control": "no-cache"
+                  },
+                  "processData": false,
+                  "data": data
+                };
+
+                $.ajax(settings).done(function(response) {
+                  counter++;
+                  if (counter == target) {
+                    console.log("now we can redirect");
+                    window.location.href = "/NIDirect/main.html";
+                  }
+
+              });
+            });
+          });
+      });
+</script>
+
+<body>
+
+  <br>
+
+  <P>Housing Conditions Report</p>
+
+  <br>
+  <div style="width: 100%; overflow: hidden;z-index:-9999;">
+    <div style="width: 600px; float: left;z-index:-9999;">
+      <form id="uploadfiles" action="#" method="get">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name.." required>
+
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
+
+        <label for="addressLine1">Address Line 1</label>
+        <input type="text" id="addressLine1" name="addressLine1" placeholder="Address Line 1.." required>
+
+        <label for="addressLine2">Address Line 2</label>
+        <input type="text" id="addressLine2" name="addressLine2" placeholder="Address Line 2.." required>
+
+        <label for="postCode">Post Code</label>
+        <input type="text" id="postCode" name="postCode" placeholder="Post Code.." required>
+
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" placeholder="City.." required>
+
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" placeholder="Description.." required>
+
+
+        <label for="safetyIssue">Safety Issue</label>
+        <select id="safetyIssue" name="safetyIssue" required style="height:35px;">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <input type="submit" id="submit" value="Upload to Portal">
+      </form>
+    </div>
+    <div style="margin-left: 620px;z-index:9999;" class="pcontainer">
+    </div>
+  </div>
+
+</body>
+
+</html>

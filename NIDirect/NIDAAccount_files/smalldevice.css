@@ -1,0 +1,27 @@
+﻿.contactNo {
+    float: left;
+    width: 100%;
+}
+
+.mobileMenuItem {
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+
+.validation-summary {
+    max-width: 19em;
+}
+
+.createAccountBtnDiv {
+    width: 63%;
+}
+
+.createAccountBackBtnDiv {
+    width: 37%;
+}
+
+.findAddressBtnDiv {
+    width: 40%;
+    margin-top: 15px;
+}

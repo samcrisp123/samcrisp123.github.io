@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+  <title>Move</title>
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/explorer.css" />
+  <script src="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/explorer.js"></script>
+  <script src="js/box.js"></script>
+
+</head>
+
+<body>
+
+  <script>
+  let searchParams = new URLSearchParams(window.location.search)
+
+    const folderIdA = searchParams.get("boxId");
+    const folderIdB = searchParams.get("boxId2");
+    const explorerA = new Box.ContentExplorer();
+    const explorerB = new Box.ContentExplorer();
+    var sourceId;
+    var targetFolder;
+    var sourceType;
+    var sourceCurrent=folderIdA;
+    var targetCurrent=folderIdB;
+    var undoSettings;
+    var accessToken = "";
+    var justMovedS = false;
+    var justMovedT = false;
+    $(document).ready(function() {
+
+    getAccessToken().then(function(result) {
+      accessToken=result;
+        loadExplorerA(result);
+        loadExplorerB(result);
+      });
+      //});
+      $("#undoButton").on('click',(function(ev) {
+        $.ajax(undoSettings).done(function(response) {
+          console.log(response);
+          reload();
+        });
+
+      }));
+      $("#mover").on('submit', (function(ev) {
+        var url = "https://api.box.com/2.0/" + sourceType + "s/" + sourceId;
+        ev.preventDefault();
+        console.log("moving " + sourceId + " to " + targetFolder);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": url,
+          "method": "PUT",
+          "headers": {
+            "Authorization": "Bearer " + accessToken,
+            "Cache-Control": "no-cache"
+          },
+          "data": "{\"parent\": {\"id\" : " + targetFolder + "}}"
+        }
+
+        $.ajax(settings).done(function(response) {
+          console.log(response);
+          $(".loader").hide();
+          //Show undo button and create settings for undo
+          undoSettings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.box.com/2.0/" + sourceType + "s/" + sourceId,
+            "method": "PUT",
+            "headers": {
+              "Authorization": "Bearer " + accessToken,
+              "Cache-Control": "no-cache"
+            },
+            "data": "{\"parent\": {\"id\" : " + sourceCurrent + "}}"
+          };
+          reload();
+          console.log('toggle move off, toggle undo on');
+          toggleButtonOn('undoButton');
+          toggleButtonOff('moveButton');
+          justMovedS=true;
+          justMovedT=true;
+        });
+      }));
+    });
+    function reload() {
+      explorerA.hide();
+      explorerA.clearCache();
+      explorerB.hide();
+      explorerB.clearCache();
+      loadExplorerA();
+      loadExplorerB();
+    }
+    function loadExplorerA(token) {
+      explorerA.show(sourceCurrent, token, {
+        container: '.explorer-a',
+        logoUrl: "",
+        canDownload: false,
+        canDelete: false,
+        canRename: false,
+        canShare: false,
+        canSetShareAccess: false,
+        canUpload: false,
+        canCreateNewFolder: false
+
+      });
+      explorerA.addListener('select', (item) => {
+        sourceId = item[0].id;
+        sourceType = item[0].type;
+        if (targetFolder != null) {
+          toggleButtonOn('moveButton');
+        }
+      });
+      explorerA.addListener('navigate',(folder)=> {
+        sourceCurrent=folder.id;
+        sourceFolder=null;
+        console.log('toggle move off, toggle undo off ' + justMovedS);
+        toggleButtonOff('moveButton');
+        if(justMovedS) {
+          justMovedS=false;
+        }
+        else {
+          toggleButtonOff('undoButton');
+        }
+
+
+      });
+      explorerA.addListener('preview',(file) => {
+        console.log("preview:" + file.id);
+      });
+    }
+    function toggleButtonOn(id) {
+        document.getElementById(id).disabled = false;
+    }
+    function toggleButtonOff(id) {
+
+        document.getElementById(id).disabled = true;
+    }
+      function loadExplorerB(token) {
+        explorerB.show(targetCurrent, token, {
+          container: '.explorer-b',
+          logoUrl: "",
+          canDownload: false,
+          canDelete: false,
+          canRename: false,
+          canShare: false,
+          canSetShareAccess: false
+        });
+        explorerB.addListener('select', (item) => {
+          targetFolder = item[0].id;
+          var targetType = item[0].type;
+          if (sourceId != null && targetType=='folder') {
+            toggleButtonOn('moveButton');
+          }
+          else {
+            toggleButtonOff('moveButton');
+          }
+        });
+        explorerB.addListener('navigate',(folder)=> {
+          targetCurrent=folder.id;
+          targetFolder=null;
+          console.log('toggle move off, toggle undo off ' + justMovedT);
+          toggleButtonOff('moveButton');
+          if(justMovedT) {
+            justMovedT=false;
+          }
+          else {
+            toggleButtonOff('undoButton');
+          }
+        });
+      }
+
+  </script>
+
+  <style>
+    p {
+      color: #54698D;
+      font-family: "Lato", "Helvetica", "Arial", sans-serif;
+      font-size: 14px;
+
+    }
+    .panel-actions {
+  margin-top: -20px;
+  margin-bottom: 0;
+  text-align: right;
+}
+.panel-actions a {
+  color:#333;
+}
+.panel-fullscreen {
+    display: block;
+    z-index: 9999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: auto;
+}
+  </style>
+
+
+  <div class="container-fluid">
+	<div class="row">
+
+	</div>
+	<div class="row mtm mbl">
+		<div class="col col-md-5">
+
+			<!-- Box Content Explorer -->
+			<div class="tab-pane show active mts" style="border: 1px solid #cdd4de; padding: 10px" role="tabpanel" id="explorer">
+				<div style="height:400px" class="explorer-a"><span class='loader'><img src='../img/ajax-loader.gif'/></span></div>
+			</div>
+		</div>
+		<div class="col col-sm-1">
+      <form id=mover class="form-inline" action="/create-collaboration" method="post">
+				<div class="form-group">
+				</div>
+				<button id="moveButton" type="submit" class="btn btn-primary btn-sm" style="margin-top:150px;margin-left:15px;" disabled>
+        Move-></button>
+        	<button id="undoButton" type="button" class="btn btn-primary btn-sm" style="margin-top:10px;margin-left:15px;" disabled>
+            <-Undo</button>
+			</form></div>
+
+		<div class="col col-md-5">
+			<!-- Box Content Explorer -->
+			<div class="tab-pane show active mts" style="border: 1px solid #cdd4de; padding: 10px" role="tabpanel" id="explorer">
+				<div style="height:400px" class="explorer-b"><span class='loader'><img src='../img/ajax-loader.gif'/></span></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+  <style>
+    .be-search {
+      display: none;
+    }
+    .be-header{
+      display: none;
+    }
+    .mts {
+      margin-top: 20px;
+    }
+
+    .mtm {
+      margin-top: 40px;
+    }
+
+    .mtl {
+      margin-top: 100px;
+    }
+
+    .mbl {
+      margin-bottom: 100px;
+    }
+
+    .mls {
+      margin-left: 10px !important;
+    }
+  </style>
+
+</body>
+
+</html>

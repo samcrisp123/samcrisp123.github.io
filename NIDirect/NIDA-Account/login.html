@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>NIDA landing page</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link href="bootstrap.min.css" rel="stylesheet"/>
+<link href="bootstrap-responsive.css" rel="stylesheet"/>
+<link href="nidirect.css" rel="stylesheet"/>
+<link href="nidirect-responsive.css" rel="stylesheet"/>
+<link href="nida.css" rel="stylesheet"/>
+<link href="Site.css" rel="stylesheet"/>
+
+
+    <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/images/favicon.ico" />
+    <link rel="apple-touch-icon" href="favicon.ico" />
+    <link rel="stylesheet" media="screen and (min-device-width: 1px) and (max-device-width: 449px)" href="/Content/smalldevice.css" />
+    <link rel="stylesheet" media="screen and (min-device-width: 450px)" href="/Content/largedevice.css" />
+</head>
+
+<body class="no-js">
+    <div class="page">
+        <div class="skipnav">
+            <a href="#skip-dest">Skip to content</a>
+        </div>
+
+        <header>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="container">
+
+
+                        <a class="brand" href="http://www.nidirect.gov.uk">
+                            <img alt="n i direct government services" src="/images/nidirect-logo-small-2x.png" width="120" height="28" />
+                        </a>
+                        <div class="nav-collapse collapse">
+                            <nav class="topnav">
+                                <ul>
+
+
+
+<li style="text-align: center"><a href="https://www.nidirect.gov.uk/contacts/contacts-az/nida-support">Contact us</a></li>
+
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="branding">
+                <a href="http://www.nidirect.gov.uk"><img class="nidirectlogo" src="nidirect-logo-2x.png" alt="n i direct government services" /></a>
+                <div class="service-name">My account</div>
+            </div>
+        </header>
+
+        <div class="content container">
+
+
+
+
+<h1>Do you have an nidirect account?</h1>
+
+
+
+
+
+
+
+<form action="/Home/Index" class="form loginform" method="post">    <fieldset id="login">
+
+        <legend>I have an account</legend>
+
+        <input name="__RequestVerificationToken" type="hidden" value="cuiMrFSppeEMjsRy1kkP8gpKvIpuHF3hDpbYuuAY-z5tfZIWkpyBA8a_XdlUjIowzNu649Wpegh-xS7amlwNdbVnLwJDnJ6fBSBOJS7giAg1" />
+
+        <div>
+            <img src="required.gif" alt="Required" /> Indicates a required field
+        </div>
+
+        <div class="control-group ">
+            <label class="form-label" for="Username"><img alt="Required information" src="required.gif"></img> Email address </label>
+
+            <input autocomplete="off" id="Username" name="Username" type="text" value="" />
+        </div>
+
+        <div class="control-group ">
+            <label class="form-label" for="Password"><img alt="Required information" src="required.gif"></img> Password </label>
+
+            <input autocomplete="off" id="Password" name="Password" type="password" />
+        </div>
+
+        <div class="button-div">
+            <input type="submit" value="Sign in" id="submit-login-btn" class="btn btn-primary">
+        </div>
+
+        <p>
+            <a href="/ChangePassword/Index" id="ChangeMyPasswordButton" title="Change or forgotten password." class="">I've forgotten my password</a><br />
+            <a href="/Account/Index" title="Change in circumstances (name, address)." class="">Manage my account details</a>
+        </p>
+    </fieldset>
+    <fieldset id="register">
+        <legend>I need an account</legend>
+        <div>
+            <a href="/NIDirect/account.html" class="btn btn-success">Create account</a>
+        </div>
+    </fieldset>
+<input type="hidden" name="as_sfid" value="AAAAAAUJX3NA6CCuHIH12_wAaaumQumLsArCoKvgohtK_RX7-WoR-aBMKtAEIYVmztrYqPbkOAIYP2dfFLe2RuWpNIZcODGOnwgP1yfhOwoFFjsw_UPJWKZ5DrCVgH_GoNlsGE8=" /><input type="hidden" name="as_fid" value="cc578d50f35aaaa67488af986cdc2b17c7e3a723" /></form>
+        </div>
+
+        <footer class="footer">
+            <ul>
+                <li><a href="http://www.nidirect.gov.uk/crown-copyright" target="_blank" class="elink" title="link opens in a new browser window">&copy; Crown copyright</a></li>
+                <li><a href="http://www.nidirect.gov.uk/terms-and-conditions" target="_blank" class="elink" title="link opens in a new browser window">Terms and conditions</a></li>
+                <li><a href="http://www.nidirect.gov.uk/privacy" target="_blank" class="elink" title="link opens in a new browser window">Privacy</a></li>
+                <li><a href="http://www.nidirect.gov.uk/cookies" target="_blank" class="elink" title="link opens in a new browser window">Cookies</a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-66551742-1', 'none');
+        ga('send', 'pageview');
+    </script>
+    <script src="/Scripts/jquery.min.js"></script>
+
+    <script src="/Scripts/bootstrap.js"></script>
+
+
+
+
+</body>
+</html>

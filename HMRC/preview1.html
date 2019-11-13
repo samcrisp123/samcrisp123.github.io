@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>Box Platform - Template Application - Preview</title>
+
+    <!-- polyfill.io only loads the polyfills your browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
+    <!-- Alternatively, use polyfills hosted on the Box CDN
+    <script src="https://cdn01.boxcdn.net/polyfills/bluebird/3.5.1/bluebird.min.js"></script>
+    -->
+
+    <!-- Latest version of Box Content Preview for en-US locale -->
+    <script src="https://cdn01.boxcdn.net/platform/preview/2.6.1/en-US/preview.js"></script>
+    <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/2.6.1/en-US/preview.css" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="config.json"></script>
+    <script type="text/javascript" src="js/box.js"></script>
+</head>
+<body>
+    <div class="preview-container" style="height:90vh; width:100vw;" align="center";></div>
+    <script>
+    let searchParams = new URLSearchParams(window.location.search)
+    var boxId=searchParams.get("boxId");
+
+        var preview = new Box.Preview();
+        getAccessToken().then(function(result) {
+          preview.show(boxId, result, {
+      	   container: '.preview-container',
+            logoUrl: 'logo-small.png',
+            showDownload: 'true',
+            header: 'light',
+            showAnnotations: 'true',
+
+            //collection: ['441529924393','441527196748']
+        });
+      });
+    </script>
+</body>
+</html>
