@@ -2,74 +2,37 @@
 var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/Template/main.html";
+var redirectAfterLoginPage="/HMRC/main.html";
 
 //Navigation
 var navigation=[
 
   {
-      "page":"readme.html",
-      "title":"README"
-  },
-  {
-      "page":"https://developer.box.com",
-      "title":"DEVELOPER",
-      "boxId":"0"
-  },
-  {
       "page":"page1.html",
-      "title":"page1",
-      "boxId":"0"
+      "title":"HOME"
   },
   {
-      "page":"folder2.html",
-      "title":"FOLD2",
-      "boxId":"0"
+      "page":"folder1.html",
+      "title":"MY DOCUMENTS",
+      "boxId":"93336356768"
   },
-  {
-      "page":"folder3.html",
-      "title":"FOLD3",
-      "boxId":"0"
-  },
+
   {
       "page":"preview1.html",
-      "title":"PREV1",
-      "boxId":"428392560865"
+      "title":"2019 TAX RETURN",
+      "boxId":"557583166483"
   },
+
   {
-      "page":"preview2.html",
-      "title":"PREV2",
-      "boxId":"0"
+      "page":"folder1.html",
+      "title":"ID DOCUMENTS",
+      "boxId":"93336834504"
   },
-  {
-      "page":"preview3.html",
-      "title":"PREV3",
-      "boxId":"0"
-  },
-  {
-      "page":"preview4.html",
-      "title":"PREV4",
-      "boxId":"0"
-  },
-  {
-    "page":"move.html",
-    "title":"MOVE",
-    "boxId":"0",
-    "boxId2":"0",
-  },
+
   {
       "page":"uploader.html",
-      "title":"UPLOADER",
-      "boxId":"0"
-  },
-  {
-        "page":"map_folder.html",
-        "title":"MAP",
-        "boxId":"79637649267",
-        "latitude":51.533772570045016,
-        "longitude":-0.09330533022541276,
-        "zoomLevel":10
-    }
-
+      "title":"UPLOAD DOCUMENTS",
+      "boxId":"93326981397"
+  }
 
 ];
