@@ -1,7 +1,4 @@
-
-
-
- async function getAccessToken() {
+async function getAccessToken() {
        var ttl = sessionStorage.getItem("ttl");
     var now = new Date().getTime();
     console.log("ttl:" + (ttl-now)/1000);
