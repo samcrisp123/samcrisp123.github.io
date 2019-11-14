@@ -204,6 +204,36 @@
                     </p>
                 </div>
 
+                <p>
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    MY DOCUMENTS
+                  </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <div class="container" style="height:90vh; width:100vw;"></div>
+                    <!-- Latest version of the explorer js for your locale -->
+                    <script src="https://cdn01.boxcdn.net/platform/elements/10.0.0/en-US/explorer.js"></script>
+                    <script>
+                      var folderId = '93336356768';
+                      let searchParams = new URLSearchParams(window.location.search)
+                      var boxId=searchParams.get("boxId");
+                      var contentExplorer = new Box.ContentExplorer();
+                        getAccessToken().then(function(result) {
+                          contentExplorer.show(folderId, result, {
+                          container: '.container',
+                          logoUrl: 'logo-small.png',
+                          canDownload: false,
+                          canDelete: false,
+                          canRename: false,
+                          canShare: false
+                        });
+                      });
+                    </script>
+                  </div>
+                </div>
+</div>
+
                 <div id="employment2" class="subsection flush--top column-one-half">
                     <h3 class="heading-large flush break-word-only">BOX.COM (UK) LIMITED</h3>
                     <p class="flush--top">
