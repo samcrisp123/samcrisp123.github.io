@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-control" content="No-Cache">
+    <title>Box Platform - Template Application</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- polyfill.io only loads the polyfills your browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
+    <script src="config.json"></script>
+    <script src="js/box.js"></script>
+    <!-- Alternatively, use polyfill hosted on the Box CDN
+    <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+    -->
+
+    <!-- Latest version of the explorer css for your locale -->
+    <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.css" />
+</head>
+<script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.js"></script>
+<script>
+    //var folderId = '73553726252';
+    var pageData = getPageData();
+    var boxId = pageData.boxId;
+    var filePicker = new Box.FilePicker();
+    var folderPicker = new Box.FolderPicker();
+
+    var timer;
+    $(document).ready(function () {
+
+        $(".swap").click(function (event) {
+            if($(this).text()=='Switch to folder selector') {
+                filePicker.hide();
+                 getAccessToken().then(function (result) {
+                    folderPicker.show(boxId, result, {
+                    container: '.fileChooser'
+                 });
+                });
+                addListeners();
+                $(this).text('Switch to file selector');
+            }
+            else {
+                folderPicker.hide();
+                getAccessToken().then(function (result) {
+                        filePicker.show(boxId, result, {
+                        container: '.fileChooser'
+                 });
+                });
+                addListeners();
+                $(this).text('Switch to folder selector');
+            }
+            
+        });
+
+            $(".zipper").click(function (event) {
+                console.log("zipper clicked");
+                var ids = [];
+                $(".list-group-item").each(function (index) {
+                    ids.push({ 'id': $(this).attr('id').substring(1), 'type': $(this).attr('type') });
+                });
+                var payload = {
+                    "items": ids,
+                    "download_file_name": "zipper"
+                }
+                console.log(JSON.stringify(payload));
+                getAccessToken().then(function (result) {
+                    $.ajax({
+                        url: 'https://api.box.com/2.0/zip_downloads',
+                        headers: {
+                            "Authorization": "Bearer " + result,
+                            "Content-Type": "application/json",
+                            "Accept": "application/json"
+                        },
+                        type: 'post',
+                        data: JSON.stringify(payload),
+                        success: function (response) {
+                            console.log(response);
+                            window.location.href = response.download_url;
+                            timer = setInterval(function () {
+                                loadStatus(response.status_url, response.download_url);
+                            }, 2000);
+                        }
+                    })
+                });
+            });
+
+            getAccessToken().then(function (result) {
+                filePicker.show(boxId, result, {
+                    container: '.fileChooser'
+                });
+                addListeners();
+                
+            });
+        });
+        function addListeners() {
+            filePicker.addListener('choose', function (response) {
+                    $.each(response, function (k, data) {
+                        console.log($("#l" + data.id));
+                        if (!document.getElementById("l" + data.id)) {
+                            $("#msg").append("<li type='file' id='l" + data.id + "' class='list-group-item d-flex justify-content-between align-items-center'><span class='glyphicon glyphicon-file'>&nbsp;</span>" + truncateString(data.name, 20) + "<span  class='badge badge-default badge-pill remove'>x</span></li>");
+                        }
+                    });
+                    $(".remove").click(function (event) {
+                        console.log("remove clicked");
+                        $(this).parent('li').remove();
+
+                    });
+                });
+                folderPicker.addListener('choose', function (response) {
+                    $.each(response, function (k, data) {
+                        console.log($("#l" + data.id));
+                        if (!document.getElementById("l" + data.id)) {
+                            $("#msg").append("<li type='folder' id='l" + data.id + "' class='list-group-item d-flex justify-content-between align-items-center'><span class='glyphicon glyphicon-folder-open'>&nbsp;</span>" + truncateString(data.name, 20) + "<span  class='badge badge-default badge-pill remove'>x</span></li>");
+                        }
+                    });
+                    $(".remove").click(function (event) {
+                        console.log("remove clicked");
+                        $(this).parent('li').remove();
+
+                    });
+                });
+        }
+        function loadStatus(url, downloadURL) {
+            getAccessToken().then(function (result) {
+                $.ajax({
+                    url: url,
+                    headers: {
+                        "Authorization": "Bearer " + result
+                    },
+                    type: 'get',
+                    success: function (response) {
+                        console.log(response);
+                        //{total_file_count: 1, downloaded_file_count: 0, skipped_file_count: 0, skipped_folder_count: 0, state: "in_progress"}
+                        //{total_file_count: 1, downloaded_file_count: 1, skipped_file_count: 0, skipped_folder_count: 0, state: "succeeded"}
+                        var stat = "State:" + response.state + ", file count:" + response.total_file_count + ", dl file count:" + response.downloaded_file_count; 
+                        $("#zipperMsg").append("<span>" +stat+ "</span><br/>");
+                        if (response.state == 'succeeded') {
+                            clearInterval(timer);
+
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        //console.log("Status: " + textStatus);  
+                        console.log("Error: " + errorThrown);
+                    }
+
+                });
+            });
+        }
+        function truncateString(str, num) {
+            if (str.length <= num) {
+                return str
+            }
+            return str.slice(0, num) + '...'
+        }
+
+</script>
+
+<body>
+    <div class="container" style="height:90vh; width:100vw;">
+        <div class="row">
+            <div class="col-md-5">
+                <button type="button" class="btn btn-primary swap">Switch to folder selector</button>
+
+                <div class="fileChooser" style="height:500px;">
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div width="100%">Files and folders</div>
+                <ul id="msg" style="height:500px;"></ul>
+
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary zipper">Call Zipper</button>
+                <div id="zipperMsg" style="height:500px;"></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

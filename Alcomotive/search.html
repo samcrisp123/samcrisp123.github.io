@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/sl-1.2.6/datatables.min.css"/>
+
+<script src="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.js"></script>
+<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.css" />
+<script type="text/javascript" src="jsonpath-0.8.0.js"></script>
+
+<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<style>
+
+p {
+    color: #54698D;
+    font-family: "Lato", "Helvetica", "Arial", sans-serif;
+    font-size: "8pt"
+
+}
+
+body {
+    font-family: Arial;
+}
+ {
+    box-sizing: border-box;
+}
+
+.spcontentlist_filter, div#spcontentlist_length.dataTables_length, div#spcontentlist_filter.dataTables_filter {display: none !important}
+
+form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid #cdd4de;
+    float: left;
+    width: 50%;
+    background: #f1f1f1;
+}
+
+form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #000000;
+    color: white;
+    font-size: 17px;
+    border: 1px solid #cdd4de;
+    border-left: none;
+    cursor: pointer;
+}
+
+form.example button:hover {
+    background: #343859;
+}
+
+form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 50px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 90%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+
+.modal-content {
+  position: relative;
+  background-color: #ffffff;
+  margin: auto;
+  height: 640px;
+  padding: 0;
+  border: 1px solid #888;
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+
+/* The Close Button */
+
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 8px;
+  background-color: #ffffff;
+  color: white;
+}
+
+.modal-body {
+  padding: 2px 8px;
+  height:500px;
+
+}
+
+.bp-header {
+  display: none;
+}
+
+.bp-header+.bp:not(.bp-is-fullscreen) {
+  top: 1px;
+}
+</style>
+
+<script>
+  var t;
+  var modal;
+
+  $(document).ready(function() {
+    modal = document.getElementById('myModal');
+    // Get the button that opens the modal
+    var span = document.getElementsByClassName("close")[0];
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    $("#searchres").hide();
+    $("#search").on('submit', (function(ev) {
+
+      ev.preventDefault();
+      $("#searchres").show();
+	  loadItems();
+
+      if(t) {
+        t.ajax.url("https://api.box.com/2.0/search?query=" + $("#searchText").val() + "&type=file&&fields=id,type,size,name,modified_at,modified_by,metadata.enterprise.caseInformation");;
+        t.ajax.type='GET';
+		t.ajax.reload();
+      }
+      else {
+
+        t = $('#contentlist').DataTable({
+          // "order": [[ 1, "desc" ]],
+           "select": true,
+           "searching": false,
+           "dom": "Bfrtip",
+           "pageLength": 15,
+           "ajax":{
+             "url": "https://api.box.com/2.0/search?query=" + $("#searchText").val() + "&type=file&&fields=id,type,size,name,modified_at,modified_by,metadata.enterprise.caseInformation",
+             "type": "GET",
+             "dataSrc": "entries",
+             "headers": {"Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+             }
+           },
+           "columnDefs": [
+            {
+              "targets": [1, 8 ],
+              "visible": false,
+              "searchable": false
+            }],
+           "columns": [
+             {
+               "data": "type"
+              },
+             {
+               "data":"id"
+             },
+             {
+               "data": null, render(data,type,row) {
+                   return "<img class='preview' box-id='" + row.id + "' src='preview_icon.png'/>";
+               }
+             },
+
+             {
+               "data":"name"
+             },
+             {
+               "data":null,
+                 render:function(data,type,row) {
+                  if(row.metadata) {
+                    return row.metadata.enterprise.caseInformation.caseId;
+                  }
+                  else {
+                    return "N/A";
+                  }
+                }
+
+             },
+             {
+               "data":null,
+                 render:function(data,type,row) {
+                  if(row.size>0) {
+                    return humanFileSize(row.size);
+                  }
+                  else {
+                    return row.size;
+                  }
+                }
+
+             }
+             ,
+             {
+               "data":null,
+                 render:function(data,type,row) {
+                   var date = new Date(Date.parse(row.modified_at));
+                   return date.toLocaleString('en-GB', { timeZone: 'UTC' });
+                 }
+             },
+             {
+               "data":"modified_by.name",
+             },
+             {
+             "data": null,
+               render: function(data, type, row) {
+                  return JSON.stringify(row);
+               }
+             }
+
+           ]});
+         }
+        }));
+        $('#contentlist tbody').on('click', 'td', function() {
+          console.log('clicked:' + this.parentNode.className);
+          var data = t.row(this.parentNode).data();
+          console.log("d:" + JSON.stringify(data));
+          var id = data.id;
+          console.log("i:" + id);
+          var preview = new Box.Preview();
+          preview.show(id, sessionStorage.getItem("accessToken"), {
+            container: ".modal-body"
+          });
+          modal.style.display = "block";
+        });
+    });
+    function humanFileSize(size) {
+    var i = Math.floor( Math.log(size) / Math.log(1024) );
+    return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+};
+
+    function loadItems() {
+
+			var spSearch = "http://descspweb1.westeurope.cloudapp.azure.com/_api/search/query?querytext=" + "'" + $("#searchText").val() + "'" + "&selectproperties=%27Title,OriginalPath,DocId,FileType,Size,Created,ModifiedBy%27&QueryTemplatePropertiesUrl='spfile://webroot/queryparametertemplate.xml'";
+			var jsonSP;
+            var title;
+            var docURLHolder;
+			var docURL;
+            var docID;
+            var fileType;
+            var size;
+            var created;
+            var modBy;
+
+            var t = $('#spcontentlist').DataTable();
+            $.getJSON(spSearch, function (json)
+			{
+                jsonSP = json;
+			    var arr = jsonPath(jsonSP, '$..Cells');
+                for (var i = 0; i < arr.length; i++) {
+                    title = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="Title")].Value'));
+                    docURLHolder = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="OriginalPath")].Value')).toString();
+					if (docURLHolder != null)
+					{
+						split = docURLHolder.split("http://sp-web1");
+						//docURL = "<a href='http://descspweb1.westeurope.cloudapp.azure.com" + split[1] + "'>" + title + "</a>";
+						docURL = "<a href='http://descspweb1.westeurope.cloudapp.azure.com" + split[1] + "'><img class='preview' src='preview_icon.png'/></a>";
+					}
+					else
+					{
+					var docURL = "No Valid URL Available"
+					}
+
+					docID = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="DocId")].Value'));
+					fileType = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="FileType")].Value'));
+					size = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="Size")].Value'));
+					created = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="Created")].Value'));
+
+					if (created != "")
+					{
+					var date = new Date(Date.parse(created));
+					var createdDate = date.toLocaleString('en-GB', { timeZone: 'UTC' });
+					}
+					else
+					{
+					var date = new Date();
+					var createdDate = date.toLocaleString('en-GB', { timeZone: 'UTC' });
+					}
+
+
+					modBy = (jsonPath(jsonSP, '$.PrimaryQueryResult.RelevantResults.Table.Rows[' + i + '].Cells[?(@.Key=="ModifiedBy")].Value'));
+                    var rowNode = t
+                    .row.add([title, docURL, docID, fileType, size, createdDate, modBy])
+                    .draw()
+                    .node();
+                }
+
+        });
+
+    }
+
+
+
+</script>
+
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <form id='search' class="example" action="#">
+    <input id='searchText' type="text" placeholder="Search across multiple content repositories... " name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
+
+</div>
+<div id='searchres' class="row">
+  <table id="contentlist" class="display" style="width:95%">
+  <label>Box Results</label>
+    <thead>
+        <th>Type</th>
+        <th>ID</th>
+        <th>-</th>
+        <th>Name</th>
+        <th>Case Id</th>
+        <th>Size</th>
+        <th>Modified</th>
+        <th>Modified By</th>
+        <th>Source</th>
+
+
+      </thead>
+      <tbody>
+      </tbody>
+
+</table>
+<table id="spcontentlist" class="display" style="width:95%">
+<label>SharePoint Results</label>
+    <thead>
+        <th>Title</th>
+        <th>URL</th>
+		<th>Document ID</th>
+		<th>File Type</th>
+		<th>File Size (kB)</th>
+		<th>Created Date</th>
+		<th>Modified By</th>
+      </thead>
+      <tbody>
+      </tbody>
+
+</table>
+</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-body">
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-control" content="No-Cache">
+  <title>Box Platform - Template Application</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+
+  <script src="config.json"></script>
+  <script src="js/box.js"></script>
+  <link rel="stylesheet" href="dist/themes/default/style.min.css" />
+  <script>
+    //var folderId = '73553726252';
+    var pageData = getPageData();
+    var boxId=pageData.boxId;
+    var accessToken;
+      getAccessToken().then(function(result) {
+          accessToken=result;
+    });
+    $(function () { $('#jstree_demo_div').jstree(); });
+    $('#jstree_demo_div').on("changed.jstree", function (e, data) {
+        console.log(data.selected);
+    });
+  </script>
+
+</head>
+
+<body>
+
+<div id="jstree_demo_div"></div>
+
+</body>
+
+</html>

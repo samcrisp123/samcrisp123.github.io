@@ -1,0 +1,50 @@
+/*sidebar background colour*/
+.bdl-CollapsibleSidebar {
+
+    background: #062e28;
+
+    background-image: linear-gradient(180deg,transparent,rgba(0,0,0,.15));
+    transition: width .3s ease;
+   ;
+}
+ /*sidebar text colour*/
+.bdl-CollapsibleSidebar-menuItem {
+    color: #FFFFFF;
+}
+
+/*sidebar hover over colour, 'color' is text while 'background' is the highlight box*/
+.bdl-CollapsibleSidebar-menuItem:hover {
+    color: #fff200;
+    background-color: rgba(255,255,255,.55);
+}
+
+/*sidebar footer button colour*/
+    .bdl-CollapsibleSidebar-footer .bdl-CollapsibleSidebar-menuItem {
+    margin-top: 12px;
+    background-color: rgba(0,0,0,.5);
+
+}
+
+    /*Box logo colour - set opacity to 0 if using a custom image for a logo*/
+
+.bdl-CollapsibleSidebar-logo .bdl-CollapsibleSidebar-logoIcon path {
+    fill: #970000;
+    opacity:0;
+
+}
+
+ /* custom logo - comment out if using the Box logo only, you may need to do some resizing of the 'background size' value correctly */
+.bdl-CollapsibleSidebar-logo {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    width: 100%;
+    height: 75px; /*height of the area behind the logo- default is 50px*/
+    margin: 10px 12px 24px;
+    background-size: 75px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(https://antaeus.box.com/shared/static/zm4disjwjry3yc7ot0dbj7jpfkqaky3x.png);
+    overflow-x: hidden;
+    overflow-y: hidden;
+}

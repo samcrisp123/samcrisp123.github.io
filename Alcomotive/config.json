@@ -1,0 +1,88 @@
+//Client ID
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/Alcomotive/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"readme.html",
+      "title":"README"
+  },
+  {
+      "page":"https://developer.box.com",
+      "title":"DEVELOPER",
+      "boxId":"0"
+  },
+  {
+      "page":"folder1.html",
+      "title":"PRODUCT",
+      "boxId":"105813460213"
+  },
+  {
+      "page":"folder2.html",
+      "title":"HYUNDAI",
+      "boxId":"105818374131"
+  },
+  {
+      "page":"folder3.html",
+      "title":"VEHICLE PARTS",
+      "boxId":"105815560853"
+  },
+  {
+      "page":"preview1.html",
+      "title":"BROCHURE",
+      "boxId":"628600055589"
+  },
+  {
+      "page":"preview2.html",
+      "title":"SERVICE MANUAL",
+      "boxId":"628588801994"
+  },
+  {
+      "page":"preview3.html",
+      "title":"PREV3",
+      "boxId":"0"
+  },
+  {
+      "page":"folder30.html",
+      "title":"PARTNER SUBMISSIONS",
+      "boxId":"105819593044"
+  },
+  {
+      "page":"openwith.html",
+      "title":"OPENWITH",
+      "boxId":"0"
+  },
+  {
+    "page":"move.html",
+    "title":"MOVE",
+    "boxId":"0",
+    "boxId2":"0",
+  },
+  {
+      "page":"uploader.html",
+      "title":"UPLOADER",
+      "boxId":"105819593044"
+  },
+  {
+      "page":"metadataform.html",
+      "title":"FORM",
+      "boxId":"92328338950",
+      "templateKey":"invoiceStrucutured",
+      "eid":"47757585"
+  },
+
+  {
+        "page":"map_folder.html",
+        "title":"MAP",
+        "boxId":"105818374131",
+        "latitude":51.533772570045016,
+        "longitude":-0.09330533022541276,
+        "zoomLevel":10
+    }
+
+
+];

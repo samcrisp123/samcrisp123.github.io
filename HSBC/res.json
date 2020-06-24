@@ -1,0 +1,40 @@
+{
+    "config": {
+        "transformRequest": {},
+        "transformResponse": {},
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "headers": {
+            "Accept": "application/json",
+            "X-Rep-Hints": "[jpg?dimensions=1024x1024&paged=false,png?dimensions=1024x1024]",
+            "Accept-Language": "en-US",
+            "X-Box-Client-Name": "ContentExplorer",
+            "Authorization": "Bearer oEzkQt3qsBgXFnmviSOrLHt8Vm2crm4Y"
+        },
+        "method": "get",
+        "cancelToken": {
+            "promise": {}
+        },
+        "params": {
+            "fields": "id,name,type,size,parent,extension,permissions,path_collection,modified_at,created_at,modified_by,has_collaborations,is_externally_owned,item_collection,authenticated_download_url,is_download_available,representations",
+            "direction": "asc",
+            "limit": 50,
+            "offset": 0,
+            "sort": "id"
+        },
+        "parsedUrl": {
+            "api": "/folders/0",
+            "host": "api.box.com",
+            "hostname": "api.box.com",
+            "pathname": "/2.0/folders/0",
+            "origin": "https://api.box.com",
+            "protocol": "https:",
+            "hash": "",
+            "port": ""
+        },
+        "url": "https://api.box.com/2.0/folders/0"
+    },
+    "request": {}
+}

@@ -1,0 +1,82 @@
+//Client ID
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/Hyperion/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"readme.html",
+      "title":"README"
+  },
+  {
+      "page":"https://developer.box.com",
+      "title":"DEVELOPER",
+      "boxId":"0"
+  },
+  {
+      "page":"folder20.html",
+      "title":"FOLD1",
+      "boxId":"0"
+  },
+  {
+      "page":"folder2.html",
+      "title":"FOLD2",
+      "boxId":"115667570114"
+  },
+  {
+    "page":"tree_local.html",
+    "title":"TREEVIEW",
+    "boxId":"115667570114"
+},
+  {
+      "page":"preview1.html",
+      "title":"PREV1",
+      "boxId":"428392560865"
+  },
+  {
+      "page":"preview2.html",
+      "title":"PREV2",
+      "boxId":"0"
+  },
+
+  {
+    "page":"move.html",
+    "title":"MOVE",
+    "boxId":"0",
+    "boxId2":"0",
+  },
+  {
+      "page":"uploader.html",
+      "title":"UPLOADER",
+      "boxId":"115667570114"
+  },
+  {
+      "page":"metadataform.html",
+      "title":"FORM",
+      "boxId":"92328338950",
+      "templateKey":"case",
+      "eid":"47757585"
+  },
+
+  {
+        "page":"map_folder.html",
+        "title":"MAP",
+        "boxId":"81642016647",
+        "latitude":51.533772570045016,
+        "longitude":-0.09330533022541276,
+        "zoomLevel":10
+    }
+    ,
+
+    {
+          "page":"search.html",
+          "title":"SEARCH",
+          "boxId":"102801900236",
+          "templateKey":"case",
+          "eid":"47757585"
+      }
+
+];
