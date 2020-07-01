@@ -18,35 +18,30 @@ var navigation=[
   },
   {
       "page":"folder20.html",
-      "title":"FOLD1",
-      "boxId":"0"
+      "title":"MY VAULT",
+      "boxId":"116768394358"
   },
   {
       "page":"folder2.html",
-      "title":"FOLD2",
-      "boxId":"115667570114"
+      "title":"DOCUMENTS",
+      "boxId":"116760709820"
   },
   {
     "page":"tree_local.html",
     "title":"TREEVIEW",
-    "boxId":"115667570114"
+    "boxId":"0"
 },
   {
       "page":"preview1.html",
-      "title":"PREV1",
-      "boxId":"428392560865"
-  },
-  {
-      "page":"preview2.html",
-      "title":"PREV2",
-      "boxId":"0"
+      "title":"SCHEDULE",
+      "boxId":"684865359266"
   },
 
   {
     "page":"move.html",
     "title":"MOVE",
-    "boxId":"0",
-    "boxId2":"0",
+    "boxId":"116768394358",
+    "boxId2":"116760709820",
   },
   {
       "page":"uploader.html",
