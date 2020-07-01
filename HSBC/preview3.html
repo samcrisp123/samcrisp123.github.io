@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Box Content Preview Demo</title>
+  <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.css" rel="stylesheet" type="text/css"></link>
+
+
+  <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="config.json"></script>
+  <script type="text/javascript" src="js/box.js"></script>
+
+  <body>
+    <div class="preview-container" style="height:90vh; width:100vw;" align="center"></div>
+        <div class="preview-container" style="height:100vh; width:100vw;" align="center"></div>
+    <script>
+      var contentPreview = new Box.ContentPreview();
+
+      let searchParams = new URLSearchParams(window.location.search)
+      var boxId = searchParams.get("boxId");
+
+      var preview = new Box.ContentPreview();
+      getAccessToken().then(function(result) {
+        preview.show(boxId, result, {
+          container: '.preview-container',
+          contentSidebarProps: {
+            detailsSidebarProps: {
+              hasNotices: true,
+              hasProperties: true,
+              hasAccessStats: true,
+              hasVersions: true
+            },
+            hasActivityFeed: true,
+            hasSkills: true,
+            hasMetadata: true
+          },
+          hasHeader: true,
+        });
+      });
+    </script>
+  </body>
+</head>
