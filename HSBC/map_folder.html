@@ -20,6 +20,7 @@
       height: 97%;
       margin: 0;
       padding: 0;
+      font-family:Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     #content {
@@ -33,14 +34,15 @@
       /*width: 150px;*/
       display: inline-block;
       height: 18px;
-
-      border: 1px solid #eb3a44;
+      
+      border: 1px solid #3D7AC5;
       border-radius: 5px;
       background: #ffffff;
       text-align: center;
       line-height: 20px;
       font-size: 10px;
       color: #000;
+      font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     .modal {}
@@ -123,7 +125,6 @@
   <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG5ojHo9enpA5mRRcmhPf0BOHwTMIAyAA">
   </script>
-  <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/markerwithlabel/src/markerwithlabel.js"></script>
   <script src="https://cdn.sobekrepository.org/includes/gmaps-markerwithlabel/1.9.1/gmaps-markerwithlabel-1.9.1.min.js"></script>
   <script src="config.json"></script>
   <script src="js/box.js"></script>
@@ -132,11 +133,12 @@
 
   //***** please enter the starting folder mapping ***
   //***** the map will show all files in this folder with the gps gpsCoordinates metadata template attached
-  let searchParams = new URLSearchParams(window.location.search)
-  var boxId=searchParams.get("boxId");
-  var zoomLevel=parseFloat(searchParams.get("zoomLevel"));
-  var lat=parseFloat(searchParams.get("latitude"),10);
-  var lng=parseFloat(searchParams.get("longitude"),10);
+  var pageData = getPageData();
+
+  var boxId=pageData.boxId;
+  var zoomLevel=parseFloat(pageData.zoomLevel,10);
+  var lat=parseFloat(pageData.latitude,10);
+  var lng=parseFloat(pageData.longitude,10);
   var startFolderId = boxId;
 
   //***********
@@ -144,13 +146,11 @@
     var markersArray = [];
     var markersArrayFiles = [];
     var cases = new Map();
-    var currentCaseList;
-    var currentBoxFileList;
     var map;
     var contentExplorer;
     var contentPreview;
     var curInfoWindow;
-    var icon = 'img/icons/';
+    var icon = 'img/iconsbox/';
     var curSW;
     var curNE;
 
@@ -166,14 +166,28 @@
     img.onerror = bad;
     img.src = imageSrc;
 }
-
-  function getGenericIcon(name) {
-    var blank = "img/icons/blank.png";
-    var iconUrl = icon + name.split('.').pop().substring(0,3) + '.png';
-    //checkImage(iconUrl, function(){console.log("found image"); }, function(){ console.log("no image");iconUrl=blank; } );
-    console.log("icon:" + iconUrl);
+function getGenericIconURL(name,type) {
+    if(type=='folder') {
+      return "img/iconsbox/folder.svg";
+    }
+    else {
+      var blank = "img/icons/_doc.svg";
+      var iconUrl = icon + name.split('.').pop().substring(0,4) + '.svg';
+      return iconUrl;
+    }
+  }
+  function getGenericIcon(name,type) {
+    var iconUrl = getGenericIconURL(name,type);
+    if(type=='folder') {
+        return  {
+        url: iconUrl,
+        scaledSize: new google.maps.Size(40, 40),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(22, 65)
+      }
+    }
     return  {
-      url: iconUrl,
+      url: iconUrl.toLowerCase(),
       scaledSize: new google.maps.Size(40, 40),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(22, 65)
@@ -182,13 +196,14 @@
 
     class boxfile {
 
-      constructor(name, id, lat, lng) {
+      constructor(name, id, lat, lng,boxtype) {
         this.name = name;
         this.lat = lat;
         this.lng = lng;
         this.id = id;
+        this.boxtype=boxtype;
         this.marker;
-        this.markerIcon=getGenericIcon(name);
+        this.markerIcon=getGenericIcon(name,boxtype);
         var self = this;
         var marker = new MarkerWithLabel({
           animation: google.maps.Animation.DROP,
@@ -219,14 +234,26 @@
           infoWindow.setContent($infoWindowContent[0]);
           infoWindow.open(map, marker);
           google.maps.event.addListener(infoWindow, 'domready', function() {
-            if (contentPreview) {
-              contentPreview.hide();
-              //contentPreview.clearCache();
+            if(self.boxtype=='folder') {
+              if (contentExplorer) {
+                contentExplorer.hide();
+                contentExplorer.clearCache();
+              }
+              contentExplorer = new Box.ContentExplorer();
+              contentExplorer.show(self.id, sessionStorage.getItem('accessToken'), {
+                container: '.content_' + self.id,
+              });
             }
-            contentPreview = new Box.Preview();
-            contentPreview.show(self.id, sessionStorage.getItem('accessToken'), {
-              container: '.content_' + self.id,
-            });
+            else {
+              if (contentPreview) {
+                contentPreview.hide();
+                //contentPreview.clearCache();
+              }
+              contentPreview = new Box.Preview();
+              contentPreview.show(self.id, sessionStorage.getItem('accessToken'), {
+                container: '.content_' + self.id,
+              });
+            }
           });
           //select case
           if (currentBoxFileList) {
@@ -281,7 +308,7 @@
       var url;
       $(".loaderE").show();
       var useThisFolder = startFolderId;
-      url = 'https://api.box.com/2.0/folders/' + startFolderId + '/items?fields=name,id,metadata.enterprise.case,metadata.enterprise.gpsCoordinates&type=file';
+      url = 'https://api.box.com/2.0/folders/' + startFolderId + '/items?fields=name,id,type,metadata.enterprise.case,metadata.enterprise.gpsCoordinates,has_collaborators';
       console.log(url);
       var settings = {
         "async": true,
@@ -297,8 +324,8 @@
         var i = 0;
         $.each(response.entries, function(k, data) {
           if(data.metadata && checkMap(data.metadata.enterprise.gpsCoordinates,useMap)) {
-            var bf = new boxfile(data.name, data.id, data.metadata.enterprise.gpsCoordinates.latitudeNumber, data.metadata.enterprise.gpsCoordinates.longitudeNumber);
-            var listItem = $("<li class='list-group-item place' id='boxfileslist_" + bf.id + "'><i class='glyphicon glyphicon-document'></i> " + bf.name + "</li>");
+            var bf = new boxfile(data.name, data.id, data.metadata.enterprise.gpsCoordinates.latitudeNumber, data.metadata.enterprise.gpsCoordinates.longitudeNumber,data.type);
+            var listItem = $("<li class='list-group-item place' id='boxfileslist_" + bf.id + "'><img height=16 width=16 src='" + getGenericIconURL(bf.name,data.type) + "'/> " + bf.name + "</li>");
             listItem.on("click", function(event) {
               google.maps.event.trigger(bf.marker, 'click', {
                 latLng: {

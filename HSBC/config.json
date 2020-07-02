@@ -2,19 +2,42 @@
 var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
 
 //Main page
-var redirectAfterLoginPage="/HSBC/main.html";
+var redirectAfterLoginPage="/HSBC/landing.html";
 
 //Navigation
 var navigation=[
 
+    {
+        "page":"landing.html",
+        "title":"HOME",
+        "boxId":"116382456359"
+    },
+
   {
         "page":"map_folder.html",
-        "title":"HSBC Sites",
+        "title":"HSBC SITES",
         "boxId":"116382456359",
         "latitude":51.533772570045016,
         "longitude":-0.09330533022541276,
-        "zoomLevel":10
-    }
+        "zoomLevel":20
+    },
 
+    {
+        "page":"folder2.html",
+        "title":"SITE DOCUMENTS",
+        "boxId":"116382456359"
+    },
+
+    {
+        "page":"folder2.html",
+        "title":"BRANCH CCTV",
+        "boxId":"117022204081"
+    },
+
+    {
+        "page":"gallery.html",
+        "title":"LIGHTBOX",
+        "boxId":"116382456359"
+    }
 
 ];
