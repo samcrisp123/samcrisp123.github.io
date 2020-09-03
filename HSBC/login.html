@@ -4,9 +4,15 @@
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
+<<<<<<< HEAD
 <head>
 
   <meta http-equiv="Cache-control" content="No-Cache">
+=======
+
+<head>
+  <meta http-equiv="Cache-control" content="no-cache">
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
 
   <meta charset="UTF-8">
   <title>Box Platform - Template Application</title>
@@ -37,8 +43,13 @@ console.log(page);
       var urlParams = "clientId=" + clientId + "&userEmail=" + userLogin + "&password=" + pwd;
       $.ajax({
         method: 'get',
+<<<<<<< HEAD
        url: "https://box-heroku-token-generator.herokuapp.com/jwttokengenerator?" + urlParams,
        // url: "http://localhost:3000/tokengenerator?" + urlParams,
+=======
+        url: "https://box-heroku-token-generator.herokuapp.com/jwttokengenerator?" + urlParams,
+        //url: "http://localhost:5000/jwttokengenerator?" + urlParams,
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
         crossDomain: true,
         cache: false,
         success: function(response) {
@@ -65,7 +76,11 @@ console.log(page);
 </script>
 </head>
 
+<<<<<<< HEAD
 <body>
+=======
+<body style="background-color "#f0eff0">
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
 
   <div class="login-wrap">
 	<div class="login-html">
@@ -86,11 +101,18 @@ console.log(page);
 				</div>
 				<div class="group">
 					<input id="check" type="checkbox" class="check" checked>
+<<<<<<< HEAD
 					<label for="checkLogin"><span class="icon"></span> Box Platform is awesome keep me signed in</label>
 				</div>
 				<div class="group">
 					<input id="signbutton" type="submit" class="button" value="Sign In">
           <img position="relative"  id="loader" src="progressb.gif" style="display:none;" size="50%">
+=======
+					<label for="checkLogin"><span class="icon"></span> Keep me logged into HSBC Real Estate</label>
+				</div>
+				<div class="group">
+					<input id="signbutton" type="submit" class="button" value="Sign In">
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
           <span id="errormessage" style="display:none;color:white;"></span>
 				</div>
 				<div class="hr"></div>

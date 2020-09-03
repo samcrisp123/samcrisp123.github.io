@@ -9,6 +9,7 @@
     <!-- Alternatively, use polyfill hosted on the Box CDN
     <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
     -->
+<<<<<<< HEAD
     <script src="config.json"></script>
     <script src="js/box.js"></script>
     <!-- Latest version of the explorer css for your locale -->
@@ -44,6 +45,26 @@
 
         });
       });
+=======
+
+    <!-- Latest version of the explorer css for your locale -->
+    <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/10.0.0/en-US/explorer.css" />
+</head>
+<body>
+    <div class="container" style="height:100%"></div>
+    <!-- Latest version of the explorer js for your locale -->
+    <script src="https://cdn01.boxcdn.net/platform/elements/10.0.0/en-US/explorer.js"></script>
+    <script>
+      	var folderId = '73565047788';
+      	var accessToken = sessionStorage.getItem("accessToken");//'ERtaeEtF6SAIf6yBAwFeqKaHBCAAzcox';
+      	var contentExplorer = new Box.ContentExplorer();
+      	contentExplorer.show(folderId, accessToken, {
+            container: '.container',
+            logoUrl: 'logo-small.png'
+
+
+        });
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
     </script>
 </body>
 </html>

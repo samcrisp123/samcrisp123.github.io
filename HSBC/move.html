@@ -13,7 +13,10 @@
 
   <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/explorer.css" />
   <script src="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/explorer.js"></script>
+<<<<<<< HEAD
   <script src="config.json"></script>
+=======
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
   <script src="js/box.js"></script>
 
 </head>
@@ -21,9 +24,16 @@
 <body>
 
   <script>
+<<<<<<< HEAD
     var pageData = getPageData();
     const folderIdA = pageData.boxId;
     const folderIdB = pageData.boxId2;
+=======
+  let searchParams = new URLSearchParams(window.location.search)
+
+    const folderIdA = searchParams.get("boxId");
+    const folderIdB = searchParams.get("boxId2");
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
     const explorerA = new Box.ContentExplorer();
     const explorerB = new Box.ContentExplorer();
     var sourceId;
@@ -95,8 +105,13 @@
       explorerA.clearCache();
       explorerB.hide();
       explorerB.clearCache();
+<<<<<<< HEAD
       loadExplorerA(accessToken);
       loadExplorerB(accessToken);
+=======
+      loadExplorerA();
+      loadExplorerB();
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
     }
     function loadExplorerA(token) {
       explorerA.show(sourceCurrent, token, {
@@ -218,7 +233,11 @@
 
 			<!-- Box Content Explorer -->
 			<div class="tab-pane show active mts" style="border: 1px solid #cdd4de; padding: 10px" role="tabpanel" id="explorer">
+<<<<<<< HEAD
 				<div style="height:400px" class="explorer-a"><span class='loader'><img src='img/ajax-loader_t.gif'/></span></div>
+=======
+				<div style="height:400px" class="explorer-a"><span class='loader'><img src='../img/ajax-loader.gif'/></span></div>
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
 			</div>
 		</div>
 		<div class="col col-sm-1">

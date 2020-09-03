@@ -4,7 +4,10 @@
 <head>
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
+<<<<<<< HEAD
   <meta http-equiv="Cache-control" content="No-Cache">
+=======
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
   <title>Box content mapped</title>
   <style>
     /* Always set the map height explicitly to define the size of the div
@@ -112,8 +115,13 @@
   <script src="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.js"></script>
   <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.css" />
 
+<<<<<<< HEAD
   <script src="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.js"></script>
   <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.0/en-US/explorer.css" />
+=======
+  <script src="https://cdn01.boxcdn.net/platform/elements/6.0.0/en-US/explorer.js"></script>
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/6.0.0/en-US/explorer.css" />
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
   <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
@@ -209,7 +217,11 @@ function loadData() {
     console.log("t:" + result);
     accessToken=result;
     $.ajax({
+<<<<<<< HEAD
       url: 'https://api.box.com/2.0/folders/' + startFolderId +  '/items?fields=id,name,type,metadata.enterprise.gpsCoordinates',
+=======
+      url: 'https://api.box.com/2.0/folders/' + startFolderId +  '/items?fields=id,name,metadata.enterprise.gpsCoordinates',
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
       type: 'get',
       headers: {
         "Authorization":"Bearer " + result,
@@ -239,7 +251,11 @@ function loadData() {
       var url;
       $(".loaderE").show();
       var useThisFolder = startFolderId;
+<<<<<<< HEAD
       url = 'https://api.box.com/2.0/folders/' + startFolderId + '/items?fields=name,id,type';
+=======
+      url = 'https://api.box.com/2.0/folders/' + startFolderId + '/items?fields=name,id&type=file';
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
       console.log(url);
       var settings = {
         "async": true,
@@ -257,13 +273,21 @@ function loadData() {
         $("#fappl").show();
         $.each(response.entries, function(k, data) {
           if(shouldDelete) {
+<<<<<<< HEAD
               deleteGPSFromFile(data.id,data.type);
+=======
+              deleteGPSFromFile(data.id);
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
               var glyph='<i class="glyphicon glyphicon-thumbs-down"></i>';
               var listItem = $("<li class='list-group-item place' id='boxfileslist_" + data.id + "'> " + glyph + " " + data.name + "</li>");
               $("#listboxfiles").append(listItem);
           }
           else {
+<<<<<<< HEAD
             applyGpsToFile(data.id,data.type);
+=======
+            applyGpsToFile(data.id);
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
             var glyph='<i class="glyphicon glyphicon-thumbs-up"></i>';
             var listItem = $("<li class='list-group-item place' id='boxfileslist_" + data.id + "'> " + glyph + " " + data.name + "</li>");
             $("#listboxfiles").append(listItem);
@@ -273,11 +297,19 @@ function loadData() {
       });
       $(".loaderE").hide();
     }
+<<<<<<< HEAD
     function applyGpsToFile(id,type) {
       var data = "{\"latitudeNumber\": " + getRandomLat() + "," +
         "\"longitudeNumber\": " + getRandomLng() + "}";
       $.ajax({
         url: 'https://api.box.com/2.0/' + type + 's/' + id +  '/metadata/enterprise/gpsCoordinates',
+=======
+    function applyGpsToFile(id) {
+      var data = "{\"latitudeNumber\": " + getRandomLat() + "," +
+        "\"longitudeNumber\": " + getRandomLng() + "}";
+      $.ajax({
+        url: 'https://api.box.com/2.0/files/' + id +  '/metadata/enterprise/gpsCoordinates',
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
         type: 'post',
         headers: {
           "Authorization":"Bearer " + accessToken,
@@ -297,9 +329,15 @@ function loadData() {
       }});
       applied=0;
     }
+<<<<<<< HEAD
     function deleteGPSFromFile(id,type) {
       $.ajax({
         url: 'https://api.box.com/2.0/' + type + 's/' + id +  '/metadata/enterprise/gpsCoordinates',
+=======
+    function deleteGPSFromFile(id) {
+      $.ajax({
+        url: 'https://api.box.com/2.0/files/' + id +  '/metadata/enterprise/gpsCoordinates',
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
         type: 'delete',
         headers: {
           "Authorization":"Bearer " + accessToken

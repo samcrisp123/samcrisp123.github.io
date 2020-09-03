@@ -22,8 +22,13 @@
     <!-- Latest version of the uploader js for your locale -->
     <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/uploader.js"></script>
     <script>
+<<<<<<< HEAD
     var pageData = getPageData();
     var boxId=pageData.boxId;
+=======
+    let searchParams = new URLSearchParams(window.location.search)
+    var boxId = searchParams.get("boxId");
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
   	var uploader = new Box.ContentUploader();
       	getAccessToken().then(function(result) {
           uploader.show(boxId, result, {

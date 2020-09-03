@@ -23,9 +23,15 @@
   <div class="preview-container" style="height:90vh; width:100vw; align=center" ;></div>
   <script>
     var preview = new Box.Preview();
+<<<<<<< HEAD
     var pageData = getPageData();
     var boxId=pageData.boxId;
   
+=======
+    let searchParams = new URLSearchParams(window.location.search)
+    var boxId = searchParams.get("boxId");
+
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
     var preview = new Box.Preview();
     getAccessToken().then(function(result) {
       preview.show(boxId, result, {

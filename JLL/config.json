@@ -1,0 +1,20 @@
+//Client ID
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/HSBC/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+        "page":"map_folder.html",
+        "title":"HSBC Sites",
+        "boxId":"116382456359",
+        "latitude":51.533772570045016,
+        "longitude":-0.09330533022541276,
+        "zoomLevel":10
+    }
+
+
+];

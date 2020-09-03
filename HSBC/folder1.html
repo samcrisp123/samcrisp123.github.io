@@ -3,7 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
+<<<<<<< HEAD
   <meta http-equiv="Cache-control" content="No-Cache">
+=======
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
   <title>Box Platform - Template Application</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -16,12 +19,17 @@
     -->
 
   <!-- Latest version of the explorer css for your locale -->
+<<<<<<< HEAD
   <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.css" />
+=======
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/10.0.0/en-US/explorer.css" />
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
 </head>
 
 <body>
   <div class="container" style="height:90vh; width:100vw;"></div>
   <!-- Latest version of the explorer js for your locale -->
+<<<<<<< HEAD
   <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.js"></script>
   <script>
     var pageData = getPageData();
@@ -63,3 +71,26 @@
 </body>
 
 </html>
+=======
+  <script src="https://cdn01.boxcdn.net/platform/elements/10.0.0/en-US/explorer.js"></script>
+  <script>
+    //var folderId = '73553726252';
+    let searchParams = new URLSearchParams(window.location.search)
+    var boxId=searchParams.get("boxId");
+    var contentExplorer = new Box.ContentExplorer();
+      getAccessToken().then(function(result) {
+        contentExplorer.show(boxId, result, {
+        container: '.container',
+        logoUrl: 'toplogo.png',
+        canDownload: false,
+        canDelete: false,
+        canRename: false,
+        canShare: false
+      });
+
+    });
+  </script>
+</body>
+
+</html>
+>>>>>>> 744737fde5b17bed6daad1b914bc8d29b166576c
