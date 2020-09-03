@@ -259,7 +259,7 @@ h1 {
     max-width: 500px;
     margin: 0 5vw;
     border-radius: 8px;
-    background: #000000a6;
+    background: transparent;
     padding: 3.5vw;
     border: solid #fff;
     border-width: 5px;
@@ -336,8 +336,8 @@ label.check {
     cursor: pointer;
     border: none;
     border-radius: 8px;
-    border: 2px solid #E51B24;
-    background: #E51B24;
+    border: 2px solid #fbc02d;
+    background: #fbc02d;
     color: #fff;
 	margin-top:1em;
     outline: none;
@@ -455,7 +455,7 @@ input:checked+.slider:before {
 }
 
 .copy-wthree p a {
-    color: #E51B24;
+    color: #FBC02B;
     transition: 0.5s all ease;
     -webkit-transition: 0.5s all ease;
     -moz-transition: 0.5s all ease;

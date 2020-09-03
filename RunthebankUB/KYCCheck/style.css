@@ -1,0 +1,10 @@
+*
+  box-sizing: border-box
+
+//You can change the position
+.bubble .lwc-chat-button
+  right: 20px !important
+  bottom: 20px !important
+  //If box-sizing: border-box
+  *
+    box-sizing: content-box
