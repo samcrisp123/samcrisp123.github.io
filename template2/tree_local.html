@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-control" content="No-Cache">
+  <title>Box Platform - Template Application</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.css" rel="stylesheet" type="text/css"></link>
+
+
+  <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/10.1.0/en-US/preview.js"></script>
+  <script src="config.json"></script>
+  <script src="js/box.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+  <script>
+    //var folderId = '73553726252';
+    var pageData = getPageData();
+    var boxId = pageData.boxId;
+    var accessToken;
+    var nodeName = 'all';
+    var nodeId;
+    $(document).ready(function () {
+      $("img").on('error', function () {
+        $(this).attr("src", "./img/icons16/_blank.png");
+      });
+      getAccessToken().then(function (result) {
+        accessToken = result;
+
+        // $(function () { $('#jstree_demo_div').jstree(); });
+        $('#jstree_demo_div').jstree({
+          "plugins": ["json_data"],
+          'core': {
+            'data': {
+              'type': 'get',
+              'url': function (node) {
+                console.log(nodeId);
+                nodeId = (node.id == '#' ? boxId : node.id);
+                return node.id === '#' ? 'https://api.box.com/2.0/folders/' + nodeId + '/?fields=id,name,type,size,has_collaborations,is_externally_owned,item_collection' :
+                  'https://api.box.com/2.0/folders/' + node.id + '/?fields=id,name,type,size,has_collaborations,is_externally_owned,item_collection'
+              },
+              'headers': {
+                'Authorization': 'Bearer ' + accessToken
+              },
+              'dataFilter': function (data) {
+                var json = "[";
+                var delim = "";
+                var jdata = JSON.parse(data);
+                json += '{"id":"' + jdata.id + '","text":"' + jdata.name + '"' + getRootIcon(jdata.has_collaborations, jdata.is_externally_owned) + ', "children":[';
+                $.each(JSON.parse(data).item_collection.entries, function (id, element) {
+                  var hasKids = element.type == 'folder' ? true : false;
+                  var icon = getIcon(element);
+
+                  json += delim + '{"id":"' + element.id + '","parent":"' + nodeId + '","text":"' + element.name + '","children":' + (element.type == 'folder' || (element.size > 0 && hasKids)) + icon + '}';
+                  delim = ",";
+                });
+                json += "]}";
+                json += "]";
+                //console.log(json);
+                return json;
+              },
+              'data': function (node) {
+                return { 'id': node.id };
+              }
+            }
+          },
+        });
+        $('#jstree_demo_div').on("select_node.jstree", function (e, data) {
+          console.log(data.node);
+          if (data.node.icon != true && !data.node.icon.includes('folder') && !data.node.text.includes('boxnote')) {
+            preview(data.node.id)
+          }
+        });
+      });
+    });
+    function preview(id) {
+      var preview = new Box.ContentPreview();
+      preview.show(id, accessToken, {
+        container: ".preview",
+        contentSidebarProps: {
+            detailsSidebarProps: {
+              hasNotices: true,
+              hasProperties: true,
+              hasAccessStats: true,
+              hasVersions: true
+            },
+            hasActivityFeed: true,
+            hasSkills: true,
+            hasMetadata: true
+          },
+          hasHeader: true
+
+      });
+    }
+    function getRootIcon(collabs, extOwned) {
+      if (extOwned) {
+        return ',"icon":"./img/iconsbox/foldere.svg"';
+      } else if (collabs) {
+        return ',"icon":"./img/iconsbox/folderc.svg"';
+      }
+      else {
+        return ',"icon":"./img/iconsbox/folder.svg"';
+      }
+    }
+    function getIcon(element) {
+      if (element.type == 'file') {
+        return ',"icon":"./img/iconsbox/' + element.name.split('.').pop().toLowerCase() + '.svg"';
+      }
+      else if (element.type == 'folder') {
+        if (element.is_externally_owned) {
+          return ',"icon":"./img/iconsbox/foldere.svg"';
+        } else if (element.has_collaborations) {
+          return ',"icon":"./img/iconsbox/folderc.svg"';
+        }
+        else {
+          return ',"icon":"./img/iconsbox/folder.svg"';
+        }
+      }
+      else if (element.type == 'web_link') {
+        return ',"icon":"./img/iconsbox/bookmark.svg"';
+
+      }
+      return '';
+    }
+  </script>
+  <style>
+    .preview {
+      height: 800px !important;
+    }
+
+    .jstree-node {
+      font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-stretch: 100%;
+      font-style: normal;
+      font-variant-caps: normal;
+      font-variant-east-asian: normal;
+      font-variant-ligatures: normal;
+      font-variant-numeric: normal;
+      font-weight: 400;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm">
+        <div id="jstree_demo_div"></div>
+
+      </div>
+      <div class="col-lg">
+        <div class="preview"></div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+</html>

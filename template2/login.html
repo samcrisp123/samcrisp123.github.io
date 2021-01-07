@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+<head>
+
+  <meta http-equiv="Cache-control" content="no-cache">
+  <meta http-equiv="Cache-control" content="no-store">
+
+  <meta charset="UTF-8">
+  <title>Box Platform - Template Application</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+
+  <link rel="stylesheet" href="css/custom_style.css">
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+  <script type="text/javascript" src="config.json"></script>
+  <script type="text/javascript" src="js/box.js"></script>
+
+  <script>
+    let searchParams = new URLSearchParams(window.location.search)
+    var page = searchParams.get("page");
+    var url = searchParams.get("tokenURL")==null?"https://box-tokengenerator-v2.herokuapp.com":searchParams.get("tokenURL");
+    $(document).ready(function () {
+      //To wake up heroku app
+      $.get(url + "/ping", function (data) {
+        console.log("Prelogin startup time" + data);
+      });
+      //clear previously saved credentials
+      sessionStorage.clear();
+      $('#userlogin').on('submit', (function (ev) {
+        $("#errormessage").hide();
+        $("#signbutton").hide();
+        $("#loader").show();
+        ev.preventDefault();
+        var userLogin = $("#userLogin").val();
+        var pwd = $("#passLogin").val();
+        var urlParams = "clientId=" + clientId + "&userEmail=" + userLogin + "&password=" + pwd;
+        $.ajax({
+          method: 'get',
+          url: url + "/tokengenerator?" + urlParams,
+          crossDomain: true,
+          cache: false,
+          success: function (response) {
+            sessionStorage.setItem("accessToken", response.userToken);
+            sessionStorage.setItem("userLogin", userLogin);
+            sessionStorage.setItem("userName", response.userName);
+            sessionStorage.setItem("key", response.key);
+            sessionStorage.setItem("ttl", response.ttl);
+            sessionStorage.setItem("tokenURL",url);
+
+            window.location.replace(redirectAfterLoginPage + (page == null ? "" : "?page=" + page));
+          },
+          error: function (err) {
+            console.log(JSON.stringify(err));
+            $("#signbutton").show();
+            $("#loader").hide();
+            $("#errormessage").show();
+            $("#errormessage").html(err.responseText);
+          }
+        });
+
+      }));
+    });
+
+  </script>
+</head>
+
+<body>
+
+  <div class="login-wrap">
+    <div class="login-html">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+      <label for="tab-1" class="tab">Sign In</label>
+      <input id="tab-2" type="radio" name="tab" class="sign-up">
+      <label for="tab-2" class="tab"></label>
+
+      <div class="login-form">
+        <div class="sign-in-htm">
+          <form id='userlogin' method="get" action="#">
+            <p></p>
+            <div class="group">
+              <label for="user" class="label">Username</label>
+              <input id="userLogin" type="text" class="input">
+            </div>
+            <div class="group">
+              <label for="pass" class="label">Password</label>
+              <input id="passLogin" type="password" class="input" data-type="password">
+            </div>
+            <div class="group">
+              <input id="check" type="checkbox" class="check" checked>
+              <label for="checkLogin">
+                <span class="icon"></span> Box Platform is awesome keep me signed in</label>
+            </div>
+            <div class="group">
+              <input id="signbutton" type="submit" class="button" value="Sign In">
+              <div style="text-align: center;width:385px;">
+                <img  id="loader" src="img/custom/progress_horizontal.gif"  >
+              </div>
+              <span id="errormessage" style="display:none;color:white;"></span>
+            </div>
+            <div class="hr"></div>
+            <div class="foot-lnk">
+            </div>
+          </form>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</body>
+
+</html>

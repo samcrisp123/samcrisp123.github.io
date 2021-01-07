@@ -1,0 +1,109 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+.topper {
+    background-color:#4690D4;
+}
+.vertical-nav {
+    min-width: 17rem;
+    width: 17rem;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s;
+    background-color: #3A61D5;
+  }
+  
+  .page-content {
+    width: calc(100% - 17rem);
+    margin-left: 17rem;
+    margin-top:50px;
+    transition: all 0.4s;
+  }
+  
+  /* for toggle behavior */
+  
+  #sidebar.active {
+    margin-left: -17rem;
+  }
+  
+  #content.active {
+    width: 100%;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    #sidebar {
+      margin-left: -17rem;
+    }
+    #sidebar.active {
+      margin-left: 0;
+    }
+    #content {
+      width: 100%;
+      margin: 0;
+    }
+    #content.active {
+      margin-left: 17rem;
+      width: calc(100% - 17rem);
+    }
+  }
+  
+  /*
+  *
+  * ==========================================
+  * FOR DEMO PURPOSE
+  * ==========================================
+  *
+  */
+  
+  body {
+   /* background: #599fd9;
+    background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
+    background: linear-gradient(to right, #599fd9, #c2e59c);*/
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  .separator {
+    margin: 3rem 0;
+    border-bottom: 1px dashed #fff;
+  }
+  
+  .text-uppercase {
+    letter-spacing: 0.1em;
+  }
+  
+  .text-gray {
+    color: #aaa;
+  }
+  
+  #ct {
+    height:97vh; 
+    width:80vw;
+    padding-top: 3rem !important;
+    padding-right: 3rem !important;
+    padding-bottom: 3rem !important;
+    padding-left: 3rem !important;
+    overflow: hidden;
+
+  }
+  .p-5 {
+    padding-top: 0rem !important;
+    padding-right: 0rem !important;
+    padding-bottom: 0rem !important;
+    padding-left: 0rem !important;
+  }
+
+  #bottom {
+    margin-top:20px;
+    margin-left:20px;
+    position: absolute;
+    bottom: 50px;
+}

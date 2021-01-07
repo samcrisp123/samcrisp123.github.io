@@ -1,0 +1,108 @@
+  /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+       #map {
+        height: 97%;
+      }
+  
+      /* Optional: Makes the sample page fill the window. */
+  
+      html,
+      body {
+        height: 97%;
+        margin: 0;
+        padding: 0;
+        font-family:Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+  
+      #content {
+        width: 600px !important;
+        height: 1000px !important;
+        overflow-x: hidden;
+  
+      }
+  
+      .markerLabel {
+        /*width: 150px;*/
+        display: inline-block;
+        height: 18px;
+        
+        border: 1px solid #3D7AC5;
+        border-radius: 5px;
+        background: #ffffff;
+        text-align: center;
+        line-height: 20px;
+        font-size: 10px;
+        color: #000;
+        font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+  
+      .modal {}
+  
+      .vertical-alignment-helper {
+        display: table;
+        height: 100%;
+        width: 100%;
+      }
+  
+      .vertical-align-center {
+        /* To center vertically */
+        display: table-cell;
+        vertical-align: middle;
+      }
+  
+      .modal-content {
+        /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+        width: inherit;
+        height: inherit;
+        /* To center horizontally */
+        margin: 0 auto;
+      }
+  
+      section {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        padding: 1px;
+        overflow-x: hidden;
+      }
+  
+      div#map {
+        width: 70%;
+        height: 90%;
+        float: left;
+        overflow-x: hidden;
+      }
+  
+      div#list {
+        margin-left: 0%;
+        height: 90%;
+        overflow-x: hidden;
+      }
+  
+  
+      .place {
+        background-color: #ffffff;
+      }
+  
+      .place:hover,
+      .place.green {
+        background-color: #54698D;
+      }
+  
+      select,
+      option {
+        font-family: sans-serif;
+        font-size: 12px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: #0161d4;
+  
+      }
+      .gps {
+        float:right;
+        color:white !important;
+        cursor:crosshair;
+      }

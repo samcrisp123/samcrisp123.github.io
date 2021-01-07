@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" media="screen" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+<!-- Box preview SDK -->
+<link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/9.1.1/en-US/uploader.css">
+<script src="https://cdn01.boxcdn.net/platform/elements/9.1.0/en-US/uploader.js"></script>
+<script type="text/javascript" src="config.json"></script>
+<script type="text/javascript" src="js/box.js"></script>
+<script type="text/javascript" src="js/metadata.js"></script>
+
+<style>
+  input[type=text],
+  select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 100%;
+    background-color: #0161d4;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  p {
+    font-family: Roboto, sans-serif;
+    font-size: 18px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    text-align: left;
+  }
+
+  label,
+  select,
+  input,
+  option {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+
+
+  }
+
+
+
+  .bcu-footer {
+    display: none;
+  }
+</style>
+
+<script>
+  var accessToken;
+  var pageData = getPageData();
+  var boxId = pageData.boxId;
+  var eid = pageData.eid;
+  var templateKey = pageData.templateKey;
+  var contentUploader = new Box.ContentUploader();
+  var fields = [];
+  $(document).ready(function() {
+    $('body').on('focus', ".datepicker", function() {
+      $(this).datepicker({
+        "dateFormat": "yy-mm-dd"
+      });
+      //  $(this).datetimepicker();
+    });
+    $("#uploadfiles").on('submit', function(ev) {
+      $(".btn-primary").trigger("click");
+      ev.preventDefault();
+    });
+    getAccessToken().then(function(result) {
+      accessToken = result;
+      $.ajax({
+        method: 'get',
+        url: "https://api.box.com/2.0/metadata_templates/enterprise_" + eid + "/" + templateKey + "/schema",
+        crossDomain: true,
+        headers: {
+          "Authorization": "Bearer " + result
+        },
+        cache: false,
+        success: function(response) {
+          $.each(response.fields, function(k, data) {
+            if (data.hidden != 'false') {
+              let cField = createMTField(data);
+              console.log(cField);
+              fields.push(cField);
+
+              cField.postProcess();
+            }
+          });
+          fields.reverse();
+          $.each(fields, function(k, data) {
+            console.log(data);
+            $("#uploadfiles").prepend(data.getHTMLDisplay());
+          });
+        },
+        error: function(err) {
+          console.log(JSON.stringify(err));
+
+        }
+      });
+      contentUploader.show(boxId, result, {
+        container: '.pcontainer'
+      });
+    });
+    contentUploader.addListener('onBeforeUpload', function(file) {
+      console.log(contentUploader);
+      contentUploader.id='116751117003';
+      console.log("Before upload");
+    });
+    contentUploader.addListener('complete', function(file) {
+      console.log(contentUploader);
+      console.log("complete:" + JSON.stringify(file));
+      var counter = 0;
+      var target = file.length;
+      console.log(target);
+      file.forEach(function(f) {
+        //call metadata with fil
+        var id = f.id;
+        var formdata = "{";
+        var delim = "";
+        $.each(fields, function(k, data) {
+          if (data.dataType == 'String' || data.dataType == 'Enum') {
+            console.log("string or enum check " + data.boxKey);
+            formdata += delim + "\"" + data.boxKey + "\":\"" + $("#" + data.elementId).val() + "\"";
+          } else if (data.dataType == 'Number') {
+            console.log("numbret checl" + data.boxKey);
+            formdata += delim + "\"" + data.boxKey + "\":" + $("#" + data.elementId).val();
+          } else if (data.dataType == 'Date') {
+            console.log("date check" + data.boxKey);
+            var date = $('#' + data.elementId).val();
+            formdata += delim + "\"" + data.boxKey + "\":\"" + date + "T00:00:00.000Z" + "\"";
+          }
+          delim = ",";
+        });
+        formdata += "}";
+        console.log("FD" + formdata);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.box.com/2.0/files/" + id + "/metadata/enterprise_" + eid + "/" + templateKey,
+          "method": "POST",
+          "headers": {
+            "Authorization": "Bearer " + accessToken,
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache"
+          },
+          "processData": false,
+          "data": formdata
+        };
+
+        $.ajax(settings).done(function(response) {
+          console.log("response:" + response);
+          $("#main").html("<p>Document uploaded and metadata applied succesfully</p>");
+        });
+      });
+    });
+  });
+</script>
+
+<body>
+  <div class="container" style="height:90vh; width:100vw;">
+
+
+  <div style="width: 100%; overflow: hidden;z-index:-9999;" id="main">
+    <br>
+    <div style="width: 600px; float: left;margin-left:50px;z-index:-9999;">
+
+    <P>Box template metadata form</P>
+    Apply metadata to uploaded document with one click
+    <br>
+    <br>
+      <form id="uploadfiles" action="#" method="get">
+        <input type="submit" id="submit" value="Upload to Box" >
+
+      </form>
+    </div>
+    <div style="margin-left: 670px;z-index:9999;" class="pcontainer">
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

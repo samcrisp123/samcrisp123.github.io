@@ -1,0 +1,139 @@
+<html>
+
+<head>
+
+  <title>Apply For Credit</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<script>
+
+$(document).ready(function() {
+
+    $('#kyc').on('submit', (function(ev) {
+    $("#signbutton").hide();
+    $("#loader").show();
+    ev.preventDefault();
+
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+      "url": "https://api.box.com/2.0/folders/78810593163/items?type=folder&fields=id,name,metadata.enterprise.kycClient",
+      "method": "GET",
+      "headers": {
+
+        "Authorization": "Bearer " +sessionStorage.getItem("accessToken")
+
+      }
+    };
+    $.ajax(settings).done(function(response) {
+      var hasIdValidated = "No";
+      var folderId;
+      $.each(response.entries, function(k, data) {
+        console.log(data.name);
+        if(data.name==$("#name").val()) {
+          console.log("Found name:" + data.name + ":validated?" + data.metadata.enterprise.kycClient.idValidated);
+          hasIdValidated=data.metadata.enterprise.kycClient.idValidated;
+          folderId=data.id;
+        }
+      });
+      if (hasIdValidated=="Yes") {
+        //Metdata found
+        window.location.replace('/Runthebank-HSBC/ok.html');
+      }
+      else {
+        //Get folder ID of address verification folders
+        //apply metadata from form
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://api.box.com/2.0/folders/" + folderId + "/items?type=folder&fields=id,name",
+          "method": "GET",
+          "headers": {"Authorization": "Bearer " +sessionStorage.getItem("accessToken")}
+        };
+        $.ajax(settings).done(function(response) {
+          var addId;
+          $.each(response.entries, function(k, data) {
+            if(data.name=='Address Verification Folder') {
+              addId = data.id;
+            }
+          });
+          //Apply metadata
+          var data = "{\"firstName\":\"" + $("#name").val() + "\",";
+          data = data + "\"addressLine1\":\"" + $("#address1").val() + "\",";
+          data = data + "\"addressLine2\":\"" + $("#address2").val() + "\",";
+          data = data + "\"postcode\":\"" + $("#postcode").val() + "\",";
+          data = data + "\"caseId\":\"" + $("#caseID").val() + "\"}";
+          var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.box.com/2.0/folders/" + addId + "/metadata/enterprise_206908859/kycAddressVerification",
+            "method": "POST",
+            "headers": {"Authorization": "Bearer " +sessionStorage.getItem("accessToken")},
+            "data": data
+          };
+        });
+        window.location.replace('/Runthebank-HSBC/creditapp-photo.html?folderId=' + folderId);
+      }
+
+
+    });
+  }));
+});
+</script>
+
+<body>
+
+
+
+
+<form id="kyc" class="border border-light p-5" action="#ß" method="get">
+
+    <p class="h4 mb-4 text-center">My Credit Application</p>
+
+    <label for="textInput">First name</label>
+    <input type="text" id="name" class="form-control mb-4" placeholder="Name">
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" class="form-control mb-4" placeholder="E-mail">
+
+    <label for="email">Address Line 1</label>
+    <input type="email" id="address1" class="form-control mb-4" placeholder="Address Line 1">
+
+    <label for="email">Address Line 2</label>
+    <input type="email" id="address2" class="form-control mb-4" placeholder="Address Line 2">
+
+    <label for="email">Address Line 3</label>
+    <input type="email" id="address2" class="form-control mb-4" placeholder="Address Line 3">
+
+    <label for="email">Postal Code</label>
+    <input type="email" id="postcode" class="form-control mb-4" placeholder="Postal Code">
+
+    <label for="type">What service are you applying for?</label>
+
+
+    <select class="browser-default custom-select mb-4" id="type">
+
+        <option value="" disabled="" selected="">Type of credit</option>
+        <option value="1">Credit Card</option>
+        <option value="2">Personal Loan</option>
+        <option value="3">Mortgage</option>
+
+
+          <input id="multi8" class="multi-range" type="range" step="100" />
+            <button class="btn btn-info btn-block my-4" type="submit">Next</button>
+        </form>
+
+</body>
+
+</html>

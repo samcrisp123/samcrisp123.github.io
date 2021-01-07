@@ -1,0 +1,145 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+	<title>HSBC - Secure Login</title>
+	<!-- Meta-Tags -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<meta name="keywords" content="Clear login Form a Responsive Web Template, Bootstrap Web Templates, Flat Web Templates, Android Compatible Web Template, Smartphone Compatible Web Template, Free Webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script>
+
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+
+		  //Change this to change Application context
+		  var clientId="go1olv0vrbrfmb4pm5k3equhhkoi8cef";
+		  $(document).ready(function() {
+		//		$('.mdb-select').materialSelect();
+		    sessionStorage.clear();
+		      $('#userlogin').on('submit', (function(ev) {
+		      $("#signbutton").hide();
+		      $("#loader").show();
+		      ev.preventDefault();
+		      console.log("Form submitted");
+		      var userLogin = $("#userLogin").val();
+		      var urlParams = "code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&clientId=" + clientId + "&userEmail=" + userLogin;
+		      console.log(urlParams);
+		      var settings = {
+		        "async": true,
+		        "crossDomain": true,
+		        //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+		        "url": "https://bl2vhdoqzh.execute-api.eu-west-2.amazonaws.com/default/box-jwt-tokengenerator?" + urlParams,
+		        "method": "GET",
+		        "headers": {}
+		      };
+		      $.ajax(settings).done(function(response) {
+		        console.log(response);
+		        accessToken = response.token;
+		        sessionStorage.setItem("accessToken",accessToken);
+		        sessionStorage.setItem("userLogin",userLogin);
+		        sessionStorage.setItem("adminAccessToken",response.adminAccessToken);
+		        console.log("from storage access:" + sessionStorage.getItem("accessToken"));
+		        console.log("from storage admin:" + sessionStorage.getItem("adminAccessToken"));
+		        window.location.replace('/Runthebank-HSBC//index.html');
+
+		      });
+		    }));
+		  });
+
+
+
+
+	</script>
+	<!-- //Meta-Tags -->
+	<!-- Stylesheets -->
+	<link href="csslogin/font-awesome.css" rel="stylesheet">
+	<link href="csslogin/style.css" rel='stylesheet' type='text/css' />
+	<!--// Stylesheets -->
+	<!--fonts-->
+	<!-- title -->
+	<!-- body -->
+	<link href="//fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext" rel="stylesheet">
+	<!--//fonts-->
+</head>
+
+<body>
+	<h1>HSBC</h1>
+	<div class="w3ls-login box box--big">
+		<!-- form starts here -->
+		<form action="#" id="userlogin" method="get">
+			<div class="agile-field-txt">
+				<label>
+					<i class="fa fa-user" aria-hidden="true"></i> Username </label>
+				<input id="userLogin" type="text" name="name" placeholder="Enter your user name " required="" />
+			</div>
+			<div class="agile-field-txt">
+				<label>
+					<i class="fa fa-envelope" aria-hidden="true"></i> password </label>
+				<input type="password" name="password" placeholder="Enter your password " required="" id="myInput" />
+				<div class="agile_label">
+					<input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
+					<label class="check" for="check3">Show password</label>
+				</div>
+
+			</div>
+			<!-- script for show password -->
+			<script>
+				function myFunction() {
+					var x = document.getElementById("myInput");
+					if (x.type === "password") {
+						x.type = "text";
+					} else {
+						x.type = "password";
+					}
+				}
+			</script>
+
+	<select class="browser-default custom-select">
+  <option selected>Type of customer</option>
+  <option value="1">Retail</option>
+  <option value="2">Wealth</option>
+  <option value="3">Corporate</option>
+</select>
+			<!-- //script ends here -->
+			<div class="w3ls-bot">
+				<div class="switch-agileits">
+					<label class="switch">
+						<input type="checkbox">
+						<span class="slider round"></span>
+						keep me signed in
+					</label>
+				</div>
+				<div class="form-end">
+					<input type="submit" value="LOGIN" id="signbutton">
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</form>
+	</div>
+	<!-- //form ends here -->
+	<!--copyright-->
+	<div class="copy-wthree">
+		<p>© 2019 Box
+			<a href="http://box.com.com/" target="_blank">Box.com</a>
+		</p>
+	</div>
+	<!--//copyright-->
+</body>
+
+</html>

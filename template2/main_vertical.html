@@ -1,0 +1,117 @@
+<html>
+
+<head>
+  <meta http-equiv="Cache-control" content="no-cache">
+
+</head>
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<!-- Font Awesome -->
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0-2/css/all.min.css">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" rel="stylesheet">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Your custom styles (optional) -->
+<link href="css/custom_style.css" rel="stylesheet">
+<link href="css/app/vertical.css" rel="stylesheet">
+<script type="text/javascript" src="config.json"></script>
+
+<script>
+  let searchParams = new URLSearchParams(window.location.search)
+  var page = searchParams.get("page");
+  $(document).ready(function () {
+    console.log(navigation[0].page);
+    var active = ""
+    $.each(navigation, function (k, data) {
+      console.log(k + ":" + data.boxId);
+      active = (k == 0 ? "active" : "");
+      var urlParam = '?title=' + data.title;
+      var icon =' <i class="fa fa-' + getIcon(data.page) + ' mr-3 text-dark fa-fw"></i>';
+      $(".nav").append('<li class="nav-item ' + active + '"><a class="nav-link waves-effect waves-light text-white" href="' + data.page + urlParam + '" target="main">' + icon + data.title + '<span class="sr-only">(current)</span></a></li>');
+      if(k==0) {
+        document.getElementById("content").innerHTML='<object id="ct" type="text/html" data="' +  data.page + urlParam + '" ></object>';
+      }
+    })
+    $(".nav-link").click(function(ev) {
+      ev.preventDefault();
+      console.log(this.href);
+      document.getElementById("content").innerHTML='<object id="ct" type="text/html" data="' + this.href + '" ></object>';
+    });
+    $("#un").text(sessionStorage.getItem("userName"))
+    function getIcon(pageName) {
+      if(pageName.includes('map')) {
+        return "map";
+      }
+      else if(pageName.includes('tree')) {
+        return "folder-plus";
+      }
+      else if(pageName.includes('folder')) {
+        return "folder";
+      }
+      else if(pageName.includes('preview')) {
+        return "file";
+      }
+      else if(pageName.includes('upload') || pageName.includes('metadataform')) {
+        return "file-upload";
+      }
+      else if(pageName.includes('search') ) {
+        return "search";
+      }
+      else if(pageName.includes('download') ) {
+        return "file-download";
+      }
+      else {
+        return "cubes";
+      }
+    }
+  });
+function logout() {
+  //$("#ct").set("data","");
+  this.location.href="login.html";
+}
+
+</script>
+
+<body style="background-color:#ffffff;">
+  <!-- Vertical navbar -->
+  <div class="vertical-nav" id="sidebar">
+    <div class="py-4 px-3 mb-4 bg-light">
+        <img src="img/custom/template_app_logo.png" alt="..." ><br/><br/>
+      <div class="media d-flex align-items-center   blue-gradient">
+        <img src="img/user.png" alt="..." width="40" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+        <div class="media-body">
+          <h6 class="m-0" id="un"></h6>
+          <p class="font-weight-light text-muted mb-0" id="en"></p>
+        </div>
+      </div>
+    </div>
+
+
+    <ul class="nav flex-column mb-0">
+    </ul>
+    <div id="bottom">
+        <a class="nav-link waves-effect waves-light text-white" onclick="logout()" href="#">
+            <i class="fa fa-sign-out-alt mr-3 text-dark fa-fw"></i>LOGOUT</a>
+
+  
+      </div>
+  </div>
+  <!-- End vertical navbar -->
+ 
+    
+
+  <!-- Page content holder -->
+  <div class="page-content p-5" id="content">
+    </div>
+
+  </div>
+  <!-- End demo content -->
+
+
+</body>
+
+</html>

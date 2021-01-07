@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Box content mapped</title>
+  <style>
+  
+  </style>
+  <script src="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.js"></script>
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.css" />
+
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.js"></script>
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  <script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCG5ojHo9enpA5mRRcmhPf0BOHwTMIAyAA">
+  </script>
+  <script src="https://cdn.sobekrepository.org/includes/gmaps-markerwithlabel/1.9.1/gmaps-markerwithlabel-1.9.1.min.js"></script>
+  <script src="config.json"></script>
+  <script src="js/box.js"></script>
+  <link href='css/app/map.css' rel='stylesheet' type='text/css'>
+  <script>
+
+  //***** please enter the starting folder mapping ***
+  //***** the map will show all files in this folder with the gps gpsCoordinates metadata template attached
+  var pageData = getPageData();
+
+  var boxId=pageData.boxId;
+  var zoomLevel=parseFloat(pageData.zoomLevel,10);
+  var lat=parseFloat(pageData.latitude,10);
+  var lng=parseFloat(pageData.longitude,10);
+  var startFolderId = boxId;
+
+  //***********
+    var accessToken;
+    var markersArray = [];
+    var markersArrayFiles = [];
+    var cases = new Map();
+    var map;
+    var contentExplorer;
+    var contentPreview;
+    var curInfoWindow;
+    var icon = 'img/iconsbox/';
+    var curSW;
+    var curNE;
+
+
+    var googleAPI = "AIzaSyCG5ojHo9enpA5mRRcmhPf0BOHwTMIAyAA";
+    var myLatLng = {
+      lat: lat,
+      lng: lng
+    };
+    function checkImage(imageSrc, good, bad) {
+    var img = new Image();
+    img.onload = good;
+    img.onerror = bad;
+    img.src = imageSrc;
+}
+function getGenericIconURL(name,type) {
+    if(type=='folder') {
+      return "img/iconsbox/folder.svg";
+    }
+    else {
+      var blank = "img/icons/_doc.svg";
+      var iconUrl = icon + name.split('.').pop().substring(0,4) + '.svg';
+      return iconUrl;
+    }
+  }
+  function getGenericIcon(name,type) {
+    var iconUrl = getGenericIconURL(name,type);
+    if(type=='folder') {
+        return  {
+        url: iconUrl,
+        scaledSize: new google.maps.Size(40, 40),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(22, 65)
+      }
+    }
+    return  {
+      url: iconUrl.toLowerCase(),
+      scaledSize: new google.maps.Size(40, 40),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(22, 65)
+    }
+  }
+
+    class boxfile {
+
+      constructor(name, id, lat, lng,boxtype) {
+        this.name = name;
+        this.lat = lat;
+        this.lng = lng;
+        this.id = id;
+        this.boxtype=boxtype;
+        this.marker;
+        this.markerIcon=getGenericIcon(name,boxtype);
+        var self = this;
+        var marker = new MarkerWithLabel({
+          animation: google.maps.Animation.DROP,
+          position: {
+            lat: this.lat,
+            lng: this.lng
+          },
+          map: map,
+          title: this.name,
+          icon: this.markerIcon,
+          labelContent: this.name,
+          labelAnchor: new google.maps.Point(28, 20),
+          labelClass: "markerLabel", // the CSS class for the label
+          labelInBackground: false
+        });
+        self.marker = marker;
+        markersArray.push(marker);
+        marker.addListener('click', function() {
+          var $infoWindowContent = $("<div class=content_" + self.id + " id=content></div>");
+          if (curInfoWindow) {
+            curInfoWindow.close();
+          }
+          var infoWindow = new google.maps.InfoWindow({
+            //maxWidth: 800,
+            //maxHeight: 800
+          });
+          curInfoWindow = infoWindow;
+          infoWindow.setContent($infoWindowContent[0]);
+          infoWindow.open(map, marker);
+          google.maps.event.addListener(infoWindow, 'domready', function() {
+            if(self.boxtype=='folder') {
+              if (contentExplorer) {
+                contentExplorer.hide();
+                contentExplorer.clearCache();
+              }
+              contentExplorer = new Box.ContentExplorer();
+              contentExplorer.show(self.id, sessionStorage.getItem('accessToken'), {
+                container: '.content_' + self.id,
+              });
+            }
+            else {
+              if (contentPreview) {
+                contentPreview.hide();
+                //contentPreview.clearCache();
+              }
+              contentPreview = new Box.Preview();
+              contentPreview.show(self.id, sessionStorage.getItem('accessToken'), {
+                container: '.content_' + self.id,
+              });
+            }
+          });
+          //select case
+          if (currentBoxFileList) {
+            currentBoxFileList.toggleClass("green");
+          }
+          $("#boxFileList_" + this.id).toggleClass("green");
+          currentBoxFileList = $("#boxFileList_" + this.id);
+        });
+
+      };
+
+
+    };
+    $(document).ready(function() {
+      $(".loaderE").hide();
+
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: zoomLevel,
+        center: myLatLng
+      });
+
+
+      map.addListener('bounds_changed', function() {
+        //console.log("SW" + map.getBounds().getSouthWest().lat());
+        //console.log("SW" + map.getBounds().getSouthWest().lng());
+        //console.log("NE"+ map.getBounds().getNorthEast().lat());
+        //console.log("NE" + map.getBounds().getNorthEast().lng());
+      });
+
+      $(".searchform").on('submit', (function(ev) {
+        ev.preventDefault();
+        $("#listboxfiles").empty();
+        var selection = $("#boxfilelistselector").val();
+        if (selection == 'all') {
+          loadInfo(false);
+        } else if (selection == 'map') {
+          loadInfo(true);
+        }
+      }));
+      getAccessToken().then(function(result) {
+        accessToken=result;
+        $(".submitbutton").trigger("click");
+      })
+      $(".gps").click(function(ev) {
+          window.location.href="apply_mapping.html?boxId=" + boxId + '&lat=' + lat + '&lng=' + lng + '&zoomLevel=' + zoomLevel;
+      });
+
+    });
+
+    function loadInfo(useMap) {
+      clearOverlays();
+      var url;
+      $(".loaderE").show();
+      var useThisFolder = startFolderId;
+      url = 'https://api.box.com/2.0/folders/' + startFolderId + '/items?fields=name,id,type,metadata.enterprise.case,metadata.enterprise.gpsCoordinates,has_collaborators';
+      console.log(url);
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": url,
+        "method": "GET",
+        "headers": {
+          "Authorization": "Bearer " + accessToken,
+          "Cache-Control": "no-cache"
+        }
+      }
+      $.ajax(settings).done(function(response) {
+        var i = 0;
+        $.each(response.entries, function(k, data) {
+          if(data.metadata && checkMap(data.metadata.enterprise.gpsCoordinates,useMap)) {
+            var bf = new boxfile(data.name, data.id, data.metadata.enterprise.gpsCoordinates.latitudeNumber, data.metadata.enterprise.gpsCoordinates.longitudeNumber,data.type);
+            var listItem = $("<li class='list-group-item place' id='boxfileslist_" + bf.id + "'><img height=16 width=16 src='" + getGenericIconURL(bf.name,data.type) + "'/> " + bf.name + "</li>");
+            listItem.on("click", function(event) {
+              google.maps.event.trigger(bf.marker, 'click', {
+                latLng: {
+                  lat: bf.lat,
+                  lng: bf.lng
+                }
+              });
+            });
+            $(".textE").text("Files ( " + (k + 1) + " )");
+            $("#listboxfiles").append(listItem);
+            i++;
+          }
+          else {
+            console.log("no gps on:" + data.name);
+          }
+        });
+        if(i==0) {
+          $("#listboxfiles").append($("<li class='list-group-item place'>No documents found</li>"));
+        }
+
+      });
+
+      $(".loaderE").hide();
+    }
+  function checkMap(gps,useMap) {
+    if(!useMap) {
+      return true;
+    }
+    else {
+      console.log("F LAT:" + gps.latitudeNumber);
+      console.log("F LNG:" + gps.longitudeNumber);
+      if(gps.latitudeNumber>map.getBounds().getSouthWest().lat() &&
+        gps.latitudeNumber<map.getBounds().getNorthEast().lat() &&
+        gps.longitudeNumber>map.getBounds().getSouthWest().lng() &&
+        gps.longitudeNumber<map.getBounds().getNorthEast().lng()) {
+          return true;
+        }
+    }
+    return false;
+  }
+    function clearOverlays() {
+      $(".textE").text("Files");
+      if (markersArray) {
+        for (i in markersArray) {
+          markersArray[i].setMap(null);
+        }
+        $("#listboxfiles").empty();
+        currentBoxFileList = null;
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <body style="overflow-x: hidden;padding:5px;">
+    <section>
+      <div id="map"></div>
+      <div id="list">
+        <div style="padding: 5 5 5 5px;bgcolor='#F4F6F9';border: 1px solid #cdd4de;">
+
+          <div>
+            <form class='searchform' name='search_boxfiles' id='search_boxfiles' action='/' method='get'>
+              <select id=boxfilelistselector>
+                      <option value=all>Search all files</option>
+                      <option value=map>Search visible map</option>
+                  </select>
+              <button class="glyphicon glyphicon-play-circle submitbutton" type="submit" value="Go" ></button>
+              <span class="gps" >GPS</span>
+
+            </form>
+          </div>
+            <ul class="list-group" id='listboxfiles'><li class='loaderE'><img src='/Template/img/ajax-loader_t.gif'/></li></ul>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </body>
+
+</html>

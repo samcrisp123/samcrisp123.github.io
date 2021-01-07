@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"
+  />
+  <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+
+  <script src="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.js"></script>
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css" />
+  <link rel="stylesheet" href="css/app/dt.css" />
+  <link rel="stylesheet" href="css/app/metadatasearch.css" />
+
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <script src="https://cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script>
+  <script type="text/javascript" src="config.json"></script>
+  <script type="text/javascript" src="js/box.js"></script>
+  <script type="text/javascript" src="js/metadata.js"></script>
+
+  <script>
+    var t, modal, accessToken, table, fields;
+    var pageData = getPageData();
+    var boxId = pageData.boxId;
+    var eid = pageData.eid;
+    var templateKey = pageData.templateKey;
+    var columns = [];
+    var columnDefs = [];
+    $(document).ready(function () {
+      $('body').on('focus', ".daterange", function () {
+        $(this).daterangepicker({
+          "locale": {
+            "format": "YYYY-MM-DD",
+            "separator": "#"
+          },
+          opens: 'left'
+        }, function (start, end, label) {
+
+          console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+        //  $(this).datetimepicker();
+      });
+      getAccessToken().then(function (result) {
+        var i = 0;
+        accessToken = result;
+        fields = getMetadataFieldsAsArray(accessToken, templateKey, eid);
+        columns.push({
+          "data": "boxId",
+          "name": "boxId"
+        });
+        columnDefs.push({
+          targets: i++,
+          className: 'noVis'
+        });
+
+        columns.push({
+          "data": "boxName",
+          "name": "Document Name"
+        });
+        columnDefs.push({
+          targets: i++,
+          className: 'dt-body-nowrap',
+          width: "20%"
+        });
+        $.each(fields, function (k, colObj) {
+          columns.push({
+            "data": colObj.elementId,
+            "name": colObj.boxDisplayName,
+            "type": colObj.dataType
+          });
+          if (colObj.dataType == 'String') {
+            columnDefs.push({
+              targets: i++,
+              type: 'string',
+              className: 'dt-body-nowrap',
+            })
+          }
+          else if (colObj.dataType == 'Number') {
+            columnDefs.push({
+              targets: i++,
+              type: 'formatted-num',
+              className: 'dt-body-right'
+            })
+          }
+          else if (colObj.dataType == 'Date') {
+            columnDefs.push({
+              targets: i++,
+              type: 'date',
+              className: 'dt-body-nowrap',
+              render: function (data) { return moment(data).format('YYYY-MM-DD') }
+            })
+          }
+        });
+        var tableName = "#contentlist";
+        var data = [];
+        $.each(columns, function (k, colObj) {
+          var str = '<th>' + colObj.name + '</th>';
+          $(str).appendTo($("#thead"));
+          if (colObj.name != 'boxId' && colObj.data != 'boxName') {
+            var lab = (colObj.type == 'Number' || colObj == 'Date') ? colObj.name + " (range)" : colObj.name;
+            $("#dropdownFormSet").append('<div style="display:inline-block;min-width:460px;margin-left:10px;"><label for="' + colObj.data + '">' + lab + ':</label><br><br>' +
+              getInputFieldForCol(colObj) + '</div>')
+          }
+        })
+        console.log(JSON.stringify(columns));
+        console.log(JSON.stringify(columnDefs));
+        table = $("#contentlist").DataTable({
+          "dom": "Bfrtip",
+          "language": {
+            "decimal": "."
+          },
+          "data": data,
+          "columns": columns,
+          "buttons": ["colvis"],
+          "search": false,
+          "select": true,
+          "columnDefs": columnDefs,
+          "bAutoWidth": false
+        });
+        modal = document.getElementById('myModal');
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+          modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+        $("#search").on('submit', (function (ev) {
+          ev.preventDefault();
+          $("#searchres").show();
+          $("#dropdownForm").hide();
+          searchMe(accessToken, table, columns, $("#search"), fields);
+        }));
+        $('#contentlist tbody').on('click', 'td', function () {
+          var data = table.row(this.parentNode).data();
+          var preview = new Box.Preview();
+          preview.show(data.boxId, accessToken, {
+            container: ".modal-body"
+          });
+          modal.style.display = "block";
+        });
+      });
+      $(".dropbtn").on('click', (function (ev) {
+        ev.preventDefault();
+        $("#dropdownForm").toggle();
+      }));
+    });
+
+    function humanFileSize(size) {
+      var i = Math.floor(Math.log(size) / Math.log(1024));
+      return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+    };
+
+    function drop(event) { }
+  </script>
+  <style>
+    .fixed {
+      width: 80% !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+      <form id='search' class="example" action="#">
+        <div class="input-group mb-8">
+          <input type="text" id="searchText" class="form-control" placeholder="Search.." aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary submit" type="submit">Go</button>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">
+              <span class="caret"></span>
+            </button>
+            <div id="dropdownForm" class="dropdown-content form-group">
+              <fieldset id="dropdownFormSet">
+
+              </fieldset>
+            </div>
+          </div>
+        </div>
+
+
+      </form>
+
+    </div>
+    <div id='searchres' class="row">
+      <table id="contentlist" class="table table-striped table-bordered fixed" width="80%">
+        <thead>
+          <tr id="thead"></tr>
+
+        </thead>
+        <tbody>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+
+      </div>
+
+    </div>
+
+</body>
+
+</html>

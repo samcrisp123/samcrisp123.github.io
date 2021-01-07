@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta charset="utf-8" />
+<meta http-equiv="Cache-control" content="No-Cache">
+<title>Box Platform - Template Application</title>
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Box Content Preview Demo</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+
+    <!-- polyfill.io only loads the polyfills your browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
+    <script src="config.json"></script>
+    <script src="js/box.js"></script>
+    <!-- Latest version of the explorer css for your locale -->
+    <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.css" />
+    <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.js"></script>
+    <script>
+        var pageData = getPageData();
+        let searchParams = new URLSearchParams(window.location.search)
+        var boxId = pageData.boxId
+
+        //load explorer with token
+
+        $(document).ready(function () {
+            $("#container1").attr("src", "https://pchristensenb.github.io/template2.0/img/custom/progress_vertical_green.gif");
+
+            if(searchParams.get("complete")) {
+                $("#complete").text("Signed and stored, thanks");
+            }
+            else {
+                $.ajax({
+                    url: 'http://localhost:5000/sign?folderId=' + pageData.targetFolderId + '&action=sign&email=pchristensen+docusign@boxdemo.com&name=Peter Christensen&token=' + sessionStorage.getItem("accessToken"),
+                    headers: {},
+                    type: 'get',
+                    data: {},
+                    success: function (response) {
+                        console.log("url:" + response);
+                        if(response=='Signed, all good') {
+                            $("#container1").attr("src", "");
+                            $("#container1").hide();
+                            $("#complete").text(response);
+                        }
+                        else {
+                            $("#container1").attr("src", response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(JSON.stringify(xhr));
+                        console.log("error:" + xhr.responseText);
+
+                    }
+                });
+            }
+        });
+    </script>
+
+    <body>
+            <div id="complete"></div>
+
+        <iframe name="container1" id="container1" style="height:90vh; width:100vw;border:0"></iframe>
+    </body>
+</head>
+
+</html>

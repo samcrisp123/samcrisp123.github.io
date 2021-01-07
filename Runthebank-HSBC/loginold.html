@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Box Platform - Template Application</title>
+
+
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+  //Change this to change Application context
+  var clientId="go1olv0vrbrfmb4pm5k3equhhkoi8cef";
+  $(document).ready(function() {
+    sessionStorage.clear();
+      $('#userlogin').on('submit', (function(ev) {
+      $("#signbutton").hide();
+      $("#loader").show();
+      ev.preventDefault();
+      console.log("Form submitted");
+      var userLogin = $("#userLogin").val();
+      var urlParams = "code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&clientId=" + clientId + "&userEmail=" + userLogin;
+      console.log(urlParams);
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+        "url": "https://bl2vhdoqzh.execute-api.eu-west-2.amazonaws.com/default/box-jwt-tokengenerator?" + urlParams,
+        "method": "GET",
+        "headers": {}
+      };
+      $.ajax(settings).done(function(response) {
+        console.log(response);
+        accessToken = response.token;
+        sessionStorage.setItem("accessToken",accessToken);
+        sessionStorage.setItem("userLogin",userLogin);
+        sessionStorage.setItem("adminAccessToken",response.adminAccessToken);
+        console.log("from storage access:" + sessionStorage.getItem("accessToken"));
+        console.log("from storage admin:" + sessionStorage.getItem("adminAccessToken"));
+        window.location.replace('/Runthebank/index.html');
+
+      });
+    }));
+  });
+
+</script>
+</head>
+
+<body>
+
+  <div data-vide-bg="video/keyboard">
+  <div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
+
+		<div class="login-form">
+			<div class="sign-in-htm">
+          <form id='userlogin' method="get" action="#">
+        <p></p>
+				<div class="group">
+					<label for="user" class="label">Username</label>
+					<input id="userLogin" type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="passLogin" type="password" class="input" data-type="password">
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="checkLogin"><span class="icon"></span> Keep me logged into HSBC</label>
+				</div>
+				<div class="group">
+					<input id="signbutton" type="submit" class="button" value="Sign In">
+          <img position="relative"  id="loader" src="progressb.gif" style="display:none;" size="50%">
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+				</div>
+        </form>
+			</div>
+		</div>
+</div>
+</div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<link rel="stylesheet" type="text/css" href="/KYC/style.css"/>
+
+
+  <meta charset="utf-8" />
+    <title>Box Digital KYC Content Loader</title>
+    <!-- polyfill.io only loads the polyfills your browser needs -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script>
+    <!-- Alternatively, use polyfills hosted on the Box CDN
+    <script src="https://cdn01.boxcdn.net/polyfills/bluebird/3.5.1/bluebird.min.js"></script>
+    -->
+
+    <!-- Latest version of Box Content Preview for en-US locale -->
+<script src="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.js"></script>
+ <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/preview/1.53.1/en-US/preview.css" />
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+</head>
+
+
+<script>
+ var preview = null;// new Box.Preview();
+	var lamdbaURL = 'https://bl2vhdoqzh.execute-api.eu-west-2.amazonaws.com/default/box-tokengenerator';
+ 	var params = new URLSearchParams(window.location.search);
+ 	var clientId='nwpdo2jrz69oi939xna0zuow4pug5gde';
+   	$(document).ready(function(){
+		$.ajax({
+         	method : 'get',
+          	url: lamdbaURL,
+       	 	data: {authCode:params.get('authCode'),fileId:params.get('fileId'),clientId:clientId},
+          	crossDomain: true,
+         	timeout:120000,
+          	dataType:'jsonp',
+          	cache: false,
+          	beforeSend: function() {
+            	//$('#loader').show();
+           	},
+           	complete: function(){
+              //$('#loader').hide();
+              //$("#foot").show();
+          	},
+          	success : function(response){
+            	console.log("success:" + JSON.stringify(response));
+            	preview = new Box.Preview();
+            	preview.show(params.get('fileId'),response.token, {
+            	container:'.preview-container',
+            	showDownload:true
+            });
+
+          },
+          error : function(err){
+           console.log(JSON.stringify(err));
+            console.log("error:" + err.message);
+          }
+      });
+	});
+</script>
+
+<body style="height:800px;">
+<div style="height:800px;" class="preview-container"></div>
+<span class="skype-button bubble" data-test="HSBC Risk Team" data-color="#000000" data-contact-id="live:peterchristensen31_2"></span>
+<script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>
+
+
+
+</body>
+</html>

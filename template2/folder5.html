@@ -1,0 +1,62 @@
+<html>
+
+<head>
+
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.css" rel="stylesheet" type="text/css"></link>
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.css" rel="stylesheet" type="text/css"></link>
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/uploader.css" rel="stylesheet" type="text/css"></link>
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/openwith.css" rel="stylesheet" type="text/css"></link>
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/preview.css" rel="stylesheet" type="text/css"></link>
+  <link href="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/sidebar.css" rel="stylesheet" type="text/css"></link>
+
+
+  <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/explorer.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/picker.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/uploader.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/preview.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/openwith.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/preview/2.26.0/en-US/preview.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/11.0.2/en-US/sidebar.js"></script>
+</head>
+<style>
+  html,
+  body,
+  .container {
+    width: 80%;
+    height: 80%;
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+  }
+</style>
+
+<body>
+  <br><hr>
+  <div class="container"></div>
+  <script>
+
+    var contentExplorer = new Box.ContentExplorer();
+
+    // Show the content explorer
+    contentExplorer.show('115936219414', '2SA8CBA0w7i4dtOZlrk3VzHQ2l24qEzJ', {
+      container: '.container',
+      contentPreviewProps: {
+        contentSidebarProps: {
+          detailsSidebarProps: {
+            hasNotices: true,
+            hasProperties: true,
+            hasAccessStats: true,
+            hasVersions: true
+          },
+          hasActivityFeed: true,
+          hasSkills: true,
+          hasMetadata: true
+        }
+      }
+    });
+  </script>
+  <br><hr>
+</body>
+
+</html>

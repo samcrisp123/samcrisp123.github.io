@@ -1,0 +1,76 @@
+var clientId="unhfrd700k121ihe5e3q5tbasy5qoo1w";
+
+//Main page
+var redirectAfterLoginPage="/template2/main.html";
+
+//Navigation
+var navigation=[
+
+  {
+      "page":"readme.html",
+      "title":"README"
+  },
+  {
+    "page":"tree_local.html",
+    "title":"TREEVIEW",
+    "boxId":"72973255557"
+},
+  {
+      "page":"folder1.html",
+      "title":"FOLDER 1",
+      "boxId":"0"
+  },
+  {
+      "page":"uploader2.html",
+      "title":"FOLDER 2",
+      "boxId":"0"
+  },
+
+  {
+      "page":"preview1.html",
+      "title":"PREVIEW 1",
+      "boxId":"666393650356"
+  },
+  {
+      "page":"preview2.html",
+      "title":"PREVIEW 2",
+      "boxId":"666393650356"
+  },
+
+  {
+    "page":"zipdownload.html",
+    "title":"ZIP DOWNLOADER",
+    "boxId":"0"
+},
+  {
+    "page":"move.html",
+    "title":"MOVE",
+    "boxId":"0",
+    "boxId2":"0",
+  },
+  {
+      "page":"uploader.html",
+      "title":"UPLOADER",
+      "boxId":"0"
+  },
+  {
+      "page":"https://peter-demo.app.box.com/f/fc0a2a975dd7431bb9681e528a69b4b7",
+      "title":"FILE REQUEST UPLOAD"
+  },
+  {
+      "page":"metadataform.html",
+      "title":"UPLOAD FORM",
+      "boxId":"116751117003",
+      "templateKey":"case",
+      "eid":"47757585"
+  },
+  {
+      "page":"map_folder.html",
+      "title":"MAP",
+      "boxId":"129207254824",
+      "latitude":55.152899277243236,
+      "longitude":-2.8391592693839822,
+      "zoomLevel":10
+    }
+
+];

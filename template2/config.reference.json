@@ -1,0 +1,82 @@
+//Client ID - this is the ID of the Box JWT application you created
+var clientId="bn2iyg37p78jkowrp0io0nc2ln0be3wt";
+
+//Main page - this is the page to load after login. If you have copied the template to create a customer demo
+//you need to change the path to reflect the new path  eg. /mycustomer/main.html
+var redirectAfterLoginPage="/Template/main.html";
+
+//Navigation - this is the navigation items that will appear in your template app
+var navigation=[
+    {
+        "page": "readme.html",
+        "title": "README"
+    },
+    {
+        "page": "https://developer.box.com",
+        "title": "DEVELOPER",
+        "boxId": "0"
+    },
+    {
+        "page": "folder1.html",
+        "title": "FOLD1",
+        "boxId": "0"
+    },
+    {
+        "page": "folder2.html",
+        "title": "FOLD2",
+        "boxId": "0"
+    },
+    {
+        "page": "tree_local.html",
+        "title": "TREEVIEW",
+        "boxId": "110480609206"
+    },
+    {
+        "page": "preview1.html",
+        "title": "PREV1",
+        "boxId": "428392560865"
+    },
+    {
+        "page": "preview2.html",
+        "title": "PREV2",
+        "boxId": "428392560865"
+    },
+    {
+        "page": "move.html",
+        "title": "MOVE",
+        "boxId": "0",
+        "boxId2": "0",
+    },
+    {
+        "page": "uploader.html",
+        "title": "UPLOADER",
+        "boxId": "0"
+    },
+    {
+        "page": "metadataform.html",
+        "title": "FORM",
+        "boxId": "92328338950",
+        "templateKey": "case",
+        "eid": "47757585"
+    },
+    {
+        "page": "map_folder.html",
+        "title": "MAP",
+        "boxId": "81642016647",
+        "latitude": 51.533772570045016,
+        "longitude": -0.09330533022541276,
+        "zoomLevel": 10
+    },
+    {
+        "page": "search.html",
+        "title": "SEARCH",
+        "boxId": "102801900236",
+        "templateKey": "case",
+        "eid": "47757585"
+    },
+    {
+        "page": "filerequest.html",
+        "title": "FILE REQUEST",
+        "fileRequestURL": " https://peter-demo.app.box.com/f/e4536e073e914adca613092a8d6d7699"
+    }
+];

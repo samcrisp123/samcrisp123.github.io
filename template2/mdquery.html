@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-control" content="No-Cache">
+  <title>Box Platform - Template Application</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- polyfill.io only loads the polyfills your browser needs -->
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Intl"></script>
+  <script src="config.json"></script>
+  <script src="js/box.js"></script>
+  <!-- Alternatively, use polyfill hosted on the Box CDN
+    <script src="https://cdn01.boxcdn.net/polyfills/core-js/2.5.3/core.min.js"></script>
+    -->
+
+  <!-- Latest version of the explorer css for your locale -->
+  <head>
+      <script src="https://cdn01.boxcdn.net/platform/elements/12.0.0/en-US/explorer.js"></script>
+      <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/12.0.0/en-US/explorer.css" />
+
+<body>
+  <div class="container" style="height:90vh; width:100vw;"></div>
+  <!-- Latest version of the explorer js for your locale -->
+  <script>
+    //var folderId = '73553726252';
+    var pageData = getPageData();
+    var boxId = pageData.boxId;
+    var contentExplorer = new Box.ContentExplorer();
+    getAccessToken().then(function (result) {
+      const mdQuery = {
+        from: "enterprise_"+pageData.eid + "." + pageData.templateKey,
+        query: pageData.query,
+        query_params:pageData.query_params,
+        ancestor_folder_id: boxId,
+        fields: [
+            'name',
+            'metadata.enterprise_'+pageData.eid + '.' +  pageData.templateKey + '.caseID',
+      ]
+      };
+
+      // The metadata fields/columns to view - must be valid field names from the metadata template
+      const metadataColumnsToShow = [
+        { name: "name", canEdit: true },
+        { name: 'metadata.enterprise_'+pageData.eid + '.' +  pageData.templateKey + '.caseID', canEdit: true }
+        
+      ];
+
+      const defaultView = "metadata";
+      contentExplorer.show(boxId, result, {
+        container: '.container',
+        metadataQuery: mdQuery,
+        metadataColumnsToShow: metadataColumnsToShow,
+        defaultView: defaultView
+      });
+    });
+  </script>
+</body>
+
+</html>

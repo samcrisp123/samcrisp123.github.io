@@ -1,0 +1,17 @@
+<html>
+<head>
+    <script src="config.json"></script>
+    <script src="js/box.js"></script>
+   
+  <script>
+       var pageData = getPageData();
+    var url=pageData.fileRequestURL;
+    $(document).ready(function () {
+      $("#fr").attr("src",url);
+    });
+    
+    </script>
+<body>
+<iframe src="" align=center id=fr>
+  </body>
+</head>

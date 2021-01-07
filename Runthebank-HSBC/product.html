@@ -1,0 +1,435 @@
+<!--
+author: W3layouts
+author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>HSBC - Apply for product.</title>
+  <!-- for-mobile-apps -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="keywords" content="Bank Card Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+  <link href="css/style.css" rel="stylesheet">
+
+
+
+  <script>
+    function setLoader(productType) {
+      if (productType == 'cc') {
+        $("#cc").html('<img src="/Runthebank/loanspinner.gif"/> Processing Credit Card Application');
+      } else {
+        $("#loan").html('<img src="/Runthebank/loanspinner.gif"/>Processing Loan Application');
+      }
+    }
+    function showResult(productType, idVerified) {
+      if (productType == 'cc') {
+        if (idVerified == 'Yes') {
+          $("#cc").html("We have received your documents and we are pleased to say your card application has been approved.<br/><br/> Your card will be with you within seven working days<br/><br/>");
+        } else {
+          $("#cc").html("We have received your documents and we have found an issue.<br/><br/> An advisor from the bank will contact you shortly<br/><br/>");
+        }
+      } else {
+        if (idVerified == 'Yes') {
+          $("#loan").html("We have received your documents and we are pleased to say your loan application has been approved. <br/><br/>The funds will appear in your account within 24 hours<br/>");
+        } else {
+          $("#loan").html("We have received your documents and we have found an issue.<br/><br/> An advisor from the bank will contact you shortly<br/>");
+        }
+      }
+    }
+    $(document).ready(function() {
+      $(".username").val(sessionStorage.getItem("userName"));
+      let searchParams = new URLSearchParams(window.location.search)
+      var productType = searchParams.get("productType");
+      $('#creditloan').on('submit', (function(ev) {
+        ev.preventDefault();
+        console.log("submitted");
+        setLoader(productType);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+          "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.kycClient",
+          "method": "GET",
+          "headers": {
+            "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+          }
+        };
+        var idVerified = "No";
+        $.ajax(settings).done(function(response) {
+          idVerified = response.metadata.enterprise.kycClient.idVerified;
+          if(idVerified=='Yes') {
+
+            copyFiles(productType);
+          }
+
+          window.setInterval(function() {
+            showResult(productType, idVerified);
+          }, 5000);
+        });
+      }));
+      $('#credit').on('submit', (function(ev) {
+        ev.preventDefault();
+        console.log("submitted");
+        setLoader(productType);
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
+          "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "?fields=id,name,metadata.enterprise.kycClient",
+          "method": "GET",
+          "headers": {
+            "Authorization": "Bearer " + sessionStorage.getItem("accessToken")
+          }
+        };
+        var idVerified = "No";
+        $.ajax(settings).done(function(response) {
+          idVerified = response.metadata.enterprise.kycClient.idVerified;
+          if(idVerified=='Yes') {
+
+            copyFiles(productType);
+          }
+          window.setInterval(function() {
+            showResult(productType, idVerified);
+          }, 5000);
+        });
+      }));
+      if (productType == 'cc') {
+        $("#cc").show();
+      } else {
+        $("#loan").show();
+      }
+      $(function() {
+        $('#customRange3').on('input change', function() {
+          $(this).next($('.slider_label')).html("£ " + this.value);
+        });
+        $('#customRange1').on('input change', function() {
+          $(this).next($('.slider_label')).html("£ " + this.value);
+        });
+        $('#customRangeY').on('input change', function() {
+          $(this).next($('.slider_label')).html(this.value + " years");
+        });
+        $('.slider_label').each(function() {
+          var value = $(this).prev().attr('value');
+          $(this).html("£ " + value);
+        });
+        $('.slider_label_year').each(function() {
+          var value = $(this).prev().attr('value');
+          $(this).html(value + " years");
+        });
+      })
+    });
+    function copyFiles(productType) {
+      var fileId;
+      if(productType=='cc') {
+        fileId='80145485063';
+
+      }
+      else {
+        fileId='80145346310';
+      }
+      $.ajax({
+        method: 'post',
+        url: "https://api.box.com/2.0/folders/"+fileId + "/copy",
+        data: "{\"parent\": {\"id\":" + sessionStorage.getItem('dv') + "}}",
+        headers: {"Authorization": "Bearer " + sessionStorage.getItem("accessToken") },
+        crossDomain: true,
+        cache: false,
+        success: function(response) {
+          console.log(response);
+        },
+        error: function(err) {
+          console.log(JSON.stringify(err));
+          console.log("error:" + err.message);
+        }
+      });
+    }
+  </script>
+
+  <!-- css files -->
+  <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+  <!-- bootstrap css -->
+  <link href="css/style2.css" rel='stylesheet' type='text/css' />
+  <!-- custom css -->
+  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <!-- fontawesome css -->
+  <!-- //css files -->
+
+  <!-- google fonts -->
+  <link href="//fonts.googleapis.com/css?family=Niramit:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext,thai,vietnamese" rel="stylesheet">
+  <!-- //google fonts -->
+
+</head>
+
+<body>
+
+  <!-- header -->
+  <header>
+    <div class="container">
+      <!-- nav -->
+      <nav class="py-3 d-lg-flex">
+        <div id="logo">
+          <h1> <a href="index.html"><span class="fa fa-university"></span> HSBC </a></h1>
+        </div>
+        <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
+        <input type="checkbox" id="drop" />
+        <ul class="menu ml-auto mt-1">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li class=""><a href="about.html">About</a></li>
+          <li class=""><a href="apply.html">Apply</a></li>
+          <li class=""><a href="statements.html">Statements</a></li>
+          <li class=""><a href="vault.html">Digital Vault</a></li>
+          <li class=""><a href="advisor.html">Advisor</a></li>
+          <li class=""><a href="login.html">Logout</a></li>
+          <li class="last-grid"><a href="#">Call Now</a></li>
+        </ul>
+      </nav>
+      <!-- //nav -->
+    </div>
+  </header>
+  <!-- //header -->
+
+  <!-- inner-banner -->
+  <section class="inner-banner" id="home">
+    <div class="inner-layer">
+      <div class="container">
+      </div>
+    </div>
+  </section>
+  <!-- //inner-banner -->
+
+  <!-- breadcrumb -->
+  <div class="breadcrumb-w3pvt">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+          </li>
+          <li class="breadcrumb-item" aria-current="page">Apply</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <!-- //breadcrumb -->
+
+  <!-- contact -->
+
+  <div class="container py-lg-5">
+
+    <div id="cc" style="display:none;">
+      <form id="credit" class="border border-light p-5" action="#" method="get">
+
+        <p class="h4 mb-4 text-left">Credit Card Application</p>
+
+        <label for="textInput">Full name</label>
+        <input type="text" id="name" class="form-control mb-4 username" value="">
+
+        <select class="browser-default custom-select mb-4" id="cardtype">
+
+          <label for <option value="Choose a card that suits you"></option>
+          <option value="" disabled="" selected="">Type of credit card</option>
+          <option value="Box Basics">Box Basic Card</option>
+          <option value="Box Platinum">Box Platinum Card</option>
+          <option value="Box Black">Box Black Card</option>
+</select>
+        <label for="customRange3">Credit Limit</label>
+        <input type="range" value="500" class="custom-range" min="500" max="5000" step="500" id="customRange3"></input>
+        <span class="slider_label"></span>
+        <ul>
+          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
+          <button id="signbutton" class="btn btn-yellow" type="submit" name="submit"><i class="fab fa-cc-mastercard fa-lg"></i> Apply</button>
+
+
+        </ul>
+
+      </form>
+    </div>
+
+    <div id="loan" style="display:none;">
+      <form id="creditloan" class="border border-light p-5" action="#" method="get">
+
+        <p class="h4 mb-4 text-left">Loan Application</p>
+
+        <label for="textInput">Full name</label>
+        <input type="text" id="name" class="form-control mb-4 username" value="">
+
+        <select class="browser-default custom-select mb-4" id="loantype">
+
+            <label for <option value="Loan Purpose"></option>
+            <option value="" disabled="" selected="">Loan purpose</option>
+            <option value="Car">Car</option>
+            <option value="Holiday">Holiday</option>
+            <option value="Home Improvement">Home Improvement</option>
+            </select>
+
+        <label for="customRange1">Loan amount</label>
+        <input type="range" value="500" class="custom-range" id="customRange1" min="1000" max="10000" step="1000">
+        <span class="slider_label"></span><br/><br/>
+        <label for="customRangeY">Loan Duration</label>
+        <input type="range" value="3" id="customRangeY" class="custom-range" id="loanDuration" min="1" max="10" step="1">
+        <span class="slider_label_year"></span>
+
+        <ul>
+          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
+          <br/>
+          <button id="signbutton" class="btn btn-yellow" type="submit" name="submit"><i class="fas fa-money-bill fa-2"></i> Apply</button>
+
+
+        </ul>
+
+      </form>
+    </div>
+  </div>
+
+    <footer class="footer py-5">
+      <div class="container pt-lg-4">
+        <div class="row">
+          <div class="col-lg-3 col-sm-6 footer-top">
+            <h4 class="mb-4 w3f_title">Contact Info</h4>
+            <ul class="list-w3">
+              <li><span class="fa mr-1 fa-map-marker"></span>Box.com (UK) Ltd. 14-15th Floors, White Collar Factory 1 Old Street Yard London, EC1Y 8AF UK</li>
+              <li class="my-2"><span class="fa mr-1 fa-phone"></span>+44 808 189 0504</li>
+              <li class="my-2"><span class="fa mr-1 fa-phone"></span>+44 808 189 0504</li>
+              <li class=""><span class="fa mr-1 fa-envelope"></span><a href="mailto:info@box.com">info@box.com</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-sm-6 footv3-left mt-sm-0 mt-4">
+            <h4 class="mb-4 w3f_title"> Share Holders</h4>
+            <ul class="list-w3">
+              <li class="my-2">
+                <a href="#">
+    							Shareholders Information
+    						</a>
+              </li>
+              <li class="mb-2">
+                <a href="#">
+    							Stock Information
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Financial Results
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Investors faq's
+    						</a>
+              </li>
+              <li>
+                <a href="#">
+    							Regulatory Section
+    						</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-sm-4 mt-lg-0 mt-sm-5 mt-4">
+            <h4 class="mb-4 w3f_title">Media Center</h4>
+            <ul class="list-w3">
+              <li class="my-2">
+                <a href="#">
+    							Press Release
+    						</a>
+              </li>
+              <li class="mb-2">
+                <a href="#">
+    							Vision & Values
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Winning Awards
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Banking
+    						</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-sm-4 mt-lg-0 mt-sm-5 mt-4">
+            <h4 class="mb-4 w3f_title">Resources</h4>
+            <ul class="list-w3">
+              <li class="my-2">
+                <a href="#">
+    							24/7 Help Line
+    						</a>
+              </li>
+              <li class="mb-2">
+                <a href="#">
+    							Nearest Branch
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Guidance
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Download
+    						</a>
+              </li>
+              <li>
+                <a href="#">
+    							Mobile App
+    						</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-sm-4 mt-lg-0 mt-sm-5 mt-4">
+            <h4 class="mb-4 w3f_title">Other Links</h4>
+            <ul class="list-w3">
+              <li class="my-2">
+                <a href="#">
+    							Careers
+    						</a>
+              </li>
+              <li class="mb-2">
+                <a href="#">
+    							All faq's
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Bank Group
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Credit Cards
+    						</a>
+              </li>
+              <li class="my-2">
+                <a href="#">
+    							Loans
+    						</a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <!-- //footer bottom -->
+    </footer>
+        <!-- move top -->
+
+</body>
+
+</html>
