@@ -38,27 +38,38 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		      ev.preventDefault();
 		      console.log("Form submitted");
 		      var userLogin = $("#userLogin").val();
-		      var urlParams = "code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&clientId=" + clientId + "&userEmail=" + userLogin;
+			  var password = $("#password").val();
+		      var urlParams = "code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&clientId=" + clientId + "&userEmail=" + userLogin + "&password=" + password;
 		      console.log(urlParams);
 		      var settings = {
 		        "async": true,
 		        "crossDomain": true,
 		        //"url": "https://desc-transcode-function.azurewebsites.net/api/generateToken?code=Jq4te0OgMV6LCHpC0NrJu91aZpS/M0x56e6MzZdROAEL2kdkocaLmA==&client-id=r1yki89hxnzv6mrz14njndrr59dm5w0h&as-user=6203007648",
-		        "url": "https://bl2vhdoqzh.execute-api.eu-west-2.amazonaws.com/default/box-jwt-tokengenerator?" + urlParams,
+				//"url": "https://bl2vhdoqzh.execute-api.eu-west-2.amazonaws.com/default/box-jwt-tokengenerator?" + urlParams,
+				"url": "https://box-tokengenerator-v2.herokuapp.com/tokengenerator?" + urlParams,
+				//"url": "http://localhost:3000/tokengenerator?" + urlParams,
+				
 		        "method": "GET",
 		        "headers": {}
 		      };
 		      $.ajax(settings).done(function(response) {
 		        console.log(response);
-		        accessToken = response.token;
+		        accessToken = response.userToken;
 		        sessionStorage.setItem("accessToken",accessToken);
-		        sessionStorage.setItem("userLogin",userLogin);
-		        sessionStorage.setItem("adminAccessToken",response.adminAccessToken);
+				sessionStorage.setItem("userLogin",userLogin);
+				sessionStorage.setItem("userName", response.userName);
+		        //sessionStorage.setItem("adminAccessToken",response.adminAccessToken);
 		        console.log("from storage access:" + sessionStorage.getItem("accessToken"));
-		        console.log("from storage admin:" + sessionStorage.getItem("adminAccessToken"));
+		        //console.log("from storage admin:" + sessionStorage.getItem("adminAccessToken"));
 		        window.location.replace('/Runthebank/index.html');
 
-		      });
+			  })
+			  .fail(function(xhr, status, error) {
+					  console.log(xhr);
+					  $(".msg").text(xhr.responseText);
+					  $("#signbutton").show();
+		      		$("#loader").hide();
+				})
 		    }));
 		  });
 
@@ -91,7 +102,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="agile-field-txt">
 				<label>
 					<i class="fa fa-envelope" aria-hidden="true"></i> password </label>
-				<input type="password" name="password" placeholder="Enter your password " required="" id="myInput" />
+				<input id="password" type="password" name="password" placeholder="Enter your password " required="" id="myInput" />
 				<div class="agile_label">
 					<input id="check3" name="check3" type="checkbox" value="show password" onclick="myFunction()">
 					<label class="check" for="check3">Show password</label>
@@ -121,6 +132,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="form-end">
 					<input type="submit" value="LOGIN" id="signbutton">
 				</div>
+				<div class="msg"></div>
 				<div class="clearfix"></div>
 			</div>
 		</form>
