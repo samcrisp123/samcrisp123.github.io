@@ -143,8 +143,8 @@ nav a {
 }
 nav li.last-grid a {
     background: none;
-    border: 2px solid #ffc168;
-    color: #ffc168;
+    border: 2px solid #DB0011;
+    color: #DB0011;
     font-size: 15px;
     letter-spacing: 1px;
     padding: 7px 25px;
@@ -246,7 +246,7 @@ li > a:only-child:after { content: ''; }
 		text-decoration: none;
 		border: none;
 		float: right;
-		background-color: #ffc168;
+		background-color: #DB0011;
 		color: #fff;
 		margin-bottom: 0;
 		margin-top: 0em;
@@ -375,6 +375,8 @@ li > a:only-child:after { content: ''; }
     -o-background-size: cover;
     -ms-background-size: cover;
     background-size: cover;
+ filter: brightness(80%);
+
 }
 .layer {
     background: rgba(0, 0, 0, 0.3);
@@ -404,7 +406,7 @@ h2.b-w3ltxt,h3.b-w3ltxt {
     font-weight: 600;
 }
 h2.b-w3ltxt span,h3.b-w3ltxt span {
-    color: #ffc168;
+    color: #DB0011;
 }
 h4.b-w3ltxt {
     font-size: 3em;
@@ -625,7 +627,7 @@ p.para-text-w3ls{
 }
 .w3layouts_stats_left span.fa {
     font-size: 35px;
-    color: #ffc168;
+    color: #DB0011;
 }
 .text-stat h4 {
     font-size: 22px;
@@ -648,7 +650,7 @@ p.para-text-w3ls{
     color: #333;
 }
 .footer-top h3 span.fa {
-    color: #ffc168;
+    color: #DB0011;
 }
 /*-- footer-top --*/
 
@@ -930,10 +932,10 @@ button.btn1 {
 }
 .contact-form button.btn {
 	background: none;
-    border: 2px solid #ffc168;
+    border: 2px solid #DB0011;
     border-radius: 5px;
     color: #fff;
-	background: #ffc168;
+	background: #DB0011;
     font-size: 16px;
     letter-spacing: 1px;
     padding: 8px 30px;
@@ -987,7 +989,7 @@ ul.list-social li a.linkedin {
     background: #00a0dc;
 }
 .contact-address ul.list-w3 span.fa {
-    color: #ffc168;
+    color: #DB0011;
 }
 .contact-address p {
     color: #666;
@@ -1001,7 +1003,7 @@ ul.list-social li a.linkedin {
     color: #777;
 }
 .w3pvt-news-icon span.fa {
-    color: #ffc168;
+    color: #DB0011;
     font-size: 16px;
     text-decoration: none;
 }
@@ -1102,7 +1104,7 @@ ul.blog-icons a {
 	color: #8c9398;
 }
 ul.blog-icons span.fa{
-    color: #ffc168;
+    color: #DB0011;
     font-size: 1em;
     margin-bottom: 0;
 }
@@ -1140,7 +1142,7 @@ ul.blog-icons span.fa{
     margin: 1em 0;
 }
 .tech-btm button.btn {
-    background: #ffc168;
+    background: #DB0011;
     font-weight: 500;
     outline: none;
     border: none;
@@ -1218,7 +1220,7 @@ ul.list-group.single {
 
 ul.list-group.single .badge-primary {
     color: #fff;
-    background-color: #ffc168;
+    background-color: #DB0011;
 }
 h5.mt-0 {
     color: #343a40;
@@ -1286,7 +1288,7 @@ h5.mt-0 {
     -ms-transition: 0.5s all;
     -moz-transition: 0.5s all;
     cursor: pointer;
-    background: #ffc168;
+    background: #DB0011;
     color: #fff;
     font-size: 17px;
     letter-spacing: 1px;
@@ -1294,7 +1296,7 @@ h5.mt-0 {
     display: inline-block;
 }
 .read a {
-    background: #ffc168;
+    background: #DB0011;
     color: #fff;
     font-size: 15px;
     letter-spacing: 1px;
