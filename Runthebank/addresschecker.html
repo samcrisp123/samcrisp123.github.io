@@ -15,6 +15,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   <meta name="keywords" content="Bank Card Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn01.boxcdn.net/platform/elements/12.0.0/en-US/preview.js"></script>
+  <link rel="stylesheet" href="https://cdn01.boxcdn.net/platform/elements/12.0.0/en-US/preview.css" />
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
   <!-- Bootstrap core CSS -->
@@ -27,27 +29,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
   <script>
-    var name = "LNC" + Math.floor(Math.random() * 1000000);
-
+    let searchParams = new URLSearchParams(window.location.search);
+    let id = searchParams.get("id");
+    var resultShown = false;
     var int;
-    function setLoader(productType) {
-      if (productType == 'cc') {
-        $("#cc").html('<img src="/Runthebank/loanspinner.gif"/> Processing Credit Card Application');
-      } else {
-        $("#loan").html('<img src="/Runthebank/loanspinner.gif"/>Processing Loan Application');
+    function setLoader() {
+      $("#cc1").html('<img src="/Runthebank/loanspinner.gif"/> Verifying address');
+    }
+    function showResult() {
+      if (!resultShown) {
+        //check status 
+        $.ajax({
+          method: 'get',
+          url: 'https://api.box.com/2.0/files/' + id + '/metadata/enterprise/kycAddressVerification',
+          headers: { "Authorization": "Bearer " + sessionStorage.getItem("accessToken") },
+          crossDomain: true,
+          cache: false,
+          success: function (response) {
+            console.log("OK:" + response);
+            if (response.addressVerified) {
+              if (response.addressVerified == 'Yes') {
+                $(".ver").show();
+                $("#cc1").hide();
+              }
+              else {
+                $(".notver").show();
+                $("#pcontainer").height("600px");
+                var preview = new Box.ContentPreview();
+                preview.show(id, sessionStorage.getItem("accessToken"), {
+                  container: '#pcontainer',
+                  showDownload: 'true',
+                  header: 'none',
+                  showAnnotations: 'false',
+                contentSidebarProps: {
+                  detailsSidebarProps: {
+                    hasNotices  : false,
+                    hasProperties: false,
+                    hasAccessStats: false,
+                    hasVersions: false
+                  },
+                  hasActivityFeed: false,
+                  hasSkills: false,
+                  hasMetadata: true
+                }
+                });
+              }
+              $("#cc1").hide();
+              resultShown = true;
+            }
+          },
+          function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("Not OK:" + errorThrown);
+            resultShown = true;
+          }
+        })
       }
     }
-    function showResult(productType, idVerified,url) {
-           $("#cc").html("Address change all good");
-      
-    }
     $(document).ready(function () {
-     
-          int = window.setInterval(function () {
-            showResult(productType, idVerified,url);
-          }, 5000);
-      });
-    
+      setLoader();
+      int = window.setInterval(function () {
+        showResult();
+      }, 5000);
+    });
+
   </script>
 
   <!-- css files -->
@@ -142,79 +186,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   <!-- contact -->
 
   <div class="container py-lg-5">
-    <div id="frame">
-      <iframe name="container1" id="container1" style="height:90vh; width:50vw;border:0"></iframe>
+    <div id="cc1"></div>
 
-    </div>
-    <div id="cc" style="display:none;">
+    <div id="cc">
       <form id="credit" class="border border-light p-5" action="#" method="get">
 
-        <p class="h4 mb-4 text-left">Credit Card Application</p>
-
-        <label for="textInput">Full name</label>
-        <input type="text" id="name" class="form-control mb-4 username" value="">
-
-        <select class="browser-default custom-select mb-4" id="cardtype">
-
-          <label for <option value="Choose a card that suits you">
-            </option>
-            <option value="" disabled="" selected="">Type of credit card</option>
-            <option value="Box Basics">Box Basic Card</option>
-            <option value="Box Platinum">Box Platinum Card</option>
-            <option value="Box Black">Box Black Card</option>
-        </select>
-        <label for="customRange3">Credit Limit</label>
-        <input type="range" value="500" class="custom-range" min="500" max="5000" step="500" id="customRange3"></input>
-        <span class="slider_label"></span>
-        <ul>
-          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
-          <button id="signbutton" class="btn btn-yellow" type="submit" name="submit">
-            <i class="fab fa-cc-mastercard fa-lg"></i> Apply</button>
-
-
-        </ul>
+        <p class="h4 mb-4 text-left ver" style="display:none;">Address information verified</p>
+        <p class="h4 mb-4 text-left notver" style="display:none;">Address information NOT verified</p>
+        <div id="pcontainer"></div>
 
       </form>
     </div>
 
-    <div id="loan" style="display:none;">
-      <form id="creditloan" class="border border-light p-5" action="#" method="get">
 
-        <p class="h4 mb-4 text-left">Loan Application</p>
-
-        <label for="textInput">Full name</label>
-        <input type="text" id="name" class="form-control mb-4 username" value="">
-
-        <select class="browser-default custom-select mb-4" id="loanType">
-
-          <label for <option value="Loan Purpose">
-            </option>
-            <option value="" disabled="" selected="">Loan purpose</option>
-            <option value="Car">Car</option>
-            <option value="Holiday">Holiday</option>
-            <option value="Home Improvement">Home Improvement</option>
-        </select>
-
-        <label for="loanAmount">Loan amount</label>
-        <input type="range" value="500" class="custom-range" id="loanAmount" min="1000" max="10000" step="1000">
-        <span class="slider_label"></span>
-        <br/>
-        <br/>
-        <label for="loanDuration">Loan Duration</label>
-        <input type="range" value="3" id="loanDuration" class="custom-range" id="loanDuration" min="1" max="10" step="1">
-        <span class="slider_label_year"></span>
-
-        <ul>
-          <img id="loader" src="ajax-loader_t.gif" style="display:none;">
-          <br/>
-          <button id="signbutton" class="btn btn-yellow" type="submit" name="submit">
-            <i class="fas fa-money-bill fa-2"></i> Apply</button>
-
-
-        </ul>
-
-      </form>
-    </div>
   </div>
 
   <footer class="footer py-5">
