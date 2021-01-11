@@ -105,6 +105,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
           data = data + "\"addressLine2\":\"" + $("#address2").val() + "\",";
           data = data + "\"towncity\":\"" + $("#town").val() + "\",";
           data = data + "\"postCode\":\"" + $("#postcode").val() + "\"}";
+          sessionStorage.setItem("addrData",data);
           var settings = {
             "async": true,
             "crossDomain": true,

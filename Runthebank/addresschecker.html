@@ -51,7 +51,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               if (response.addressVerified == 'Yes') {
                 $(".ver").show();
                 $("#cc1").hide();
+                //update the main folder
+                var settings = {
+                  "async": true,
+                  "crossDomain": true,
+                  "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
+                  "method": "DELETE",
+                  "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
+                };
+                $.ajax(settings).done(function (response) {
+                  console.log(response);
+                  var data = sessionStorage.getItem("addrData");
+                  var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
+                    "method": "POST",
+                    "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken"), "Content-Type": "application/json" },
+                    "data": data
+                  };
+                  $.ajax(settings).done(function (response) {
+                    console.log(response);
+                  })
+                })
+
               }
+
               else {
                 $(".notver").show();
                 $("#pcontainer").height("600px");
@@ -61,17 +86,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   showDownload: 'true',
                   header: 'none',
                   showAnnotations: 'false',
-                contentSidebarProps: {
-                  detailsSidebarProps: {
-                    hasNotices  : false,
-                    hasProperties: false,
-                    hasAccessStats: false,
-                    hasVersions: false
-                  },
-                  hasActivityFeed: false,
-                  hasSkills: false,
-                  hasMetadata: true
-                }
+                  contentSidebarProps: {
+                    detailsSidebarProps: {
+                      hasNotices: false,
+                      hasProperties: false,
+                      hasAccessStats: false,
+                      hasVersions: false
+                    },
+                    hasActivityFeed: false,
+                    hasSkills: false,
+                    hasMetadata: true
+                  }
                 });
               }
               $("#cc1").hide();
