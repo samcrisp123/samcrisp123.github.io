@@ -454,7 +454,7 @@ input:checked+.slider:before {
 }
 
 .copy-wthree p a {
-    color: #FBC02B;
+    color: #DB0012;
     transition: 0.5s all ease;
     -webkit-transition: 0.5s all ease;
     -moz-transition: 0.5s all ease;
