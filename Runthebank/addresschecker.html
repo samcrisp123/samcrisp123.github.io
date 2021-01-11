@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
     function showResult() {
       if (!resultShown) {
-        //check status 
+        //check status
         $.ajax({
           method: 'get',
           url: 'https://api.box.com/2.0/files/' + id + '/metadata/enterprise/kycAddressVerification',
@@ -216,8 +216,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div id="cc">
       <form id="credit" class="border border-light p-5" action="#" method="get">
 
-        <p class="h4 mb-4 text-left ver" style="display:none;">Address information verified</p>
-        <p class="h4 mb-4 text-left notver" style="display:none;">Address information NOT verified</p>
+        <p class="h4 mb-4 text-left ver" style="display:none;">Thank you.  Your Address information has been verified and will be updated in our systems.  </p>
+        <p class="h4 mb-4 text-left notver" style="display:none;">There was a discrepency in the documents provided.  In order to complete the requested change of address please contact customer services.</p>
         <div id="pcontainer"></div>
 
       </form>
