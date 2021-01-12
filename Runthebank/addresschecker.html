@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
     function showResult() {
       if (!resultShown) {
-        //check status
+        //check status 
         $.ajax({
           method: 'get',
           url: 'https://api.box.com/2.0/files/' + id + '/metadata/enterprise/kycAddressVerification',
@@ -52,33 +52,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $(".ver").show();
                 $("#cc1").hide();
                 //update the main folder
+                var updData =[];
+                var jsonData = JSON.parse(sessionStorage.getItem("addrData"));
+                console.log(jsonData.firstName);
+                updData.push({"op":"replace","path":"/name","value":jsonData.firstName});
+                updData.push({"op":"replace","path":"/addressLine1","value":jsonData.addressLine1});
+                updData.push({"op":"replace","path":"/addressLine2","value":jsonData.addressLine2});
+                updData.push({"op":"replace","path":"/town","value":jsonData.towncity});
+                updData.push({"op":"replace","path":"/postCode","value":jsonData.postCode});
+
+
+
                 var settings = {
                   "async": true,
                   "crossDomain": true,
-                  "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
-                  "method": "DELETE",
-                  "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
+                  "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddress",
+                  "method": "PUT",
+                  "headers": { 
+                    "Authorization": "Bearer " + sessionStorage.getItem("accessToken"),
+                    "Content-Type":"application/json-patch+json"
+                  },
+                  data:JSON.stringify(updData)
                 };
                 $.ajax(settings).done(function (response) {
-                  console.log(response);
-                  var data = sessionStorage.getItem("addrData");
-                  var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
-                    "method": "POST",
-                    "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken"), "Content-Type": "application/json" },
-                    "data": data
-                  };
-                  $.ajax(settings).done(function (response) {
-                    console.log(response);
-                  })
+                
                 })
 
               }
 
               else {
-                $(".notver").show(); 
+                $(".notver").show();
                 $("#pcontainer").height("600px");
                 var preview = new Box.ContentPreview();
                 preview.show(id, sessionStorage.getItem("accessToken"), {
@@ -216,8 +219,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div id="cc">
       <form id="credit" class="border border-light p-5" action="#" method="get">
 
-        <p class="h4 mb-4 text-left ver" style="display:none;">Thank you.  Your Address information has been verified and will be updated in our systems.  </p>
-        <p class="h4 mb-4 text-left notver" style="display:none;">There was a discrepency in the documents provided.  In order to complete the requested change of address please contact customer services.</p>
+        <p class="h4 mb-4 text-left ver" style="display:none;">Address information verified</p>
+        <p class="h4 mb-4 text-left notver" style="display:none;">Address information NOT verified</p>
         <div id="pcontainer"></div>
 
       </form>
