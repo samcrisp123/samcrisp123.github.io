@@ -52,27 +52,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $(".ver").show();
                 $("#cc1").hide();
                 //update the main folder
+                var updData =[];
+                var jsonData = JSON.parse(sessionStorage.getItem("addrData"));
+                console.log(jsonData.firstName);
+                updData.push({"op":"replace","path":"/name","value":jsonData.firstName});
+                updData.push({"op":"replace","path":"/addressLine1","value":jsonData.addressLine1});
+                updData.push({"op":"replace","path":"/addressLine2","value":jsonData.addressLine2});
+                updData.push({"op":"replace","path":"/town","value":jsonData.towncity});
+                updData.push({"op":"replace","path":"/postCode","value":jsonData.postCode});
+
+
+
                 var settings = {
                   "async": true,
                   "crossDomain": true,
-                  "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
-                  "method": "DELETE",
-                  "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken")},
+                  "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddress",
+                  "method": "PUT",
+                  "headers": { 
+                    "Authorization": "Bearer " + sessionStorage.getItem("accessToken"),
+                    "Content-Type":"application/json-patch+json"
+                  },
+                  data:JSON.stringify(updData)
                 };
                 $.ajax(settings).done(function (response) {
-                  console.log(response);
-                  var data = sessionStorage.getItem("addrData");
-                  var settings = {
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddressVerification",
-                    "method": "POST",
-                    "headers": { "Authorization": "Bearer " + sessionStorage.getItem("accessToken"), "Content-Type": "application/json" },
-                    "data": data
-                  };
-                  $.ajax(settings).done(function (response) {
-                    console.log(response);
-                  })
+                
                 })
 
               }
