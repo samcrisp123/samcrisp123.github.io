@@ -38,7 +38,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     }
     function showResult() {
       if (!resultShown) {
-        //check status 
+        //check status
         $.ajax({
           method: 'get',
           url: 'https://api.box.com/2.0/files/' + id + '/metadata/enterprise/kycAddressVerification',
@@ -68,14 +68,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   "crossDomain": true,
                   "url": "https://api.box.com/2.0/folders/" + sessionStorage.getItem("mainFolderId") + "/metadata/enterprise_206908859/kycAddress",
                   "method": "PUT",
-                  "headers": { 
+                  "headers": {
                     "Authorization": "Bearer " + sessionStorage.getItem("accessToken"),
                     "Content-Type":"application/json-patch+json"
                   },
                   data:JSON.stringify(updData)
                 };
                 $.ajax(settings).done(function (response) {
-                
+
                 })
 
               }
@@ -219,8 +219,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div id="cc">
       <form id="credit" class="border border-light p-5" action="#" method="get">
 
-        <p class="h4 mb-4 text-left ver" style="display:none;">Address information verified</p>
-        <p class="h4 mb-4 text-left notver" style="display:none;">Address information NOT verified</p>
+        <p class="h4 mb-4 text-left ver" style="display:none;">Your address document has been verified and your address updated.  </p>
+        <p class="h4 mb-4 text-left notver" style="display:none;">There was a discrepency in yor document and your address information was not updated.  Please contact customer services to continue with your address change. </p>
         <div id="pcontainer"></div>
 
       </form>
